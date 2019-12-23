@@ -24,6 +24,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
     <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="assets/css/Button-Change-Text-on-Hover.css">
+    <link rel="stylesheet" href="assets/css/Drag--Drop-Upload-Form.css">
+    <link rel="stylesheet" href="assets/css/ebs-contact-form.css">
+    <link rel="stylesheet" href="assets/css/Forum---Thread-listing.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
     <link rel="stylesheet" href="assets/css/Lista-Productos-Canito.css">
     <link rel="stylesheet" href="assets/css/Profile-Edit-Form.css">
@@ -36,47 +40,32 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <link rel="stylesheet" href="assets/css/Pretty-Registration-Form.css">
 </head>
 
-<body style="background-color: rgb(255,255,255);">
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle 1.png&quot;);">
+<body>
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
         <div class="container"><a class="navbar-brand logo" href="index.php">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse"
+                id="navbarNav">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link visible" href="loginScreen.php">Login</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
     <main class="page contact-page">
-        <section class="portfolio-block contact" style="padding-top:50px;">
+        <section class="portfolio-block contact">
             <div class="container">
                 <div class="heading">
-                    <h2>Please login to access our store</h2>
-                </div>
-                <div class="row">
-                    <div class="col d-xl-flex justify-content-xl-center" style="padding:5px;">
-                        <?php
-                        if (isset($_SESSION["error"])) {
-                            $error = $_SESSION["error"];
-                            echo "<span class='bg-danger border rounded border-danger' style='padding:5px;'> $error </span>";
-                            unset($_SESSION["error"]);
-                        }
-                        ?>
-                    </div>
+                    <h2>please Choose an account type to sign up</h2>
                 </div>
             </div>
-            <div class="login-card">
-                <form class="form-signin" method="post" action="login.php"><span class="reauth-email"> </span><input class="form-control" type="username" id="username" required="" placeholder="Username" autofocus="" name="username"><input class="form-control" type="password" id="password" required="" placeholder="Password" name="password">
-                    <div class="d-xl-flex justify-content-xl-center checkbox">
-                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Remember me</label></div>
+            <div class="container" style="padding: 30px;background-color: #e7e7e7;">
+                <div class="col">
+                    <div class="row">
+                        <div class="col d-flex d-lg-flex d-xl-flex justify-content-center justify-content-lg-center justify-content-xl-center align-items-xl-center"><a href="registerUser.php"><button class="btn btn-primary border rounded" type="button" style="background-color: rgb(200,129,1);">Regular User</button></a></div>
+                        <div class="col d-flex d-sm-flex justify-content-center justify-content-sm-center"><a href="registerDev.php"><button class="btn btn-primary border rounded" type="button" style="background-color: rgb(120,14,255);" href="registerDev.php">Developer</button></a></div>
+                        <div class="col d-flex justify-content-center"><a href="registerEditor.php"><button class="btn btn-primary border rounded" type="button" style="background-color: rgb(0,64,106);" href="registerEditor.php">Editor</button></a></div>
                     </div>
-                    <div class="form-row">
-                        <fieldset>
-                            <div class="custom-control custom-radio"><input type="radio" id="loginRadioUser" class="custom-control-input" value="regular" name="loginRadio"><label class="custom-control-label" for="loginRadioUser">Login as user</label></div>
-                            <div class="custom-control custom-radio"><input type="radio" id="loginRadioDev" class="custom-control-input" value="dev" name="loginRadio"><label class="custom-control-label" for="loginRadioDev">Login as developer</label></div>
-                            <div class="custom-control custom-radio"><input type="radio" id="loginRadioEditor" class="custom-control-input" value="editor" name="loginRadio"><label class="custom-control-label" for="loginRadioEditor">Login as editor</label></div>
-                        </fieldset>
-                    </div>
-                    <div class="form-row">
-                        <div class="col d-xl-flex justify-content-xl-center" style="padding-top: 11px;"><button class="btn btn-primary btn-block btn-lg btn-signin" type="submit" style="background-color: #af7505;">Sign in</button></div>
-                    </div>
-                </form>
-                <div class="col text-center mx-auto" style="margin: 20px;"><a class="forgot-password" href="#">Forgot your password?</a></div>
-                <div class="col text-center mx-auto" style="margin: 20px;"><a class="forgot-password" href="register.php" style="opacity: 1;">Create a New Account</a></div>
+                </div>
             </div>
         </section>
     </main>
