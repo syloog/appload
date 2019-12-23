@@ -50,6 +50,13 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                 <div class="row">
                     <div class="col d-xl-flex justify-content-xl-center" style="padding:5px;">
                         <?php
+                        if (isset($_SESSION["username"])) {
+                            $username = $_SESSION["username"];
+                            $information = $_SESSION["information"];
+                            echo "<span class='bg-danger border rounded border-danger' style='padding:5px;'> $username . $information </span>";
+                            unset($_SESSION["information"]);
+                            unset($_SESSION["username"]);
+                        }
                         if (isset($_SESSION["error"])) {
                             $error = $_SESSION["error"];
                             echo "<span class='bg-danger border rounded border-danger' style='padding:5px;'> $error </span>";
