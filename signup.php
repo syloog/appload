@@ -26,19 +26,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          array_push($errors, "The two passwords do not match");
       }
 
-      $user_check_query = "SELECT u_id FROM users WHERE u_username = '$username' OR u_email = '$email'";
+      $user_check_query = "SELECT u_username,u_mail FROM users WHERE u_username = '$username' OR u_mail = '$email'";
       $result = mysqli_query($db, $user_check_query);
-      $user = mysqli_fetch_array($result);
+      $user = mysqli_fetch_assoc($result);
 
       if ($user) {
-         if ($user['username'] === $username) {
+         if ($user['u_username'] === $username) {
             array_push($errors, "Username already exists");
          }
 
-         if ($user['email'] === $email) {
-            array_push($errors, "email already exists");
+         if ($user['u_mail'] === $email) {
+            array_push($errors, "Email already exists");
          }
-      } else if (count($errors) == 0) {
+      }
+      
+      if (count($errors) == 0) {
          while ($done == 0) {
             $id = rand(21900000, 21999999);
             $sql = "SELECT u_id FROM users WHERE u_id = '$id'";

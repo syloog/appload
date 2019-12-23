@@ -53,19 +53,18 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <main class="page contact-page">
         <section class="portfolio-block contact" style="padding-top: 50px;">
             <div class="container">
-                <div class="row">
-                    <div class="col d-xl-flex justify-content-xl-center" style="padding:5px;">
-                        <?php
-                        if (isset($_SESSION["error"])) {
-                            echo "<span class='bg-danger border rounded border-danger' style='padding:5px;'>";
-                            foreach($_SESSION["error"] as $error){
-                                echo $error . "<br>";
-                            }
-                            echo " </span>";
-                            unset($_SESSION["error"]);
+                <div class="col">
+                    <?php
+                    if (isset($_SESSION["error"])) {
+                        foreach ($_SESSION["error"] as $error) {
+                            echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-danger' role='alert'><span><strong> Alert </strong>";
+                            echo $error;
+                            echo " </span></div></div></div>";
+                            
                         }
-                        ?>
-                    </div>
+                        unset($_SESSION["error"]);
+                    }
+                    ?>
                 </div>
                 <div class="border rounded shadow-lg form-container" style="background-color: #ffebe0;padding: 30px;background-image: url(&quot;assets/img/thumb-1920-892291.jpg&quot;);">
                     <form class="border rounded-0 border-light" method="post" style="padding: 30px;background-color: rgba(255,255,255,0.79);" action="signup.php">
