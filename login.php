@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          $_SESSION["u_username"] = $username;
          $_SESSION["loggedin"] = true;
          $_SESSION["u_type"] = $userType;
+         $_SESSION["u_id"] = $row[0];
          header("location: index.php");
       } else {
          $_SESSION["error"] = $error;

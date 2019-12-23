@@ -37,53 +37,40 @@ session_start();
 <body style="background-color: rgb(0,0,0);">
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
         <div class="container"><a class="navbar-brand logo" href="index.php">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse"
-                id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link"
-                    <?php
-                    if (isset($_SESSION["loggedin"])) {
-                    ?>
-                    href='profile.php'>My Profile</a></li>
-                    <?php
-                    }
-                    else {
-                    echo "></a></li>";
-                    }
-                    ?>
-                    <li class="nav-item" role="presentation"><a class="nav-link"
-                    <?php
-                    if (isset($_SESSION["loggedin"])) {
-                    ?>
-                    href='forum.php'>Forum</a></li>
-                    <?php
-                    }
-                    else {
-                    echo "></a></li>";
-                    }
-                    ?>
-                    <li class="nav-item" role="presentation"><a class="nav-link"
-                    <?php
-                    if (isset($_SESSION["loggedin"])) {
-                    ?>
-                    href='store.php'>Store</a></li>
-                    <?php
-                    }
-                    else {
-                    echo "></a></li>";
-                    }
-                    ?>
-                    <li class="nav-item" role="presentation"><a class="nav-link"
-                    <?php
-                    if (isset($_SESSION["loggedin"])) {
-                    ?>
-                    href='logout.php'>Logout</a></li>
-                    <?php
-                    }
-                    else {
-                    echo "href='loginScreen.php'>Login</a></li>";
-                    }
-                    ?>
+                    <li class="nav-item" role="presentation"><a class="nav-link" <?php
+                                                                                    if (isset($_SESSION["loggedin"])) {
+                                                                                    ?> href='profile.php'>My Profile</a></li>
+                <?php
+                                                                                    } else {
+                                                                                        echo "></a></li>";
+                                                                                    }
+                ?>
+                <li class="nav-item" role="presentation"><a class="nav-link" <?php
+                                                                                if (isset($_SESSION["loggedin"])) {
+                                                                                ?> href='forum.php'>Forum</a></li>
+            <?php
+                                                                                } else {
+                                                                                    echo "></a></li>";
+                                                                                }
+            ?>
+            <li class="nav-item" role="presentation"><a class="nav-link" <?php
+                                                                            if (isset($_SESSION["loggedin"])) {
+                                                                            ?> href='store.php'>Store</a></li>
+        <?php
+                                                                            } else {
+                                                                                echo "></a></li>";
+                                                                            }
+        ?>
+        <li class="nav-item" role="presentation"><a class="nav-link" <?php
+                                                                        if (isset($_SESSION["loggedin"])) {
+                                                                        ?> href='logout.php'>Logout</a></li>
+    <?php
+                                                                        } else {
+                                                                            echo "href='loginScreen.php'>Login</a></li>";
+                                                                        }
+    ?>
                 </ul>
             </div>
         </div>
@@ -91,30 +78,35 @@ session_start();
     <main class="page contact-page">
         <section class="portfolio-block contact" style="margin: 150px;">
             <div class="container">
-                <h1 class="display-2 text-center" style="color: rgb(255,237,140);">Welcome to AppLoad!</h1>
-            </div>
-            <div class="col d-xl-flex justify-content-xl-center" style="padding:5px;">
-                    <?php
-                    if (isset($_SESSION["u_type"])) {
-                        $userType = $_SESSION["u_type"];
-                        $username = $_SESSION["u_username"];
-                        if($userType == "dev")
-                            echo "<span class='bg-danger border rounded border-danger' style='padding:5px;'> Hello Developer, $username </span>";
-                        else if ($userType == "editor")
-                            echo "<span class='bg-danger border rounded border-danger' style='padding:5px;'> Hello Editor, $username </span>";
-                        else
-                            echo "<span class='bg-danger border rounded border-danger' style='padding:5px;'> Hello User, $username </span>";
+                <?php
+                if (isset($_SESSION["u_type"])) {
+                    $userType = $_SESSION["u_type"];
+                    $userId = $_SESSION["u_id"];
+                    $username = $_SESSION["u_username"];
+                    if ($userType == "dev") {
+                        echo "<h1 class='display-2 text-center' style='padding:5px; color: rgb(255,237,140);'> Welcome Developer, ";
+                        echo "$username . $userId </h1>";
+                    } else if ($userType == "editor") {
+                        echo "<h1 class='display-2 text-center' style='padding:5px; color: rgb(255,237,140);'> Welcome Editor, ";
+                        echo "$username . $userId </h1>";
+                    } else {
+                        echo "<h1 class='display-2 text-center' style='padding:5px; color: rgb(255,237,140);'> Welcome User, ";
+                        echo "$username . $userId </h1>";
                     }
-                    ?>
-                </div>
+                }
+                else {
+                    echo "<h1 class='display-2 text-center' style='color: rgb(255,237,140);'> Welcome to AppLoad </h1>";
+                }
+                ?>
+            </div>
         </section>
     </main>
     <div data-bs-parallax-bg="true" style="height: 500px;background-image: url(&quot;assets/img/2018-06-04-21-40-16.jpeg&quot;);background-position: center;background-size: cover;"></div>
     <footer class="page-footer">
-    <div class="container">
-        <div class="links"><a href="#" style="color: #725e26;">About us</a><a href="contact.html" style="color: #725e26;">Contact us</a><a href="store.html" style="color: #725e26;">Store</a></div>
-        <div class="social-icons"><a href="#" style="color: #af7505;"><i class="icon ion-social-facebook" style="color: #725e26;"></i></a><a href="#"><i class="icon ion-social-instagram-outline" style="color: #725e26;"></i></a><a href="#" style="color: #725e26;"><i class="icon ion-social-twitter"></i></a></div>
-    </div>
+        <div class="container">
+            <div class="links"><a href="#" style="color: #725e26;">About us</a><a href="contact.html" style="color: #725e26;">Contact us</a><a href="store.html" style="color: #725e26;">Store</a></div>
+            <div class="social-icons"><a href="#" style="color: #af7505;"><i class="icon ion-social-facebook" style="color: #725e26;"></i></a><a href="#"><i class="icon ion-social-instagram-outline" style="color: #725e26;"></i></a><a href="#" style="color: #725e26;"><i class="icon ion-social-twitter"></i></a></div>
+        </div>
     </footer>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>

@@ -22,15 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
       $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
 
-      if (empty($username)) {
-         array_push($errors, "Username is required");
-      }
-      if (empty($email)) {
-         array_push($errors, "Email is required");
-      }
-      if (empty($password_1)) {
-         array_push($errors, "Password is required");
-      }
       if ($password_1 != $password_2) {
          array_push($errors, "The two passwords do not match");
       }
@@ -47,8 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          if ($user['email'] === $email) {
             array_push($errors, "email already exists");
          }
-      }
-      if (count($errors) == 0) {
+      } else if (count($errors) == 0) {
          while ($done == 0) {
             $id = rand(21900000, 21999999);
             $sql = "SELECT u_id FROM users WHERE u_id = '$id'";
@@ -59,18 +49,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($count == 0) {
                $done = 1;
-               header("location: index.php"); //send user back to the login page.
+
+               $insert_user_query = "INSERT INTO users VALUES('" . $id . "', '" . $username . "', '" . $password_1 . "', '" . $name . "', '" . $email . "', NULL , '" . $age . "', current_timestamp())";
+               $insert_regular_user_query = "INSERT INTO regularuser VALUES('" . $id . "', '" . $area . "')";
+
+               if ((mysqli_query($db, $insert_user_query) || die(mysqli_error($db))) && (mysqli_query($db, $insert_regular_user_query) || die(mysqli_error($db)))) {
+                  header("location: loginScreen.php");
+               } else {
+                  array_push($errors, "Cannot create account.");
+                  $_SESSION["error"] = $errors;
+                  header("location: registerUser.php");
+               }
             }
          }
-      }
-      else {
+      } else {
          $_SESSION["error"] = $errors;
          header("location: registerUser.php"); //send user back to the login page.
       }
-   }
-   else {
+   } else {
       $_SESSION["error"] = "Cannot obtain login type. Please try again.";
-         header("location: registerUser.php"); //send user back to the login page.
+      header("location: registerUser.php"); //send user back to the login page.
    }
 } else {
    $_SESSION["error"] = "Cannot post the information to the server. Please try again.";
