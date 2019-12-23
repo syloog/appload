@@ -59,8 +59,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                     </div>
                 </div>
             </div>
-            <div class="login-card">
-                <form class="form-signin" method="post" action="login.php"><span class="reauth-email"> </span><input class="form-control" type="username" id="username" required="" placeholder="Username" autofocus="" name="username"><input class="form-control" type="password" id="password" required="" placeholder="Password" name="password">
+            <div class="login-card" style="background-image:url(&quot;assets/img/thumb-1920-783633.jpg&quot;);">
+                <form class="form-signin" method="post" action="login.php" style="background-color: rgba(255,255,255,0.79);">
+                <input class="form-control" type="text" id="username" required="" placeholder="Username" name="username">
+                <input class="form-control" type="password" id="password" required="" placeholder="Password" name="password">
                     <div class="d-xl-flex justify-content-xl-center checkbox">
                         <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Remember me</label></div>
                     </div>
@@ -75,8 +77,8 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         <div class="col d-xl-flex justify-content-xl-center" style="padding-top: 11px;"><button class="btn btn-primary btn-block btn-lg btn-signin" type="submit" style="background-color: #af7505;">Sign in</button></div>
                     </div>
                 </form>
-                <div class="col text-center mx-auto" style="margin: 20px;"><a class="forgot-password" href="#">Forgot your password?</a></div>
-                <div class="col text-center mx-auto" style="margin: 20px;"><a class="forgot-password" href="register.php" style="opacity: 1;">Create a New Account</a></div>
+                <div class="col text-center mx-auto" style="margin: 20px;background-color: #ffffff;"><a class="forgot-password" href="#">Forgot your password?</a></div>
+                <div class="col text-center mx-auto" style="margin: 20px;background-color: #ffffff;"><a class="forgot-password" href="register.php" style="opacity: 1;">Create a New Account</a></div>
             </div>
         </section>
     </main>

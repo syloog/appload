@@ -22,6 +22,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
       $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
 
+      if(!mb_detect_encoding($username, 'ASCII', true)) {
+         array_push($errors, "Please enter valid characters for Username.");
+      }
+
+      if(!mb_detect_encoding($password_1, 'ASCII', true)) {
+         array_push($errors, "Please enter valid characters for Password.");
+      }
+
+      if(!mb_detect_encoding($email, 'ASCII', true)) {
+         array_push($errors, "Please enter valid characters for Email.");
+      }
+
       if ($password_1 != $password_2) {
          array_push($errors, "The two passwords do not match");
       }
@@ -52,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($count == 0) {
                $done = 1;
 
-               $insert_user_query = "INSERT INTO users VALUES('" . $id . "', '" . $username . "', '" . $password_1 . "', '" . $name . "', '" . $email . "', NULL , '" . $age . "', current_timestamp())";
+               $insert_user_query = "INSERT INTO users VALUES('" . $id . "', '" . $username . "', '" . $password_1 . "', '" . utf8_decode($name) . "', '" . $email . "', NULL , '" . $age . "', current_timestamp())";
                $insert_regular_user_query = "INSERT INTO regularuser VALUES('" . $id . "', '" . $area . "')";
 
                if ((mysqli_query($db, $insert_user_query) || die(mysqli_error($db))) && (mysqli_query($db, $insert_regular_user_query) || die(mysqli_error($db)))) {
