@@ -50,13 +50,6 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                 <div class="row">
                     <div class="col d-xl-flex justify-content-xl-center" style="padding:5px;">
                         <?php
-                        if (isset($_SESSION["username"])) {
-                            $username = $_SESSION["username"];
-                            $information = $_SESSION["information"];
-                            echo "<span class='bg-danger border rounded border-danger' style='padding:5px;'> $username . $information </span>";
-                            unset($_SESSION["information"]);
-                            unset($_SESSION["username"]);
-                        }
                         if (isset($_SESSION["error"])) {
                             $error = $_SESSION["error"];
                             echo "<span class='bg-danger border rounded border-danger' style='padding:5px;'> $error </span>";
@@ -72,13 +65,6 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                 <input class="form-control" type="password" id="password" required="" placeholder="Password" name="password">
                     <div class="d-xl-flex justify-content-xl-center checkbox">
                         <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Remember me</label></div>
-                    </div>
-                    <div class="form-row">
-                        <fieldset>
-                            <div class="custom-control custom-radio"><input type="radio" id="loginRadioUser" class="custom-control-input" value="regular" name="loginRadio"><label class="custom-control-label" for="loginRadioUser">Login as user</label></div>
-                            <div class="custom-control custom-radio"><input type="radio" id="loginRadioDev" class="custom-control-input" value="dev" name="loginRadio"><label class="custom-control-label" for="loginRadioDev">Login as developer</label></div>
-                            <div class="custom-control custom-radio"><input type="radio" id="loginRadioEditor" class="custom-control-input" value="editor" name="loginRadio"><label class="custom-control-label" for="loginRadioEditor">Login as editor</label></div>
-                        </fieldset>
                     </div>
                     <div class="form-row">
                         <div class="col d-xl-flex justify-content-xl-center" style="padding-top: 11px;"><button class="btn btn-primary btn-block btn-lg btn-signin" type="submit" style="background-color: #af7505;">Sign in</button></div>

@@ -1,5 +1,5 @@
 <?php
-session_start();
+include('session.php');
 ?>
 
 <!DOCTYPE html>
@@ -8,9 +8,9 @@ session_start();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home Page</title>
+    <title>User</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="fonts.googleapis.com/css?family=Lato:300,400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700">
@@ -34,28 +34,26 @@ session_start();
     <link rel="stylesheet" href="assets/css/Pretty-Registration-Form.css">
 </head>
 
-<body style="background-color: rgb(0,0,0);">
+<body>
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
         <div class="container"><a class="navbar-brand logo" href="index.php">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item" role="presentation"><a class="nav-link" <?php
                                                                                     if (isset($_SESSION["loggedin"])) {
-                                                                                        if($_SESSION["u_type"] == "regular") {
+                                                                                        if ($_SESSION["u_type"] == "regular") {
                                                                                             echo "href='profileUser.php'";
-                                                                                        }
-                                                                                        else if ($_SESSION["u_type"] == "developer") {
+                                                                                        } else if ($_SESSION["u_type"] == "developer") {
                                                                                             echo "href='profileDev.php'";
-                                                                                        }
-                                                                                        else if ($_SESSION["u_type"] == "editor") {
+                                                                                        } else if ($_SESSION["u_type"] == "editor") {
                                                                                             echo "href='profileEditor.php'";
                                                                                         }
                                                                                     ?>> My Profile</a></li>
-                                                                                    <?php 
+                <?php
                                                                                     } else {
                                                                                         echo "></a></li>";
                                                                                     }
-                                                                                    ?>
+                ?>
                 <li class="nav-item" role="presentation"><a class="nav-link" <?php
                                                                                 if (isset($_SESSION["loggedin"])) {
                                                                                 ?> href='forum.php'>Forum</a></li>
@@ -84,48 +82,65 @@ session_start();
             </div>
         </div>
     </nav>
-    <main class="page contact-page">
-        <section class="portfolio-block contact" style="margin: 150px;">
-            <div class="container">
-            <div class="row">
-                    <div class="col d-xl-flex justify-content-xl-center" style="padding:5px;">
-                        <?php
-                        if (isset($_SESSION["error"])) {
-                            $error = $_SESSION["error"];
-                            echo "<span class='bg-danger border rounded border-danger' style='padding:5px;'> $error </span>";
-                            unset($_SESSION["error"]);
-                        }
-                        ?>
+    <main class="page lanidng-page" style="background-color: #141414;">
+        <section class="portfolio-block block-intro" style="padding-bottom: 30px;">
+            <div class="container border rounded border-dark shadow-lg" style="padding: 50px;background-image: url(&quot;assets/img/thumb-1920-892291.jpg&quot;);">
+                <div class="avatar"></div>
+                <div class="about-me">
+                    <?php
+                    echo "<p class='border rounded border-dark' style='background-color: #feba2b;font-weight: normal;'> Welcome ". $_SESSION["u_username"] ."</p>";
+                    ?>
+                </div>
+                <div class="row" style="padding: 10px;">
+                    <div class="col" style="background-color: rgba(255,255,255,0);">
+                        <div class="card" style="background-color: rgb(253,184,31);padding: 12px;">
+                            <ul class="fa-ul" style="margin: 0px;">
+                                <?php
+
+                                $user_check = $_SESSION['u_id'];
+
+                                $sql_user = mysqli_query($db, "SELECT u_name, u_age, u_mail FROM users WHERE u_id = '$user_check'");
+                                $sql_regular_user = mysqli_query($db, "SELECT area FROM regularuser WHERE u_id = '$user_check'");
+                                $user_name_age_mail = mysqli_fetch_array($sql_user, MYSQLI_ASSOC);
+                                $user_area = mysqli_fetch_array($sql_regular_user, MYSQLI_ASSOC);
+
+                                echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Name:&nbsp;</strong>&nbsp;</label><label>" .  $user_name_age_mail["u_name"] . "</label></li>";
+                                echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Email:</strong>&nbsp;&nbsp;</label><label>" . $user_name_age_mail["u_mail"] . "</label></li>";
+                                echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Age:</strong>&nbsp;&nbsp;</label><label>" . $user_name_age_mail["u_age"] . "</label></li>";
+                                echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Area:</strong>&nbsp;&nbsp;</label><label>" . $user_area["area"] . "</label></li>";
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col my-auto">
+                        <div class="row">
+                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="deviceList.html" style="background-color: rgb(58,21,126);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Downloaded Apps</a></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="deviceList.html" style="background-color: rgb(146,32,117);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Manage Devices</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="profileNormalEdit.html" style="margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;background-color: rgb(17,138,255);">Manage Account</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" style="background-color: rgb(232,192,96);color: rgb(255,255,255);margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;" href="#">Delete Account</a></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <?php
-                if (isset($_SESSION["u_type"])) {
-                    $userType = $_SESSION["u_type"];
-                    $userId = $_SESSION["u_id"];
-                    $username = $_SESSION["u_username"];
-                    if ($userType == "developer") {
-                        echo "<h1 class='display-2 text-center' style='padding:5px; color: rgb(255,237,140);'> Welcome Developer, ";
-                        echo "$username</h1>";
-                    } else if ($userType == "editor") {
-                        echo "<h1 class='display-2 text-center' style='padding:5px; color: rgb(255,237,140);'> Welcome Editor, ";
-                        echo "$username</h1>";
-                    } else if ($userType == "regular") {
-                        echo "<h1 class='display-2 text-center' style='padding:5px; color: rgb(255,237,140);'> Welcome User, ";
-                        echo "$username</h1>";
-                    }
-                } else {
-                    echo "<h1 class='display-2 text-center' style='color: rgb(255,237,140);'> Welcome to AppLoad </h1>";
-                }
-                ?>
             </div>
         </section>
+        <section class="portfolio-block photography"></section>
+        <section class="portfolio-block call-to-action border-bottom"></section>
     </main>
-    <div data-bs-parallax-bg="true" style="height: 500px;background-image: url(&quot;assets/img/2018-06-04-21-40-16.jpeg&quot;);background-position: center;background-size: cover;">
-    </div>
+    <section class="portfolio-block website gradient" style="background-image: url(&quot;assets/img/2018-06-04-21-40-16.jpeg&quot;);background-size: contain;"></section>
     <footer class="page-footer">
         <div class="container">
-            <div class="links"><a href="#" style="color: #725e26;">About us</a><a href="contact.html" style="color: #725e26;">Contact us</a><a href="store.html" style="color: #725e26;">Store</a></div>
-            <div class="social-icons"><a href="#" style="color: #af7505;"><i class="icon ion-social-facebook" style="color: #725e26;"></i></a><a href="#"><i class="icon ion-social-instagram-outline" style="color: #725e26;"></i></a><a href="#" style="color: #725e26;"><i class="icon ion-social-twitter"></i></a></div>
+            <div class="links"><a href="#">About us</a><a href="contact.html">Contact us</a><a href="store.html">Store</a></div>
+            <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div>
         </div>
     </footer>
     <script src="assets/js/jquery.min.js"></script>

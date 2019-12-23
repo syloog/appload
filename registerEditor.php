@@ -14,7 +14,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Developer Register</title>
+    <title>User Register</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
@@ -60,6 +60,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                             echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-danger' role='alert'><span><strong> Alert </strong>";
                             echo $error;
                             echo " </span></div></div></div>";
+                            
                         }
                         unset($_SESSION["error"]);
                     }
@@ -88,13 +89,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                                 <div class="col"><input class="form-control" type="password" placeholder="Password (Repeat)" name="password_2" required=""></div>
                             </div>
                             <div class="form-row" style="padding: 10px;">
-                                <div class="col"><input class="form-control" type="text" placeholder="Website" name="dev_website"></div>
-                            </div>
-                            <div class="form-row" style="padding: 10px;">
-                                <div class="col"><textarea class="form-control" name="dev_info" style="background-color: rgb(255,232,240);height: 100px;min-height: 50px;max-height: 200px;" placeholder="Information about you"></textarea></div>
-                            </div>
-                            <div class="form-row" style="padding: 10px;">
-                                <input type='hidden' name="loginType" value="developer" />
+                                <input type='hidden' name="loginType" value="editor" />
                             </div>
                             <div class="form-row" style="padding: 10px;">
                                 <div class="col"><a href="#"><label>Terms and Conditions</label></a></div>
