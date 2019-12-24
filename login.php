@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    $password = mysqli_real_escape_string($db, $_POST['password']);
    $error = "Username or Password Incorrect";
 
-   $sql = "SELECT u_id FROM users WHERE u_username = '$username' and u_password = '$password'";
+   $sql = "SELECT u_id FROM users WHERE BINARY u_username = '$username' and u_password = '$password'";
    $result = mysqli_query($db, $sql);
    $rowUserId = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
