@@ -53,21 +53,19 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     <main class="page contact-page">
         <section class="portfolio-block contact" style="padding-top: 50px;">
             <div class="container">
-                <div class="col">
-                    <?php
-                    if (isset($_SESSION["error"])) {
-                        foreach ($_SESSION["error"] as $error) {
-                            echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-danger' role='alert'><span><strong> Alert </strong>";
-                            echo $error;
-                            echo " </span></div></div></div>";
-                        }
-                        unset($_SESSION["error"]);
-                    }
-                    ?>
-                </div>
                 <div class="border rounded shadow-lg form-container" style="background-color: #ffebe0;padding: 30px;background-image: url(&quot;assets/img/thumb-1920-892291.jpg&quot;);">
                     <form class="border rounded-0 border-light" method="post" style="padding: 30px;background-color: rgba(255,255,255,0.79);" action="signup.php">
                         <h2 class="text-center" style="padding: 15px;"><strong>Register Form</strong></h2>
+                        <?php
+                        if (isset($_SESSION["error"])) {
+                            foreach ($_SESSION["error"] as $error) {
+                                echo "<div class='row' style='padding-left: 10px; padding-right:10px'><div class='col'><div class='alert alert-danger' role='alert' style='width:100%'><span><strong> Warning: </strong>";
+                                echo $error;
+                                echo " </span></div></div></div>";
+                            }
+                            unset($_SESSION["error"]);
+                        }
+                        ?>
                         <div class="form-group">
                             <div class="form-row" style="padding: 10px;">
                                 <div class="col"><input class="form-control" type="text" placeholder="Name" name="name" required=""></div>
@@ -356,7 +354,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     </main>
     <footer class="page-footer">
         <div class="container">
-            <div class="links"><a href="#">About us</a><a href="contact.html">Contact us</a><a href="store.html">Store</a></div>
+            <div class="links"><a href="#">About us</a><a href="contact.html">Contact us</a></div>
             <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div>
         </div>
     </footer>

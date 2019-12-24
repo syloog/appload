@@ -9,8 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
    $username = mysqli_real_escape_string($db, $_POST['username']);
    $password = mysqli_real_escape_string($db, $_POST['password']);
-   $error = "Username, Password or Account Type Incorrect";
-   $error3 = "Please, don't forget to choose an account type";
+   $error = "Username or Password Incorrect";
 
    $sql = "SELECT u_id FROM users WHERE u_username = '$username' and u_password = '$password'";
    $result = mysqli_query($db, $sql);

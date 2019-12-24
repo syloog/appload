@@ -12,7 +12,7 @@
    $login_session_id = $row['u_id'];
 
    if(!isset($_SESSION['u_username'])){
-      header("location:loginScreen.php");
+      header("location:errorDirect.php");
       die();
    }
 ?>

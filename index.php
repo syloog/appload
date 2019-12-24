@@ -34,7 +34,7 @@ session_start();
     <link rel="stylesheet" href="assets/css/Pretty-Registration-Form.css">
 </head>
 
-<body style="background-color: rgb(0,0,0);">
+<body style="background-color: rgb(16,16,16);">
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
         <div class="container"><a class="navbar-brand logo" href="index.php">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -114,7 +114,42 @@ session_start();
                         echo "$username</h1>";
                     }
                 } else {
-                    echo "<h1 class='display-2 text-center' style='color: rgb(255,237,140);'> Welcome to AppLoad </h1>";
+                    echo "<h1 class='display-2 text-center' style='color: rgb(247,153,0);padding-bottom: 150px;'>Welcome to AppLoad!</h1>
+                    </div>
+                </div>
+            </div>
+            <div class='container' style='background-color: #ffcd00;padding: 100px;'>
+                <div class='intro'>
+                    <h2 class='text-center'>Features</h2>
+                    <p class='text-center'>Here are some features of our website you can take a look.</p>
+                </div>
+                <div class='row features'>
+                    <div class='col-sm-6 col-md-4 item'><i class='fa fa-forumbee icon'></i>
+                        <h3 class='name'>Forums</h3>
+                        <p class='description'>Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
+                    </div>
+                    <div class='col-sm-6 col-md-4 item'><i class='fa fa-download icon'></i>
+                        <h3 class='name'>Applications</h3>
+                        <p class='description'>Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
+                    </div>
+                    <div class='col-sm-6 col-md-4 item'><i class='fa fa-certificate icon'></i>
+                        <h3 class='name'>Rating System</h3>
+                        <p class='description'>Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
+                    </div>
+                    <div class='col-sm-6 col-md-4 item'><i class='fa fa-universal-access icon'></i>
+                        <h3 class='name'>Easy Access</h3>
+                        <p class='description'>Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
+                    </div>
+                    <div class='col-sm-6 col-md-4 item'><i class='fa fa-plane icon'></i>
+                        <h3 class='name'>Fast</h3>
+                        <p class='description'>Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
+                    </div>
+                    <div class='col-sm-6 col-md-4 item'><i class='far fa-user icon'></i>
+                        <h3 class='name'>Own Profile</h3>
+                        <p class='description'>Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
+                    </div>
+                </div>
+            </div>";
                 }
                 ?>
             </div>
@@ -124,7 +159,7 @@ session_start();
     </div>
     <footer class="page-footer">
         <div class="container">
-            <div class="links"><a href="#" style="color: #725e26;">About us</a><a href="contact.html" style="color: #725e26;">Contact us</a><a href="store.html" style="color: #725e26;">Store</a></div>
+            <div class="links"><a href="#" style="color: #725e26;">About us</a><a href="contact.html" style="color: #725e26;">Contact us</a></div>
             <div class="social-icons"><a href="#" style="color: #af7505;"><i class="icon ion-social-facebook" style="color: #725e26;"></i></a><a href="#"><i class="icon ion-social-instagram-outline" style="color: #725e26;"></i></a><a href="#" style="color: #725e26;"><i class="icon ion-social-twitter"></i></a></div>
         </div>
     </footer>

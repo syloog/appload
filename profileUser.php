@@ -122,7 +122,7 @@ include('session.php');
                                     <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="deviceList.html" style="background-color: rgb(146,32,117);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Manage Devices</a></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="profileNormalEdit.html" style="margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;background-color: rgb(17,138,255);">Manage Account</a></div>
+                                    <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="profileUserEdit.php" style="margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;background-color: rgb(17,138,255);">Manage Account</a></div>
                                 </div>
                                 <div class="row">
                                     <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" style="background-color: rgb(232,192,96);color: rgb(255,255,255);margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;" href="#">Delete Account</a></div>
@@ -139,7 +139,7 @@ include('session.php');
     <section class="portfolio-block website gradient" style="background-image: url(&quot;assets/img/2018-06-04-21-40-16.jpeg&quot;);background-size: contain;"></section>
     <footer class="page-footer">
         <div class="container">
-            <div class="links"><a href="#">About us</a><a href="contact.html">Contact us</a><a href="store.html">Store</a></div>
+            <div class="links"><a href="#">About us</a><a href="contact.html">Contact us</a></div>
             <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div>
         </div>
     </footer>

@@ -47,22 +47,19 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                 <div class="heading">
                     <h2>Please login to access our store</h2>
                 </div>
-                <div class="row">
-                    <div class="col d-xl-flex justify-content-xl-center" style="padding:5px;">
-                        <?php
-                        if (isset($_SESSION["error"])) {
-                            $error = $_SESSION["error"];
-                            echo "<span class='bg-danger border rounded border-danger' style='padding:5px;'> $error </span>";
-                            unset($_SESSION["error"]);
-                        }
-                        ?>
-                    </div>
-                </div>
             </div>
             <div class="login-card" style="background-image:url(&quot;assets/img/thumb-1920-783633.jpg&quot;);">
                 <form class="form-signin" method="post" action="login.php" style="background-color: rgba(255,255,255,0.79);">
-                <input class="form-control" type="text" id="username" required="" placeholder="Username" name="username">
-                <input class="form-control" type="password" id="password" required="" placeholder="Password" name="password">
+                    <?php
+                    if (isset($_SESSION["error"])) {
+                        echo "<div class='row'><div class='col'><div class='alert alert-danger' role='alert' style='width:100%'><span><strong> Warning: </strong>";
+                        echo $_SESSION["error"];
+                        echo " </span></div></div></div>";
+                        unset($_SESSION["error"]);
+                    }
+                    ?>
+                    <input class="form-control" type="text" id="username" required="" placeholder="Username" name="username">
+                    <input class="form-control" type="password" id="password" required="" placeholder="Password" name="password">
                     <div class="d-xl-flex justify-content-xl-center checkbox">
                         <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Remember me</label></div>
                     </div>
@@ -70,14 +67,14 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         <div class="col d-xl-flex justify-content-xl-center" style="padding-top: 11px;"><button class="btn btn-primary btn-block btn-lg btn-signin" type="submit" style="background-color: #af7505;">Sign in</button></div>
                     </div>
                 </form>
-                <div class="col text-center mx-auto" style="margin: 20px;background-color: #ffffff;"><a class="forgot-password" href="#">Forgot your password?</a></div>
-                <div class="col text-center mx-auto" style="margin: 20px;background-color: #ffffff;"><a class="forgot-password" href="register.php" style="opacity: 1;">Create a New Account</a></div>
+                <div class="col text-center mx-auto" style="margin: 20px;background-color: rgba(255,255,255,0.82);max-width: 650px;"><a class="forgot-password" href="#">Forgot your password?</a></div>
+                <div class="col text-center mx-auto" style="margin: 20px;background-color: rgba(255,255,255,0.82);max-width: 650px;"><a class="forgot-password" href="register.php" style="opacity: 1;">Create a New Account</a></div>
             </div>
         </section>
     </main>
     <footer class="page-footer">
         <div class="container">
-            <div class="links"><a href="#">About us</a><a href="contact.html">Contact us</a><a href="store.html">Store</a></div>
+            <div class="links"><a href="#">About us</a><a href="contact.html">Contact us</a></div>
             <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div>
         </div>
     </footer>
