@@ -100,29 +100,33 @@ include('session.php');
                                 $user_check = $_SESSION['u_id'];
 
                                 $sql_user = mysqli_query($db, "SELECT u_name, u_age, u_mail FROM users WHERE u_id = '$user_check'");
-                                $sql_regular_user = mysqli_query($db, "SELECT area FROM regularuser WHERE u_id = '$user_check'");
+                                $sql_developer_user = mysqli_query($db, "SELECT dev_info, dev_website FROM developer WHERE u_id = '$user_check'");
                                 $user_name_age_mail = mysqli_fetch_array($sql_user, MYSQLI_ASSOC);
-                                $user_area = mysqli_fetch_array($sql_regular_user, MYSQLI_ASSOC);
+                                $user_website_info = mysqli_fetch_array($sql_developer_user, MYSQLI_ASSOC);
 
                                 echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Name:&nbsp;</strong>&nbsp;</label><label>" .  $user_name_age_mail["u_name"] . "</label></li>";
                                 echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Email:</strong>&nbsp;&nbsp;</label><label>" . $user_name_age_mail["u_mail"] . "</label></li>";
                                 echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Age:</strong>&nbsp;&nbsp;</label><label>" . $user_name_age_mail["u_age"] . "</label></li>";
-                                echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Area:</strong>&nbsp;&nbsp;</label><label>" . $user_area["area"] . "</label></li>";
+                                echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Website:</strong>&nbsp;&nbsp;</label><label>" . $user_website_info["dev_website"] . "</label></li>";
+                                echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Information:</strong>&nbsp;&nbsp;</label><label>" . $user_website_info["dev_info"] . "</label></li>";
                                 ?>
                             </ul>
                         </div>
                     </div>
                     <div class="col my-auto">
                         <div class="row">
-                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="deviceList.html" style="background-color: rgb(58,21,126);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Downloaded Apps</a></div>
-                        </div>
-                        <div class="row">
                             <div class="col">
                                 <div class="row">
-                                    <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="deviceList.html" style="background-color: rgb(146,32,117);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Manage Devices</a></div>
+                                    <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="appRequest.php" style="background-color: #141414;;margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Upload an App</a></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="profileUserEdit.php" style="margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;background-color: rgb(17,138,255);">Manage Account</a></div>
+                                    <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="devApps.php" style="background-color: rgb(58,21,126);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">My Apps</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="" style="background-color: rgb(146,32,117);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">My Website</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="profileDeveloperEdit.php" style="margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;background-color: rgb(17,138,255);">Manage Account</a></div>
                                 </div>
                                 <div class="row">
                                     <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" style="background-color: rgb(232,192,96);color: rgb(255,255,255);margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;" href="#">Delete Account</a></div>

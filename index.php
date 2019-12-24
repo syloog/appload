@@ -41,21 +41,19 @@ session_start();
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item" role="presentation"><a class="nav-link" <?php
                                                                                     if (isset($_SESSION["loggedin"])) {
-                                                                                        if($_SESSION["u_type"] == "regular") {
+                                                                                        if ($_SESSION["u_type"] == "regular") {
                                                                                             echo "href='profileUser.php'";
-                                                                                        }
-                                                                                        else if ($_SESSION["u_type"] == "developer") {
+                                                                                        } else if ($_SESSION["u_type"] == "developer") {
                                                                                             echo "href='profileDev.php'";
-                                                                                        }
-                                                                                        else if ($_SESSION["u_type"] == "editor") {
+                                                                                        } else if ($_SESSION["u_type"] == "editor") {
                                                                                             echo "href='profileEditor.php'";
                                                                                         }
                                                                                     ?>> My Profile</a></li>
-                                                                                    <?php 
+                <?php
                                                                                     } else {
                                                                                         echo "></a></li>";
                                                                                     }
-                                                                                    ?>
+                ?>
                 <li class="nav-item" role="presentation"><a class="nav-link" <?php
                                                                                 if (isset($_SESSION["loggedin"])) {
                                                                                 ?> href='forum.php'>Forum</a></li>
@@ -87,7 +85,7 @@ session_start();
     <main class="page contact-page">
         <section class="portfolio-block contact" style="margin: 150px;">
             <div class="container">
-            <div class="row">
+                <div class="row">
                     <div class="col d-xl-flex justify-content-xl-center" style="padding:5px;">
                         <?php
                         if (isset($_SESSION["error"])) {
