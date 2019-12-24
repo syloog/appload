@@ -37,15 +37,15 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 </head>
 
 <body style="background-color: rgb(255,255,255);">
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle 1.png&quot;);">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-size: cover;background-image: url('assets/img/Rectangle 1.png');">
         <div class="container"><a class="navbar-brand logo" href="index.php">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         </div>
     </nav>
-    <main class="page contact-page">
+    <main class="page contact-page" style="background-color: #0c0f18;">
         <section class="portfolio-block contact" style="padding-top:50px;">
             <div class="container">
                 <div class="heading">
-                    <h2>Please login to access our store</h2>
+                    <h2 style="color: #ffffff;">Please login to access our store</h2>
                 </div>
             </div>
             <div class="login-card" style="background-image:url(&quot;assets/img/thumb-1920-783633.jpg&quot;);">
