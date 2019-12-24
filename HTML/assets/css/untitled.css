@@ -1,0 +1,26 @@
+.border-primary {
+  border-color: #ff0e0e!important;
+}
+
+body {
+  margin-top: 15px;
+}
+
+.comment-wrapper .panel-body {
+  max-height: 1000px;
+  overflow: auto;
+  /*align-content: center;*/
+}
+
+.comment-wrapper .media-list .media img {
+  width: 64px;
+  height: 65px;
+  border: 2px solid #e5e7e8;
+  /*align-items: center;*/
+}
+
+.comment-wrapper .media-list .media {
+  border-bottom: 1px dashed #efefef;
+  margin-bottom: 25px;
+}
+
