@@ -58,10 +58,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         unset($_SESSION["error"]);
                     }
                     ?>
-                    <input class="form-control" type="text" id="username" required="" placeholder="Username" name="username">
+                    <input class="form-control" type="text" id="username" required="" placeholder="Username" name="username" value="<?php if(isset($_COOKIE["member_login"])) { echo $_COOKIE["member_login"]; } ?>">
                     <input class="form-control" type="password" id="password" required="" placeholder="Password" name="password">
                     <div class="d-xl-flex justify-content-xl-center checkbox">
-                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Remember me</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" id="rememberMe" name="remember" <?php if(isset($_COOKIE["member_login"])) { ?> checked <?php } ?>><label class="form-check-label" for="rememberMe">Remember me</label></div>
                     </div>
                     <div class="form-row">
                         <div class="col d-xl-flex justify-content-xl-center" style="padding-top: 11px;"><button class="btn btn-primary btn-block btn-lg btn-signin" type="submit" style="background-color: #af7505;">Sign in</button></div>

@@ -50,6 +50,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION["u_type"] = $userType;
       $_SESSION["u_id"] = $rowUserId["u_id"];
 
+      if(!empty($_POST["remember"])) {
+         setcookie ("member_login",$_POST["username"],time()+ (10 * 365 * 24 * 60 * 60));
+      } else {
+         if(isset($_COOKIE["member_login"])) {
+            setcookie ("member_login","");
+         }
+      }
+
       header("location: index.php");
    } else {
       $_SESSION["error"] = $error;
