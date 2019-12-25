@@ -88,19 +88,17 @@ include('session.php');
             <div class="container">
                 <div class="col">
                     <form class="border rounded border-light" method="post" action="addDevice.php" style="background-color: #ffffff;">
-                        <div class="col">
-                            <?php
-                            if (isset($_SESSION["error"])) {
-                                foreach ($_SESSION["error"] as $error) {
-                                    echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-danger' role='alert'><span><strong> Alert </strong>";
-                                    echo $error;
-                                    echo " </span></div></div></div>";
-                                }
-                                unset($_SESSION["error"]);
-                            }
-                            ?>
-                        </div>
                         <h3 style="padding: 15px;">You can create a device below for your account.</h3>
+                        <?php
+                        if (isset($_SESSION["error"])) {
+                            foreach ($_SESSION["error"] as $error) {
+                                echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-danger' role='alert' style='width:100%'><span><strong> Alert </strong>";
+                                echo $error;
+                                echo " </span></div></div></div>";
+                            }
+                            unset($_SESSION["error"]);
+                        }
+                        ?>
                         <div>
                             <div class="form-group">
                                 <fieldset id="ramField">

@@ -7,21 +7,33 @@ $username = $password = $userType = $u_id = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-   if ($_POST["newLogin"] == "newLogin") {
+   if ($_POST["newLogin"]) {
       setcookie("member_login", "");
       header("location: loginScreen.php");
-   } else {
+   } else if ($_POST["quickLogin"]) {
+
       $username = mysqli_real_escape_string($db, $_POST['username']);
-      $password = mysqli_real_escape_string($db, $_POST['password']);
       $error = "Username or Password Incorrect";
 
-      $sql = "SELECT u_id FROM users WHERE BINARY u_username = '$username' and u_password = '$password'";
-      $result = mysqli_query($db, $sql);
-      $rowUserId = mysqli_fetch_array($result, MYSQLI_ASSOC);
+      if (isset($_COOKIE['member_login'])) {
 
-      $countId = mysqli_num_rows($result);
+         $sql = "SELECT u_id FROM users WHERE BINARY u_username = '$username'";
+         $result = mysqli_query($db, $sql);
+         $rowUserId = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-      if ($countId == 1 || (isset($_COOKIE['member_login']) && $_COOKIE['member_login'] == $username)) {
+         $countId = mysqli_num_rows($result);
+      } else {
+         $password = mysqli_real_escape_string($db, $_POST['password']);
+         $error = "Username or Password Incorrect";
+
+         $sql = "SELECT u_id FROM users WHERE BINARY u_username = '$username' and u_password = '$password'";
+         $result = mysqli_query($db, $sql);
+         $rowUserId = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+         $countId = mysqli_num_rows($result);
+      }
+
+      if ($countId == 1) {
 
          $u_id = $rowUserId["u_id"];
 

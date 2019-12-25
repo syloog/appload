@@ -85,58 +85,59 @@ include('session.php');
         </div>
     </nav>
     <main class="page projects-page" style="background-color: #0c0f18;">
-        <section class="portfolio-block projects-with-sidebar">
+        <section style="padding:50px;padding-bottom:250px">
             <div class="container border rounded" style="background-color: #ffffff;">
                 <div class="row d-xl-flex justify-content-xl-center">
                     <div class="col-md-4 text-center" style="padding-bottom: 15px;padding-top: 24px;">
                         <h2 style="width: 343px;">List of Devices</h2>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>OS</th>
-                                    <th>RAM</th>
-                                    <th>CPU</th>
-                                    <th>Storage</th>
-                                    <th>Version</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                <?php
+                if (isset($_SESSION["error"])) {
+                    foreach ($_SESSION["error"] as $error) {
+                        echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-danger' role='alert' style='width:100%;padding-left: 35px'><span><strong> Alert </strong>";
+                        echo $error;
+                        echo " </span></div></div></div>";
+                    }
+                    unset($_SESSION["error"]);
+                }
+                ?>
+                <form method='post' action='deleteDevice.php'>
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive" style="padding-left: 35px">
+                                <?php
+                                $u_id = $_SESSION["u_id"];
+                                $select_user_device_query = mysqli_query($db, "SELECT device_id, d_os, d_ram, d_cpu, d_storage
+                                FROM regularuserdevice
+                                INNER JOIN device USING (device_id) WHERE u_id='" . $u_id . "'");
 
+                                echo "<table class='table '>
+                                <thead>
                                 <tr>
-                                    <td>01</td>
-                                    <td> Windows </td>
-                                    <td>4GB</td>
-                                    <td>AMD</td>
-                                    <td>128 GB</td>
-                                    <td> 10 build-19901 </td>
-                                    <td>
-                                        <a class="btn btn-warning" role="button" href="createDevice.html"><i class="fas fa-pencil-alt d-xl-flex justify-content-xl-center align-items-xl-center"></i></a>
-                                        <button type="button" class="btn btn-warning"><i class="fas fa-exclamation-triangle d-xl-flex justify-content-xl-center align-items-xl-center"></i></button>
-                                    </td>
+                                <th>Device OS</th>
+                                <th>Device RAM</th>
+                                <th>Device CPU</th>
+                                <th>Device Storage</th>
+                                <th>Action</th>
                                 </tr>
-                                <tr>
-                                    <td>02</td>
-                                    <td>Mac OS</td>
-                                    <td>16 GB</td>
-                                    <td>Intel</td>
-                                    <td>512 GB</td>
-                                    <td>Sierra</td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning"><i class="fas fa-pencil-alt d-xl-flex justify-content-xl-center align-items-xl-center"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-warning"><i class="fas fa-exclamation-triangle d-xl-flex justify-content-xl-center align-items-xl-center"></i></button>
-                                    </td>
-
-                            </tbody>
-                        </table>
+                                </thead>";
+                                echo "<tbody>";
+                                while ($row = mysqli_fetch_array($select_user_device_query)) {
+                                    echo "<tr>";
+                                    echo "<td>" . $row['d_os'] . "</td>";
+                                    echo "<td>" . $row['d_ram'] . "</td>";
+                                    echo "<td>" . $row['d_cpu'] . "</td>";
+                                    echo "<td>" . $row['d_storage'] . "</td>";
+                                    echo "<td><a class='btn btn-warning' role='button' type='submit' name='device_id' value= " . $row['device_id'] . "><i class='fas fa-exclamation-triangle d-xl-flex justify-content-xl-center align-items-xl-center'></i></a></td>";
+                                    echo "</tr>";
+                                }
+                                echo "</tbody></table>";
+                                ?>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </form>
                 <div class="row " style="padding-top: 25px;">
                     <div class="col d-xl-flex justify-content-xl-center"><a href="createDevice.php"><button class="button" type="button" data-hover="CONFIRM ?"><span>CREATE DEVICE</span></button></a></div>
                 </div>

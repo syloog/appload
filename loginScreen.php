@@ -66,13 +66,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         <div class="form-check"><input class="form-check-input" type="checkbox" id="rememberMe" name="remember" <?php if (isset($_COOKIE["member_login"])) { ?> checked <?php } ?>><label class="form-check-label" for="rememberMe" >Remember me</label></div>
                     </div>
                     <div class="form-row">
-                        <div class="col d-xl-flex justify-content-xl-center" style="padding-top: 11px;"><button class="btn btn-primary btn-block btn-lg btn-signin" type="submit" style="background-color: #af7505;">Sign in</button></div>
+                        <div class="col d-xl-flex justify-content-xl-center" style="padding-top: 11px;"><button name="quickLogin" value="quickLogin" class="btn btn-primary btn-block btn-lg btn-signin" type="submit" style="background-color: #af7505;">Sign in</button></div>
                     </div>
                     <div class="form-row" <?php if (isset($_COOKIE["member_login"])) { ?> visible <?php } else { ?> hidden <?php } ?>>
-                        <input class="form-control" type="text" id="username" hidden name="newLogin" value="<?php if (isset($_COOKIE["member_login"])) {
-                                                                                                                                            echo 'newLogin';
-                                                                                                                                        }?>">
-                        <div class="col d-xl-flex justify-content-xl-center" style="padding-top: 11px;"><button class="btn btn-primary btn-block btn-lg btn-signin" type="submit" style="background-color: #af7505;">Login as New</button></div>
+                        <div class="col d-xl-flex justify-content-xl-center" style="padding-top: 11px;"><button name="newLogin" value="newLogin" class="btn btn-primary btn-block btn-lg btn-signin" type="submit" style="background-color: #af7505;">Login as New</button></div>
                     </div>
                 </form>
                 <div class="col text-center mx-auto" style="margin: 20px;background-color: rgba(255,255,255,0.82);max-width: 650px;"><a class="forgot-password" href="#">Forgot your password?</a></div>
