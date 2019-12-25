@@ -3,7 +3,7 @@
    session_start();
    
    $user_check = $_SESSION['u_username'];
-   
+
    $ses_sql = mysqli_query($db,"SELECT u_id, u_username FROM users WHERE u_username = '$user_check'");
    
    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);

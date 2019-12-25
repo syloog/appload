@@ -7,7 +7,7 @@ $username = $password = $userType = $u_id = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-   if ($_POST["newLogin"] == "newLogin" && isset($_COOKIE["member_login"])) {
+   if ($_POST["newLogin"] == "newLogin") {
       setcookie("member_login", "");
       header("location: loginScreen.php");
    } else {

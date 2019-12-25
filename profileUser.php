@@ -131,7 +131,7 @@ include('session.php');
                                 <div class="row">
                                     <div class="col">
                                         <div class="row">
-                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="deviceList.html" style="background-color: rgb(146,32,117);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Manage Devices</a></div>
+                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="deviceList.php" style="background-color: rgb(146,32,117);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Manage Devices</a></div>
                                         </div>
                                         <div class="row">
                                             <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="profileUserEdit.php" style="margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;background-color: rgb(17,138,255);">Manage Account</a></div>
