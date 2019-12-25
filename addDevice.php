@@ -3,6 +3,7 @@
 require("config.php");
 session_start();
 $errors = array();
+$success = array();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -41,6 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $insert_regular_user_device_query = "INSERT INTO regularuserdevice VALUES('" . $device_id . "', '" . $u_id . "')";
             if ((mysqli_query($db, $insert_regular_user_device_query))) {
+               array_push($success, "Device created.");
+               $_SESSION["success"] = $success;
                header("location: deviceList.php");
             } else {
                array_push($errors, "Cannot create device.");
@@ -61,6 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                $insert_regular_user_device_query = "INSERT INTO regularuserdevice VALUES('" . $device_id . "', '" . $u_id . "')";
                if ((mysqli_query($db, $insert_regular_user_device_query))) {
+                  array_push($success, "Device created.");
+                  $_SESSION["success"] = $success;
                   header("location: deviceList.php");
                } else {
                   array_push($errors, "Cannot create device.");

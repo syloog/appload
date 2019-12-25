@@ -38,7 +38,7 @@ include('session.php');
 
 <body>
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);background-size: cover;">
-        <div class="container"><a class="navbar-brand logo" href="home.html">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand logo" href="index.php">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item" role="presentation"><a class="nav-link" <?php
@@ -101,11 +101,19 @@ include('session.php');
                     }
                     unset($_SESSION["error"]);
                 }
+                else if (isset($_SESSION["success"])) {
+                    foreach ($_SESSION["success"] as $success) {
+                        echo "<div class='row' style='padding-left:35px;padding-right:35px'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-success' role='alert' style='width:100%;padding-left: 35px'><span><strong> Success: </strong>";
+                        echo $success;
+                        echo " </span></div></div></div>";
+                    }
+                    unset($_SESSION["success"]);
+                }
                 ?>
                 <form method='post' action='deleteDevice.php'>
                     <div class="row">
                         <div class="col">
-                            <div class="table-responsive" style="padding-left: 35px">
+                            <div class="table-responsive" style="padding: 35px">
                                 <?php
                                 $u_id = $_SESSION["u_id"];
                                 $select_user_device_query = mysqli_query($db, "SELECT device_id, d_os, d_ram, d_cpu, d_storage
