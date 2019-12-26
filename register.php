@@ -41,28 +41,29 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 </head>
 
 <body>
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-size: cover;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
         <div class="container"><a class="navbar-brand logo" href="index.php">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse"
+                id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item" role="presentation"><a class="nav-link visible" href="loginScreen.php">Login</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <main class="page contact-page" style="background-color: #0c0f18;">
-        <section class="portfolio-block contact" style="background-color: #0c0f18;">
-            <div class="container border rounded border-dark" style="padding: 30px;background-color: #1a2137;">
+    <main class="page contact-page">
+        <section class="portfolio-block contact">
+            <div class="container">
                 <div class="heading">
-                    <h2 style="color: rgb(255,255,255);">please Choose an account type to sıgn up</h2>
+                    <h2>please Choose an account type to sign up</h2>
                 </div>
-                <div class="col" style="padding: 0px;">
-                    <div class="card border-dark border rounded" style="padding: 80px;background-color: rgb(12,15,24);">
-                        <div class="row">
-                            <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><a href="registerUser.php"><button class="btn btn-primary border rounded border-dark" type="button" style="background-color: rgb(200,129,1);margin-bottom: 0px;">Regular User</button></a></div>
-                            <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><a href="registerDev.php"><button class="btn btn-primary border rounded border-dark" type="button" style="background-color: rgb(120,14,255);margin-bottom: 0px;">Developer</button></a></div>
-                            <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><a href="registerEditor.php"><button class="btn btn-primary border rounded border-dark" type="button" style="background-color: rgb(0,64,106);margin-bottom: 0px;">Editor</button></a></div>
-                        </div>
+            </div>
+            <div class="container" style="padding: 30px;background-color: #e7e7e7;">
+                <div class="col">
+                    <div class="row">
+                        <div class="col d-flex d-lg-flex d-xl-flex justify-content-center justify-content-lg-center justify-content-xl-center align-items-xl-center"><a href="registerUser.php"><button class="btn btn-primary border rounded" type="button" style="background-color: rgb(200,129,1);">Regular User</button></a></div>
+                        <div class="col d-flex d-sm-flex justify-content-center justify-content-sm-center"><a href="registerDev.php"><button class="btn btn-primary border rounded" type="button" style="background-color: rgb(120,14,255);" href="registerDev.php">Developer</button></a></div>
+                        <div class="col d-flex justify-content-center"><a href="registerEditor.php"><button class="btn btn-primary border rounded" type="button" style="background-color: rgb(0,64,106);" href="registerEditor.php">Editor</button></a></div>
                     </div>
                 </div>
             </div>

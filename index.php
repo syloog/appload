@@ -35,25 +35,27 @@ session_start();
 </head>
 
 <body style="background-color: rgb(16,16,16);">
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-size: cover;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
         <div class="container"><a class="navbar-brand logo" href="index.php">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item" role="presentation"><a class="nav-link" <?php
                                                                                     if (isset($_SESSION["loggedin"])) {
-                                                                                        if ($_SESSION["u_type"] == "regular") {
+                                                                                        if($_SESSION["u_type"] == "regular") {
                                                                                             echo "href='profileUser.php'";
-                                                                                        } else if ($_SESSION["u_type"] == "developer") {
+                                                                                        }
+                                                                                        else if ($_SESSION["u_type"] == "developer") {
                                                                                             echo "href='profileDev.php'";
-                                                                                        } else if ($_SESSION["u_type"] == "editor") {
+                                                                                        }
+                                                                                        else if ($_SESSION["u_type"] == "editor") {
                                                                                             echo "href='profileEditor.php'";
                                                                                         }
                                                                                     ?>> My Profile</a></li>
-                <?php
+                                                                                    <?php 
                                                                                     } else {
                                                                                         echo "></a></li>";
                                                                                     }
-                ?>
+                                                                                    ?>
                 <li class="nav-item" role="presentation"><a class="nav-link" <?php
                                                                                 if (isset($_SESSION["loggedin"])) {
                                                                                 ?> href='forum.php'>Forum</a></li>
@@ -83,9 +85,9 @@ session_start();
         </div>
     </nav>
     <main class="page contact-page">
-        <section class="portfolio-block contact">
+        <section class="portfolio-block contact" style="margin: 150px;">
             <div class="container">
-                <div class="row">
+            <div class="row">
                     <div class="col d-xl-flex justify-content-xl-center" style="padding:5px;">
                         <?php
                         if (isset($_SESSION["error"])) {

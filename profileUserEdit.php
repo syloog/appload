@@ -36,49 +36,14 @@ include('session.php');
 </head>
 
 <body>
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-size: cover;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
         <div class="container"><a class="navbar-brand logo" href="index.php">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link" <?php
-                                                                                    if (isset($_SESSION["loggedin"])) {
-                                                                                        if ($_SESSION["u_type"] == "regular") {
-                                                                                            echo "href='profileUser.php'";
-                                                                                        } else if ($_SESSION["u_type"] == "developer") {
-                                                                                            echo "href='profileDev.php'";
-                                                                                        } else if ($_SESSION["u_type"] == "editor") {
-                                                                                            echo "href='profileEditor.php'";
-                                                                                        }
-                                                                                    ?>> My Profile</a></li>
-                <?php
-                                                                                    } else {
-                                                                                        echo "></a></li>";
-                                                                                    }
-                ?>
-                <li class="nav-item" role="presentation"><a class="nav-link" <?php
-                                                                                if (isset($_SESSION["loggedin"])) {
-                                                                                ?> href='forum.php'>Forum</a></li>
-            <?php
-                                                                                } else {
-                                                                                    echo "></a></li>";
-                                                                                }
-            ?>
-            <li class="nav-item" role="presentation"><a class="nav-link" <?php
-                                                                            if (isset($_SESSION["loggedin"])) {
-                                                                            ?> href='store.php'>Store</a></li>
-        <?php
-                                                                            } else {
-                                                                                echo "></a></li>";
-                                                                            }
-        ?>
-        <li class="nav-item" role="presentation"><a class="nav-link" <?php
-                                                                        if (isset($_SESSION["loggedin"])) {
-                                                                        ?> href='logout.php'>Logout</a></li>
-    <?php
-                                                                        } else {
-                                                                            echo "href='loginScreen.php'>Login</a></li>";
-                                                                        }
-    ?>
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="profileUser.php">My Profile</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="forum.php">Forum</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="store.php">Store</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -98,27 +63,20 @@ include('session.php');
                         <form class="shadow-none" method="post" action="profileEdit.php">
                             <h2 class="text-center border rounded border-dark" style="padding: 16px;color: rgb(255,255,255);background-color: #0c0f18;letter-spacing: 0px;font-family: 'Titillium Web', sans-serif;"><strong>Manage your profile.</strong></h2>
                             <div class="form-group">
-                                <?php
-                                if (isset($_SESSION["error"])) {
-                                    foreach ($_SESSION["error"] as $error) {
-                                        echo "<div class='row' style='padding-left: 10px; padding-right:10px'><div class='col'><div class='alert alert-danger' role='alert' style='width:100%'><span><strong> Warning: </strong>";
-                                        echo $error;
-                                        echo " </span></div></div></div>";
-                                    }
-                                    unset($_SESSION["error"]);
-                                }
-                                ?>
                                 <div class="form-row" style="padding: 10px;">
-                                    <div class="col"><input class="form-control" type="text" placeholder="Name" name="name" ></div>
+                                    <div class="col"><input class="form-control" type="text" placeholder="Name" name="name" required=""></div>
                                 </div>
                                 <div class="form-row" style="padding: 10px;">
-                                    <div class="col"><input class="form-control" type="text" placeholder="Age" name="age" ></div>
+                                    <div class="col"><input class="form-control" type="text" placeholder="Age" name="age" required=""></div>
                                 </div>
                                 <div class="form-row" style="padding: 10px;">
-                                    <div class="col"><input class="form-control" type="password" placeholder="Password" name="password_1" ></div>
+                                    <div class="col"><input class="form-control" type="text" placeholder="Email" name="email" required=""></div>
                                 </div>
                                 <div class="form-row" style="padding: 10px;">
-                                    <div class="col"><input class="form-control" type="password" placeholder="Password (Repeat)" name="password_2" ></div>
+                                    <div class="col"><input class="form-control" type="password" placeholder="Password" name="password_1" required=""></div>
+                                </div>
+                                <div class="form-row" style="padding: 10px;">
+                                    <div class="col"><input class="form-control" type="password" placeholder="Password (Repeat)" name="password_2" required=""></div>
                                 </div>
                                 <div class="form-row" style="padding: 10px;">
                                     <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><button class="btn btn-primary btn-block border rounded-0 border-dark" type="submit" style="background-color: rgb(12,15,24);margin: 0px;">Apply Changes</button></div>

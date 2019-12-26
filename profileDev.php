@@ -97,7 +97,10 @@ include('session.php');
                             unset($_SESSION["error"]);
                         }
                         ?>
-                        <div class="avatar"></div>
+                        <div class="avatar">
+                          
+                            <img src="./images/profile_photos/<?php echo $profilePicture;  ?>" height="170px" width="170px" >
+                        </div>
                         <div class="about-me">
                             <?php
                             echo "<p class='border rounded border-dark' style='background-color: #feba2b;font-weight: normal;'> Welcome " . $_SESSION["u_username"] . "</p>";
@@ -129,7 +132,7 @@ include('session.php');
                                 <div class="row">
                                     <div class="col">
                                         <div class="row">
-                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="appRequest.php" style="background-color: #141414;;margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Upload an App</a></div>
+                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="appUpload1.php" style="background-color: #141414;;margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Upload an App</a></div>
                                         </div>
                                         <div class="row">
                                             <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="devApps.php" style="background-color: rgb(58,21,126);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">My Apps</a></div>

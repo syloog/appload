@@ -1,5 +1,43 @@
 <?php
-include('session.php');
+    include('session.php');
+    if(isset($_POST["changePhoto"]))
+    {
+         if ($_FILES['profilePhoto']['error'] === UPLOAD_ERR_OK) {
+             $path = $_FILES['profilePhoto']['name'];
+             $ext = pathinfo($path, PATHINFO_EXTENSION); 
+             $marks = array("png", "jpg", "jpeg");
+             if(in_array($ext,$marks))
+             {
+                $tempName = $_FILES['profilePhoto']['tmp_name'];
+                $name =     $_FILES['profilePhoto']['name'];
+                move_uploaded_file($tempName, "./images/profile_photos/$name" );
+                 #    $image_base64 = base64_encode(file_get_contents($_FILES['profilePhoto']['tmp_name']) );
+                #$image = 'data:image/'.$ext.';base64,'.$image_base64; 
+                #echo $image_base64;
+                 #$image = addslashes(file_get_contents($_FILES["profilePhoto"]["tmp_name"]));
+                 $id = $_SESSION["u_id"]; 
+                if(empty($name))
+                {
+                    $name = 'default_pic';
+                }
+                $query = "update users set u_picture = '$name' where u_id = '$id';";
+             
+                 if( mysqli_query($db,$query) || die(mysqli_error($db)))
+                {
+                     echo "basarılı";
+                }
+                 else
+                {
+                     echo "basarısız";
+                }
+            }
+            else
+            {
+                   echo '<script type="text/javascript">alert("the photo should be png jpg or jpeg"); </script>';
+            }
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -88,10 +126,14 @@ include('session.php');
             <div class="container border rounded shadow" style="padding: 50px;background-color: #0c0f18;">
                 <div class="row justify-content-center align-items-center" style="background-image: url('assets/img/thumb-1920-892291.jpg');">
                     <div class="col-auto relative" style="padding: 30px;">
-                        <div class="container border rounded border-dark shadow-lg" style="background-color: #0c0f18;padding: 20px;">
+                        <div class="container border rounded border-dark shadow-lg" style="background-color: #ffffff;padding: 20px;">
                             <div class="d-xl-flex justify-content-xl-end avatar">
                                 <div class="avatar-bg center" style="width: 160px;height: 160px;"></div>
-                            </div><input type="file" class="form-control" name="avatar-file" style="font-size: 10px;" />
+                            </div>
+                            <form  class="shadow-none"action="profileDeveloperEdit.php" method="post" enctype="multipart/form-data">
+                                <input type="file" class="form-control" name="profilePhoto" style="font-size: 10px;" />
+                                <button class="button" name="changePhoto" type="submit" ><span>Change profile photo</span></button>
+                            </form>
                         </div>
                     </div>
                     <div class="col-auto col-xl-6">

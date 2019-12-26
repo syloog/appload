@@ -37,15 +37,15 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 </head>
 
 <body style="background-color: rgb(255,255,255);">
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-size: cover;background-image: url('assets/img/Rectangle 1.png');">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle 1.png&quot;);">
         <div class="container"><a class="navbar-brand logo" href="index.php">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         </div>
     </nav>
-    <main class="page contact-page" style="background-color: #0c0f18;">
+    <main class="page contact-page">
         <section class="portfolio-block contact" style="padding-top:50px;">
             <div class="container">
                 <div class="heading">
-                    <h2 style="color: #ffffff;">Please login to access our store</h2>
+                    <h2>Please login to access our store</h2>
                 </div>
             </div>
             <div class="login-card" style="background-image:url(&quot;assets/img/thumb-1920-783633.jpg&quot;);">
@@ -58,18 +58,13 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
                         unset($_SESSION["error"]);
                     }
                     ?>
-                    <input class="form-control" type="text" id="username" required="" placeholder="Username" name="username" value="<?php if (isset($_COOKIE["member_login"])) {
-                                                                                                                                        echo $_COOKIE["member_login"];
-                                                                                                                                    } ?>">
-                    <input class="form-control" type="password" id="password" placeholder="Password" name="password" <?php if (isset($_COOKIE["member_login"])) { ?> hidden <?php } else { ?> visible required="" <?php } ?>>
+                    <input class="form-control" type="text" id="username" required="" placeholder="Username" name="username">
+                    <input class="form-control" type="password" id="password" required="" placeholder="Password" name="password">
                     <div class="d-xl-flex justify-content-xl-center checkbox">
-                        <div class="form-check"><input class="form-check-input" type="checkbox" id="rememberMe" name="remember" <?php if (isset($_COOKIE["member_login"])) { ?> checked <?php } ?>><label class="form-check-label" for="rememberMe" >Remember me</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Remember me</label></div>
                     </div>
                     <div class="form-row">
-                        <div class="col d-xl-flex justify-content-xl-center" style="padding-top: 11px;"><button name="quickLogin" value="quickLogin" class="btn btn-primary btn-block btn-lg btn-signin" type="submit" style="background-color: #af7505;">Sign in</button></div>
-                    </div>
-                    <div class="form-row" <?php if (isset($_COOKIE["member_login"])) { ?> visible <?php } else { ?> hidden <?php } ?>>
-                        <div class="col d-xl-flex justify-content-xl-center" style="padding-top: 11px;"><button name="newLogin" value="newLogin" class="btn btn-primary btn-block btn-lg btn-signin" type="submit" style="background-color: #af7505;">Login as New</button></div>
+                        <div class="col d-xl-flex justify-content-xl-center" style="padding-top: 11px;"><button class="btn btn-primary btn-block btn-lg btn-signin" type="submit" style="background-color: #af7505;">Sign in</button></div>
                     </div>
                 </form>
                 <div class="col text-center mx-auto" style="margin: 20px;background-color: rgba(255,255,255,0.82);max-width: 650px;"><a class="forgot-password" href="#">Forgot your password?</a></div>
