@@ -156,7 +156,7 @@ include("session.php");
                                                 $user_check_query = "SELECT u_name FROM users WHERE u_id = '" . $row["u_id"] . "'";
                                                 $result = mysqli_query($db, $user_check_query);
                                                 $user = mysqli_fetch_assoc($result);
-                                                echo "<tr><td><span class='text'>" . $row["post_date"] . "</span></td><td><span class='title'>" . $row["title"] . "</span></td><td><span class='text'>" . $user["u_name"] . "</span></td></tr>";
+                                                echo "<tr><td><span class='text'>" . $row["post_date"] . "</span></td><td><span class='title'><a style='color:#ffffff' href='posts.php?post_id=". $row["post_id"] ."&u_id=". $row["u_id"] ."'>" . $row["title"] . "</a></span></td><td><span class='text'>" . $user["u_name"] . "</span></td></tr>";
                                             }
                                             ?>
                                         </tbody>
