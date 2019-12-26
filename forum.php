@@ -130,6 +130,7 @@ include("session.php");
                                             <tr>
                                                 <th class="bg" style="width: 15%;min-width: 15%;max-width: 25%;background-color: #c78b01">Date</th>
                                                 <th class="bg" style="background-color: #c78b01">Title</th>
+                                                <th class="bg" style="width: 15%;min-width: 15%;max-width: 25%;background-color: #c78b01">Owner</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -140,18 +141,22 @@ include("session.php");
                                             } else {
                                                 $pageno = 1;
                                             }
-                                            $no_of_records_per_page = 4;
+                                            $no_of_records_per_page = 7;
                                             $offset = ($pageno - 1) * $no_of_records_per_page;
 
-                                            $total_pages_sql = "SELECT COUNT(*) FROM post";
+                                            $total_pages_sql = "SELECT COUNT(*) FROM sharesposts";
                                             $result = mysqli_query($db, $total_pages_sql);
                                             $total_rows = mysqli_fetch_array($result)[0];
                                             $total_pages = ceil($total_rows / $no_of_records_per_page);
 
-                                            $sql = "SELECT title, date(post_date) as post_date FROM post ORDER BY `post`.`post_date` DESC LIMIT $offset, $no_of_records_per_page";
-                                            $res_data = mysqli_query($db, $sql);
-                                            while ($row = mysqli_fetch_array($res_data)) {
-                                                echo "<tr><td><span class='text'>" . $row["post_date"] . "</span></td><td><span class='title'>" . $row["title"] . "</span></td></tr>";
+                                            $post_info_query = "SELECT u_id, post_id, title, date(post_date) as post_date FROM post INNER JOIN sharesposts USING (post_id) ORDER BY post.post_date DESC LIMIT $offset, $no_of_records_per_page";
+                                            $post_data = mysqli_query($db, $post_info_query);
+
+                                            while ($row = mysqli_fetch_array($post_data)) {
+                                                $user_check_query = "SELECT u_name FROM users WHERE u_id = '" . $row["u_id"] . "'";
+                                                $result = mysqli_query($db, $user_check_query);
+                                                $user = mysqli_fetch_assoc($result);
+                                                echo "<tr><td><span class='text'>" . $row["post_date"] . "</span></td><td><span class='title'>" . $row["title"] . "</span></td><td><span class='text'>" . $user["u_name"] . "</span></td></tr>";
                                             }
                                             ?>
                                         </tbody>
