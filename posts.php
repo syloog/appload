@@ -92,6 +92,9 @@ include("session.php");
                         $post_id = $_GET["post_id"];
                         $u_id = $_GET["u_id"];
 
+                        $user_post_view_query = "UPDATE sharesposts SET post_views = post_views + 1 WHERE post_id = '$post_id'";
+                        if (mysqli_query($db, $user_post_view_query) || die(mysqli_error($db)));
+
                         $post_info_query = "SELECT text, title, DATE(post_date) as post_date, TIME(post_date) as post_time FROM post WHERE post_id = '" . $post_id . "'";
                         $post_data = mysqli_query($db, $post_info_query);
                         $post_row = mysqli_fetch_array($post_data);
@@ -123,8 +126,7 @@ include("session.php");
                             $i++;
                         }
 
-                        echo "<div class='col-md-12 column' style='  padding: 30px;
-                        '>
+                        echo "<div class='col-md-12 column' style='padding: 30px;'>
                             <div class='panel panel-default'>
                                 <div class='panel-heading'>
                                     <section class='panel-title'><time class='pull-right'><i class='fa fa-calendar'></i> " . $post_row["post_date"] . " , <i class='fa fa-clock-o'></i>" . $post_row["post_time"] . "
@@ -139,11 +141,11 @@ include("session.php");
                                     </section>
                                     <section id='user-description' class='col-md-3 '>
                                         <section class='well'>
-                                            <div class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cricle'></i>" . $user_row["u_name"] . "<span class='caret'></span></a>
-                                                <ul class='dropdown-menu'>
-                                                    <li><a href='#'><i class='fa fa-user'></i> See profile</a></li>
+                                            <div class='dropdown' ><a style='color:#c29801' href='#' class='dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cricle'></i>" . $user_row["u_name"] . "<span class='caret'></span></a>
+                                                <ul class='dropdown-menu border-white' style='background-color: #343a40;padding-left:5px'>
+                                                    <li><a style='color:#c29801' href='#'><i class='fa fa-user'></i> See profile</a></li>
                                                     <li class='divider'></li>
-                                                    <li><a href='#'><i class='fa fa-cogs'></i> Manage User (for adminstrator)</a></li>
+                                                    <li><a style='color:#c29801' href='#'><i class='fa fa-cogs'></i> Manage User (for adminstrator)</a></li>
                                                 </ul>
                                             </div>
                                             <dl class='dl-horizontal'><dt>Joined Date:</dt>
@@ -165,13 +167,19 @@ include("session.php");
                         } else {
                             echo "hidden";
                         };
-                        echo "></i><a href='#'";
+                        echo "></i><a style='color:#c29801' href='#'";
                         if ($_SESSION["u_id"] == $u_id) {
                             echo "visible";
                         } else {
                             echo "hidden";
                         };
-                        echo "> Edit Post | </a><i class='fa fa-close '></i><a href='#'";
+                        echo "> Edit Post | </a><i class='fa fa-close'";
+                        if ($_SESSION["u_id"] == $u_id || $_SESSION["u_type"] == "editor") {
+                            echo "visible";
+                        } else {
+                            echo "hidden";
+                        };
+                        echo "></i><a style='color:#c29801' href='#'";
                         if ($_SESSION["u_id"] == $u_id || $_SESSION["u_type"] == "editor") {
                             echo "visible";
                         } else {
