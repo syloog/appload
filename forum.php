@@ -37,7 +37,7 @@ include("session.php");
 
 <body>
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);background-size: cover;">
-        <div class="container"><a class="navbar-brand logo" href="home.html">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand logo" href="index.php">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item" role="presentation"><a class="nav-link" <?php
@@ -57,7 +57,7 @@ include("session.php");
                 ?>
                 <li class="nav-item" role="presentation"><a class="nav-link" <?php
                                                                                 if (isset($_SESSION["loggedin"])) {
-                                                                                ?> href='forum.php'>Forum</a></li>
+                                                                                ?> href='forum.php?sort=lastest&pageno=1'>Forum</a></li>
             <?php
                                                                                 } else {
                                                                                     echo "></a></li>";
@@ -122,7 +122,11 @@ include("session.php");
                             <li class="nav-item"><a role="tab" data-toggle="tab" class="nav-link" href="#tab-2" style="font-weight:bold"><strong>Popular</strong></a></li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane active" role="tabpanel" id="tab-1">
+                            <div class="tab-pane <?php
+                                                    if ($_GET['sort'] == "lastest") {
+                                                        echo "active";
+                                                    }
+                                                    ?>" role="tabpanel" id="tab-1">
                                 <div class="table-responsive table-borderless border rounded border-dark" style="background-color: #343a40;">
                                     <table class="table table-bordered table-dark">
                                         <thead>
@@ -135,11 +139,12 @@ include("session.php");
                                         <tbody>
                                             <?php
 
-                                            if (isset($_GET['pageno'])) {
+                                            if (isset($_GET['pageno']) && $_GET['sort'] == "lastest") {
                                                 $pageno = $_GET['pageno'];
                                             } else {
                                                 $pageno = 1;
                                             }
+
                                             $no_of_records_per_page = 7;
                                             $offset = ($pageno - 1) * $no_of_records_per_page;
 
@@ -167,14 +172,14 @@ include("session.php");
                                             if ($pageno <= 1) {
                                                 echo '#';
                                             } else {
-                                                echo "?pageno=" . ($pageno - 1);
+                                                echo "?sort=lastest&pageno=" . ($pageno - 1);
                                             }
                                             echo "'aria-label='Previous'><span aria-hidden='true'>«</span></a></li>";
                                             $j = $pageno;
                                             for ($i = 1; $i <= 3; $i++) {
                                                 if ($j <= $total_pages) {
                                                     echo "<li class='page-item'><a class='page-link' href='";
-                                                    echo "?pageno=" . $j;
+                                                    echo "?sort=lastest&pageno=" . $j;
                                                     echo "'>" . $j . "</a></li>";
                                                     $j++;
                                                 }
@@ -183,7 +188,7 @@ include("session.php");
                                             if ($pageno >= $total_pages) {
                                                 echo '#';
                                             } else {
-                                                echo "?pageno=" . ($pageno + 1);
+                                                echo "?sort=lastest&pageno=" . ($pageno + 1);
                                             }
                                             echo "' aria-label='Next'><span aria-hidden='true'>»</span></a></li>";
                                             ?>
@@ -191,7 +196,11 @@ include("session.php");
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane" role="tabpanel" id="tab-2">
+                            <div class="tab-pane <?php
+                                                    if ($_GET['sort'] == "popular") {
+                                                        echo "active";
+                                                    }
+                                                    ?>" role="tabpanel" id="tab-2">
                                 <div class="table-responsive table-borderless border rounded border-dark" style="background-color: #343a40;">
                                     <table class="table table-bordered table-dark">
                                         <thead>
@@ -204,11 +213,12 @@ include("session.php");
                                         <tbody>
                                             <?php
 
-                                            if (isset($_GET['pageno'])) {
+                                            if (isset($_GET['pageno']) && $_GET['sort'] == "popular") {
                                                 $pageno = $_GET['pageno'];
                                             } else {
                                                 $pageno = 1;
                                             }
+
                                             $no_of_records_per_page = 7;
                                             $offset = ($pageno - 1) * $no_of_records_per_page;
 
@@ -236,14 +246,14 @@ include("session.php");
                                             if ($pageno <= 1) {
                                                 echo '#';
                                             } else {
-                                                echo "?pageno=" . ($pageno - 1);
+                                                echo "?sort=popular&pageno=" . ($pageno - 1);
                                             }
                                             echo "'aria-label='Previous'><span aria-hidden='true'>«</span></a></li>";
                                             $j = $pageno;
                                             for ($i = 1; $i <= 3; $i++) {
                                                 if ($j <= $total_pages) {
                                                     echo "<li class='page-item'><a class='page-link' href='";
-                                                    echo "?pageno=" . $j;
+                                                    echo "?sort=popular&pageno=" . $j;
                                                     echo "'>" . $j . "</a></li>";
                                                     $j++;
                                                 }
@@ -252,7 +262,7 @@ include("session.php");
                                             if ($pageno >= $total_pages) {
                                                 echo '#';
                                             } else {
-                                                echo "?pageno=" . ($pageno + 1);
+                                                echo "?sort=popular&pageno=" . ($pageno + 1);
                                             }
                                             echo "' aria-label='Next'><span aria-hidden='true'>»</span></a></li>";
                                             ?>

@@ -57,7 +57,7 @@ include("session.php");
                 ?>
                 <li class="nav-item" role="presentation"><a class="nav-link" <?php
                                                                                 if (isset($_SESSION["loggedin"])) {
-                                                                                ?> href='forum.php'>Forum</a></li>
+                                                                                ?> href='forum.php?sort=lastest&pageno=1'>Forum</a></li>
             <?php
                                                                                 } else {
                                                                                     echo "></a></li>";
