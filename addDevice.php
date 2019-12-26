@@ -29,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          $deviceRow = mysqli_fetch_array($result_query_device);
 
          if ($countDevice == 0) {
-            $device_id = rand(10000000, 20000000);
 
             $insert_device_query = "INSERT INTO device VALUES('" . $device_id . "', '" . $osArea . "', '" . $ramArea . "', '" . $cpuArea . "', '" . $storageArea . "')";
 

@@ -94,13 +94,30 @@ include("session.php");
                             </div>
                         </div>
                     </div>
-                    <div class="col-2" style="width: 100%;height: 100%;padding: 0;"><a class="btn btn-dark border rounded-0" role="button" style="font-family: 'Titillium Web', sans-serif;width: 100%;height: 100%;margin-left: 0;margin-bottom: 0;margin-right: 0;margin-top: 0;color: rgb(255,255,255);" href="createPost.html">Create a Post</a></div>
+                    <div class="col-2" style="width: 100%;height: 100%;padding: 0;"><a class="btn btn-dark border rounded-0" role="button" style="font-family: 'Titillium Web', sans-serif;width: 100%;height: 100%;margin-left: 0;margin-bottom: 0;margin-right: 0;margin-top: 0;color: rgb(255,255,255);" href="createPost.php">Create a Post</a></div>
                 </div>
             </div>
             <div class="container">
+                <?php
+                if (isset($_SESSION["error"])) {
+                    foreach ($_SESSION["error"] as $error) {
+                        echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-danger' role='alert' style='width:100%'><span><strong> Alert </strong>";
+                        echo $error;
+                        echo " </span></div></div></div>";
+                    }
+                    unset($_SESSION["error"]);
+                } else if (isset($_SESSION["success"])) {
+                    foreach ($_SESSION["success"] as $success) {
+                        echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-success' role='alert' style='width:100%;padding-left: 35px'><span><strong> Success: </strong>";
+                        echo $success;
+                        echo " </span></div></div></div>";
+                    }
+                    unset($_SESSION["success"]);
+                }
+                ?>
                 <div class="row">
                     <div class="col-md-12" style="padding:0px">
-                        <ul class="nav link border nav-fill rounded border-dark" style="background-color: #dc3545;padding-bottom: 0px;">
+                        <ul class="nav link border nav-fill rounded border-dark" style="background-color: #c78b01;padding-bottom: 0px;">
                             <li class="nav-item"><a role="tab" data-toggle="tab" class="nav-link" href="#tab-1" style="font-weight:bold"><strong>Lastest</strong></a></li>
                             <li class="nav-item"><a role="tab" data-toggle="tab" class="nav-link" href="#tab-2" style="font-weight:bold"><strong>Popular</strong></a></li>
                             <li class="nav-item"><a role="tab" data-toggle="tab" class="nav-link" href="#tab-3" style="font-weight:bold"><strong>All</strong></a></li>
@@ -111,8 +128,8 @@ include("session.php");
                                     <table class="table table-bordered table-dark">
                                         <thead>
                                             <tr>
-                                                <th class="bg-danger" style="width: 15%;min-width: 15%;max-width: 25%;">Date</th>
-                                                <th class="bg-danger">Title</th>
+                                                <th class="bg" style="width: 15%;min-width: 15%;max-width: 25%;background-color: #c78b01">Date</th>
+                                                <th class="bg" style="background-color: #c78b01">Title</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -123,7 +140,7 @@ include("session.php");
                                             } else {
                                                 $pageno = 1;
                                             }
-                                            $no_of_records_per_page = 5;
+                                            $no_of_records_per_page = 4;
                                             $offset = ($pageno - 1) * $no_of_records_per_page;
 
                                             $total_pages_sql = "SELECT COUNT(*) FROM post";
