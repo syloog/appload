@@ -124,20 +124,13 @@ include('session.php');
                             <div class="col my-auto">
                                 <div class="row">
                                     <div class="col">
+
                                         <div class="row">
-                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="appRequest.php" style="background-color: #141414;;margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Upload
-                                                    an App</a></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="devApps.php" style="background-color: rgb(58,21,126);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">My
+                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="appList.php" style="background-color: rgb(58,21,126);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Manage
                                                     Apps</a></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="" style="background-color: rgb(146,32,117);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">My
-                                                    Website</a></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="profileDeveloperEdit.php" style="margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;background-color: rgb(17,138,255);">Manage
+                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="profileEditorEdit.php" style="margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;background-color: rgb(17,138,255);">Manage
                                                     Account</a></div>
                                         </div>
                                         <div class="row">

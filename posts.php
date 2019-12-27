@@ -84,7 +84,7 @@ include("session.php");
         </div>
     </nav>
     <main class="page contact-page" style="background-color: #0c0f18;">
-        <section class="portfolio-block contact">
+        <section class="portfolio-block contact" style="padding-bottom:15px;">
             <div class="container border rounded" style="background-color: #343a40;color: #ffffff;">
                 <div class="row clearfix">
                     <?php
@@ -189,13 +189,171 @@ include("session.php");
                                     </div>
                                 </div>
                             </div>
+                        </div></div></section><section class='portfolio-block contact' style='padding:0px;'><div class='container border rounded' style='background-color: #343a40;color: #ffffff;'>";
+
+
+                        if (isset($_GET['pageno'])) {
+                            $pageno = $_GET['pageno'];
+                        } else {
+                            $pageno = 1;
+                        }
+
+                        $no_of_answers_per_page = 5;
+                        $offset = ($pageno - 1) * $no_of_answers_per_page;
+
+                        $total_answers_sql = "SELECT COUNT(*) FROM answersposts WHERE post_id = '" . $post_id . "'";
+                        $result = mysqli_query($db, $total_answers_sql);
+                        $total_rows = mysqli_fetch_array($result)[0];
+                        $total_pages = ceil($total_rows / $no_of_answers_per_page);
+
+                        $post_answers_info_query = "SELECT u_id, text, DATE(post_date) as post_date, TIME(post_date) as post_time FROM answersposts WHERE post_id = '" . $post_id . "' ORDER BY UNIX_TIMESTAMP(post_date) ASC LIMIT $offset, $no_of_answers_per_page";
+                        $post_answers_data = mysqli_query($db, $post_answers_info_query);
+
+                        while ($post_row = mysqli_fetch_array($post_answers_data)) {
+                            $user_info_query = "SELECT u_name, u_age, DATE(u_signdate) as u_signdate FROM users WHERE u_id = '" . $post_row["u_id"] . "'";
+                            $user_data = mysqli_query($db, $user_info_query);
+                            $user_row = mysqli_fetch_array($user_data);
+
+                            $userType;
+                            $check_queries = array();
+                            $check_queries[0] = "SELECT u_id FROM regularuser WHERE u_id = '" . $post_row["u_id"] . "'";
+                            $check_queries[1] = "SELECT u_id FROM developer WHERE u_id = '" .$post_row["u_id"] . "'";
+                            $check_queries[2] = "SELECT u_id FROM editor WHERE u_id = '" .$post_row["u_id"] . "'";
+                            $i = 0;
+
+                            foreach ($check_queries as $query) {
+                                $result = mysqli_query($db, $query);
+                                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+                                $count = mysqli_num_rows($result);
+
+                                if ($count == 1 && $i == 0) {
+                                    $userType = "regular";
+                                } else if ($count == 1 && $i == 1) {
+                                    $userType = "developer";
+                                } else if ($count == 1 && $i == 2) {
+                                    $userType = "editor";
+                                }
+                                $i++;
+                            }
+
+                            echo "<div class='col-md-12 column' style='padding: 30px;'>
+                            <div class='panel panel-default'>
+                                <div class='panel-heading'>
+                                    <section class='panel-title'><time class='pull-right'><i class='fa fa-calendar'></i> " . $post_row["post_date"] . " , <i class='fa fa-clock-o'></i>" . $post_row["post_time"] . "
+                                              </time>
+                                        <section class='pull-left' id='id'><abbr title='count of posts in this topic'>#1</abbr></section>
+                                    </section>
+                                </div>
+                                <section class='row panel-body'>
+                                    <section class='col-md-9'>
+                                        <hr />" . $post_row["text"] . "
+                                    </section>
+                                    <section id='user-description' class='col-md-3 '>
+                                        <section class='well'>
+                                            <div class='dropdown' ><a style='color:#c29801' href='#' class='dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cricle'></i>" . $user_row["u_name"] . "<span class='caret'></span></a>
+                                                <ul class='dropdown-menu border-white' style='background-color: #343a40;padding-left:5px'>
+                                                    <li><a style='color:#c29801' href='#'><i class='fa fa-user'></i> See profile</a></li>
+                                                    <li class='divider'></li>
+                                                    <li><a style='color:#c29801' href='#'><i class='fa fa-cogs'></i> Manage User (for adminstrator)</a></li>
+                                                </ul>
+                                            </div>
+                                            <dl class='dl-horizontal'><dt>Joined Date:</dt>
+                                                <dd>" . $user_row["u_signdate"] . "</dd><dt>Age:</dt>
+                                                <dd>" . $user_row["u_age"] . "</dd><dt>User:</dt>
+                                                <dd class = 'text-capitalize'>" . $userType . "</dd>
+                                            </dl>
+                                        </section>
+                                    </section>
+                                </section>
+                                <div class='panel-footer'>
+                                    <div class='row justify-content'>
+                                        <section class='col-md-2'></section>
+                                        <section id='thanks' class='col-md-7 pull-left'><small></small><br /></section>
+                                        <section class='col-md-4'";
+                            echo "><span class='fa-stack'></span><i class='fa fa-edit'";
+                            if ($_SESSION["u_id"] == $post_row["u_id"]) {
+                                echo "visible";
+                            } else {
+                                echo "hidden";
+                            };
+                            echo "></i><a style='color:#c29801' href='#'";
+                            if ($_SESSION["u_id"] == $post_row["u_id"]) {
+                                echo "visible";
+                            } else {
+                                echo "hidden";
+                            };
+                            echo "> Edit Post | </a><i class='fa fa-close'";
+                            if ($_SESSION["u_id"] == $post_row["u_id"] || $_SESSION["u_type"] == "editor") {
+                                echo "visible";
+                            } else {
+                                echo "hidden";
+                            };
+                            echo "></i><a style='color:#c29801' href='#'";
+                            if ($_SESSION["u_id"] == $post_row["u_id"] || $_SESSION["u_type"] == "editor") {
+                                echo "visible";
+                            } else {
+                                echo "hidden";
+                            };
+                            echo "> Delete Answer </a></section>
+                                    </div>
+                                </div>
+                            </div>
                         </div>";
+                        }
                     } else {
                         echo "Post cannot be found";
                     }
                     ?>
                 </div>
-                <div class="container"><textarea style="background-color: rgb(255,255,255);height: 150px;min-height: 50px;max-height: 200px;width: 60%;" placeholder="Write a reply"></textarea><button class="btn btn-primary bg-dark border rounded-0" type="button">Reply</button></div>
+                <div class="d-xl-flex justify-content-xl-center thread-list-head">
+                    <ul class="pagination">
+                        <?php
+                        echo "<li class='page-item'style='background-color: #343a40;'><a class='page-link' href='";
+                        if ($pageno <= 1) {
+                            echo '#';
+                        } else {
+                            echo "?post_id=" . $_GET["post_id"] . "&u_id=" . $_GET["u_id"];
+                            echo "&pageno=" . ($pageno - 1);
+                        }
+                        echo "'aria-label='Previous'><span aria-hidden='true'>«</span></a></li>";
+                        $j = $pageno;
+                        for ($i = 1; $i <= 3; $i++) {
+                            if ($j <= $total_pages) {
+                                echo "<li class='page-item'><a class='page-link' href='";
+                                echo "?post_id=" . $_GET["post_id"] . "&u_id=" . $_GET["u_id"];
+                                echo "&pageno=" . $j;
+                                echo "'>" . $j . "</a></li>";
+                                $j++;
+                            }
+                        }
+                        echo "<li class='page-item'><a class='page-link' href='";
+                        if ($pageno >= $total_pages) {
+                            echo '#';
+                        } else {
+                            echo "?post_id=" . $_GET["post_id"] . "&u_id=" . $_GET["u_id"];
+                            echo "&pageno=" . ($pageno + 1);
+                        }
+                        echo "' aria-label='Next'><span aria-hidden='true'>»</span></a></li>";
+                        ?>
+                    </ul>
+                </div>
+        </section>
+        <section class="portfolio-block contact" style="padding-top:0px">
+            <div class="container border rounded" style="background-color: #343a40;color: #ffffff">
+                <form class="shadow-none" action="addPost.php" method="POST" style="max-width:100%;padding:15px;margin:0px">
+                    <div class="form-group" hidden>
+                        <input type='hidden' name="post_id" value="<?php echo $_GET['post_id']; ?>" />
+                    </div>
+                    <div class="form-group" style="width:100%">
+                        <label for="description">Your Reply</label>
+                        <textarea rows="5" class="form-control" name="description" style="background-color: rgb(255,255,255);height: 150px;min-height: 100px;max-height: 300px;" required></textarea>
+                    </div>
+                    <div class="form-group" style="width:100%">
+                        <button name="answerpost" value="1" style="margin:0px;width:100%" class="btn btn-primary bg-dark border rounded-0" type="submit">Send</button>
+                    </div>
+                </form>
+            </div>
         </section>
     </main>
     <footer class="page-footer">

@@ -107,7 +107,7 @@ include("session.php");
     		        <textarea rows="5" class="form-control" name="description" ></textarea>
     		    </div>
     		    <div class="form-group">
-                <button class="btn btn-dark border rounded-0" type="submit" role="button" style="font-family: 'Titillium Web', sans-serif;width: 100%;height: 100%;margin-left: 0;margin-bottom: 0;margin-right: 0;margin-top: 0;color: rgb(255,255,255);">Create</button>
+                <button class="btn btn-dark border rounded-0" name="sharepost" value="1" type="submit" role="button" style="font-family: 'Titillium Web', sans-serif;width: 100%;height: 100%;margin-left: 0;margin-bottom: 0;margin-right: 0;margin-top: 0;color: rgb(255,255,255);">Create</button>
                 </div>
                 <div class="form-group">
                 <button class="btn btn-dark border rounded-0" type="submit" role="button" style="font-family: 'Titillium Web', sans-serif;width: 100%;height: 100%;margin-left: 0;margin-bottom: 0;margin-right: 0;margin-top: 0;color: rgb(255,255,255);">Cancel</button>
