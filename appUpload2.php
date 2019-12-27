@@ -17,25 +17,125 @@ if(isset($_POST["button"]))
      $storage = $_POST["storageField"];
      $cpu =  $_POST[ "cpuField"];
      $os = $_POST["osField"];
-     $category = $_POST["category"];
+     $category = $_POST["categoryField"];
      $descripton = $_POST["description"];
      $apploadName = $appName . " (".$os.")";
      #check if given app is already exists or not
-     $queryToCheck ="Select * from application where appname= '$apploadName';"
+     $queryToCheck ="Select * from application where appname= '$apploadName';";
      $check =  mysqli_query($db,$queryToCheck);
-     $count= mysqli_num_rows($check);
-    
-        if($count == 0)
-        {
+     $count= mysqli_num_rows($check);   
+     if($count === 0)
+     {
+        
              #add the file to db
             $queryCategory = "Select cat_id from category where cat_name= '$category';";
+            
+            $cat_id;
             $res = mysqli_query($db,$queryCategory);
+            while($result7 = mysqli_fetch_array($res,  MYSQLI_BOTH))
+            {
+    
+                $cat_id = $result7['cat_id'];
+            }
+         
+            #300000
+            $queryForID = "Select * From application;";
+            $queryForReqID = "Select * From minimum_requirement;";
+            $result1 = mysqli_query($db,$queryForID);
+            $count2 = mysqli_num_rows($result1);
+        
+            $result2 = mysqli_query($db, $queryForReqID);
+            $count3 = mysqli_num_rows($result2);
             
-            $query = "insert into applivation() values()";
-            echo $appPhoto ."\n";
-            echo $ram ." - ". $storage."-" . $cpu."-" . $os ."-\n"; 
-            print_r($category);
+            $reqID = $count3 +1;
             
+            $app_id = $count2 + 1;
+            #echo "req_id type " . gettype($reqID) ."\n";
+            #echo "app_id type " . gettype($app_id) ."\n";
+            #echo "os type " . gettype($os) ."\n";
+            #echo "ram type " . gettype($ram) ."\n";
+            #echo "cpu type " . gettype($cpu) ."\n";
+            #echo "storage type " . gettype($storage) ."\n";
+                
+        #    echo $reqID ."\n";
+        #    echo $app_id ."\n";
+        #    echo $os ."\n";
+        #    echo $ram ."\n";
+        #    echo $cpu ."\n";
+        #    echo $storage ."\n";
+
+            $description = "a";
+            $cat_id = $cat_id + 0;
+            $minage = $minage + 0;
+            $version = $version + 0.0;
+            #echo "---------------------\n";
+            #echo "appLogo type " . gettype($appPhoto) ."\n";
+            #echo "appname type " . gettype($appName) ."\n";
+            ##echo "app_date type " . gettype($app_date) ."\n";
+            #echo "app_id type " . gettype($app_id) ."\n";
+            #echo "appStatus type " . gettype('WAITING') ."\n";
+            #echo "app_version type " . gettype($version) ."\n";
+            #echo "cat_id type " . gettype($cat_id) ."\n";
+        #    echo "description type " . gettype($description) ."\n";
+        #    echo "file type " . gettype($file) ."\n";
+        #    echo "MinimumAge type " . gettype($minage) ."\n";
+        #    echo "req_id type " . gettype($reqID) ."\n";
+            
+                
+        #    echo $appPhoto ." app photo \n";
+        #    echo $appName ." app name \n";
+        #    echo $app_id ." app id \n";
+        #    echo $version ." version \n";
+        ##    echo $cat_id ." cat id \n";
+            #echo $description ." description \n";
+           # echo $file . " file \n";
+          #  echo $minage ." minage\n";
+         #   echo $reqID ." reqId\n";
+         
+            $u_id = $_SESSION["u_id"];
+            $u_id = $u_id + 0;
+            #echo current_timestamp();
+         #   echo gettype($u_id) ."asdasd\n";
+             $r = $_POST['description'];
+             echo gettype($r);
+            $queryToMinReq = "INSERT INTO minimum_requirement (req_id, app_id, os_version, ram, cpu, storage) VALUES ( '$reqID',  '$app_id' , '$os', '$ram' , '$cpu' ,'$storage')";
+            mysqli_query($db, $queryToMinReq);
+         #    if(mysqli_query($db, $queryToMinReq))
+           # {
+          #      echo "trueeee";
+         #   }
+        # else{
+        #     echo "trueeee degil";
+         #}
+                 
+
+         #if(mysqli_query($db, $queryToApp))
+            #{
+             #   echo "hey hey";
+            #}
+           # else
+          #  {
+         #       echo "*****";
+        #    }
+         
+            $queryToDevelops = "INSERT INTO develops (dev_id, app_id ) VALUES ($u_id, $app_id);";
+            mysqli_query($db, $queryToDevelops);   
+         
+            $queryToApp = "INSERT INTO application (app_id, appname, description, app_version, minimumAge, appLogo, app_date, req_id, cat_id, app_status,file) values( '$app_id', '$appName', '$r' , '$version', '$minage', '$appPhoto',  'current_timestamp()', '$reqID' ,'$cat_id' , 'WAITING' , '$file' );";
+            mysqli_query($db, $queryToApp);
+         #if(mysqli_query($db, $queryToDevelops))
+            #{
+            #    echo "as";
+            #}
+            #else
+            #{
+            #    echo "\n sa \n";
+            #}
+
+            #echo $appPhoto ."\n";
+            #echo $ram ." - ". $storage."-" . $cpu."-" . $os ."-\n"; 
+            #print_r($category);
+           #  header("Location: ./appUpload1.php");   
         }
     else
     {
