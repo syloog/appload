@@ -1,4 +1,3 @@
-
 <?php
 include ('session.php');
 #$image_base64 = base64_encode(file_get_contents($_FILES['file']['tmp_name']) );
@@ -57,12 +56,12 @@ if(isset($_POST["button"]))
             #echo "cpu type " . gettype($cpu) ."\n";
             #echo "storage type " . gettype($storage) ."\n";
                 
-        #    echo $reqID ."\n";
-        #    echo $app_id ."\n";
-        #    echo $os ."\n";
-        #    echo $ram ."\n";
-        #    echo $cpu ."\n";
-        #    echo $storage ."\n";
+            #echo $reqID ."\n";
+            #echo $app_id ."\n";
+            #echo $os ."\n";
+            #echo $ram ."\n";
+            #echo $cpu ."\n";
+            #echo $storage ."\n";
 
             $description = "a";
             $cat_id = $cat_id + 0;
@@ -76,26 +75,26 @@ if(isset($_POST["button"]))
             #echo "appStatus type " . gettype('WAITING') ."\n";
             #echo "app_version type " . gettype($version) ."\n";
             #echo "cat_id type " . gettype($cat_id) ."\n";
-        #    echo "description type " . gettype($description) ."\n";
-        #    echo "file type " . gettype($file) ."\n";
-        #    echo "MinimumAge type " . gettype($minage) ."\n";
-        #    echo "req_id type " . gettype($reqID) ."\n";
+            #echo "description type " . gettype($description) ."\n";
+            #echo "file type " . gettype($file) ."\n";
+            #echo "MinimumAge type " . gettype($minage) ."\n";
+            #echo "req_id type " . gettype($reqID) ."\n";
             
                 
-        #    echo $appPhoto ." app photo \n";
-        #    echo $appName ." app name \n";
-        #    echo $app_id ." app id \n";
-        #    echo $version ." version \n";
-        ##    echo $cat_id ." cat id \n";
+            #echo $appPhoto ." app photo \n";
+            #echo $appName ." app name \n";
+            #echo $app_id ." app id \n";
+            #echo $version ." version \n";
+            #echo $cat_id ." cat id \n";
             #echo $description ." description \n";
-           # echo $file . " file \n";
-          #  echo $minage ." minage\n";
-         #   echo $reqID ." reqId\n";
+            #echo $file . " file \n";
+            #echo $minage ." minage\n";
+            #echo $reqID ." reqId\n";
          
             $u_id = $_SESSION["u_id"];
             $u_id = $u_id + 0;
             #echo current_timestamp();
-         #   echo gettype($u_id) ."asdasd\n";
+            #echo gettype($u_id) ."asdasd\n";
              $r = $_POST['description'];
              echo gettype($r);
             $queryToMinReq = "INSERT INTO minimum_requirement (req_id, app_id, os_version, ram, cpu, storage) VALUES ( '$reqID',  '$app_id' , '$os', '$ram' , '$cpu' ,'$storage')";
@@ -154,6 +153,7 @@ if(isset($_POST["button"]))
     <title>Application</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700">
@@ -258,7 +258,7 @@ if(isset($_POST["button"]))
                    ?></legend>
                          <div class="row">
                              <div class="col">
-                                 <div class="custom-control custom-radio"><input type"radio" value="Music" name="categoryField" id="musicCheck" class="custom-control-input"><label class="custom-control-label" for="musicCheck">Music</label></div>
+                                 <div class="custom-control custom-radio"><input type="radio" value="Music" name="categoryField" id="musicCheck" class="custom-control-input"><label class="custom-control-label" for="musicCheck">Music</label></div>
                             </div>
                             <div class="col">
                                  <div class="custom-control custom-radio"><input type="radio" value="Software" name="categoryField" id="softwareCheck" class="custom-control-input" checked=""><label class="custom-control-label" for="softwareCheck">Software</label></div>
@@ -290,14 +290,71 @@ if(isset($_POST["button"]))
                                 </div>
                             </div>
                     </fieldset>
+                       
+                       
+                       
+                 <fieldset requried="" id="areaField">
+                    <legend>Choose Allowed areas for <?php 
+                   $p =  $_SESSION['appName'];
+                  echo $p;
+                   ?></legend>
+                         <div class="row">
+                             <div class="col">
+                                 <div class="custom-control custom-checkbox"><input type="checkbox" value="North America" name="areaField[]" id="northAmericaCheck" class="custom-control-input"><label class="custom-control-label" for="northAmericaCheck">North America</label></div>
+                            </div>
+                            <div class="col">
+                                 <div class="custom-control custom-checkbox"><input type="checkbox" value="Europe" name="areaField[]" id="europeCheck" class="custom-control-input"><label class="custom-control-label" for="europeCheck">Europe</label></div>
+                            </div>
+                            <div class="col">
+                                <div class="custom-control custom-checkbox"><input type="checkbox" value="Asia" name="areaField[]" id="assiaCheck" class="custom-control-input" ><label class="custom-control-label" for="assiaCheck">Asia</label></div>
+                            </div>
+                         </div>
+                            <div class="row">
+                                <div class="col">
+                                   <div class="custom-control custom-checkbox"><input type="checkbox"  value="Russia" name="areaField[]" id="russiaCheck" class="custom-control-input"><label class="custom-control-label" for="russiaCheck">Russia</label></div>
+                                </div>
+                                <div class="col">
+                                   <div class="custom-control custom-checkbox"><input type="checkbox" value="South America" name="areaField[]" id="SouhAmericaCheck" class="custom-control-input"><label class="custom-control-label" for="SouhAmericaCheck">South America</label></div>
+                                </div>
+                                <div class="col">
+                                    <div class="custom-control custom-checkbox"><input type="checkbox"  value="Oceania" name="areaField[]" id="ocenciaCheck" class="custom-control-input"><label class="custom-control-label" for="ocenciaCheck">Oceania</label></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="custom-control custom-checkbox"><input type="checkbox"  value="Middle East and Turkey" name="areaField[]" id="metCheck" class="custom-control-input"><label class="custom-control-label" for="metCheck">Middle East and Turkey</label></div>
+                                </div>
+                                <div class="col">
+                                    <div class="custom-control custom-checkbox"><input type="checkbox"  value="Africa" name="areaField[]" id="africaCheck" class="custom-control-input"><label class="custom-control-label" for="africaCheck">Africa</label></div>
+                                </div>
+                                <div class="col">
+                                    <div class="custom-control custom-checkbox"><input type="checkbox" value="Central America" name="areaField[]" id="centeralAmericaCheck" class="custom-control-input" ><label class="custom-control-label" for="centeralAmericaCheck">Central America</label></div>
+                                </div>
+                            </div>
+                    </fieldset>
+                       
                         <div class="row" style="padding: 34px;">
-                        <div class="col"><button class="button" name="button" type="submit" ><span>Submit</span></button></div>
+                        <div class="col"><button class="button" name="button" type="submit" id="submitButton"><span>Submit</span></button></div>
                     </div>
                 </form>
             </div>
         </div>
         </section>
         </main>
+        <script type="text/javascript">
+            $(document).ready(function () {
+             $('#submitButton').click(function() {
+            checked = $("input[type=checkbox]:checked").length;
+
+            if(!checked) {
+                alert("You must choose at least one allowed area.");
+                return false;
+            }
+
+    });
+});
+
+</script>
         </body>
 
 </html>
