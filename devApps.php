@@ -79,25 +79,25 @@ function illustrate()
                 <div class="heading">
                     <h2>MY APPS</h2>
                 </div>
-                <?php
-                if (isset($_SESSION["error"])) {
-                    foreach ($_SESSION["error"] as $error) {
-                        echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-danger' role='alert' style='width:100%;padding-left: 35px'><span><strong> Alert </strong>";
-                        echo $error;
-                        echo " </span></div></div></div>";
-                    }
-                    unset($_SESSION["error"]);
-                } else if (isset($_SESSION["success"])) {
-                    foreach ($_SESSION["success"] as $success) {
-                        echo "<div class='row' style='padding-left:35px;padding-right:35px'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-success' role='alert' style='width:100%;padding-left: 35px'><span><strong> Success: </strong>";
-                        echo $success;
-                        echo " </span></div></div></div>";
-                    }
-                    unset($_SESSION["success"]);
-                }
-                ?>
                 <div class="row justify-content-center">
                     <div class="col-md-9">
+                        <?php
+                        if (isset($_SESSION["error"])) {
+                            foreach ($_SESSION["error"] as $error) {
+                                echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-danger' role='alert' style='width:100%'><span><strong> Alert </strong>";
+                                echo $error;
+                                echo " </span></div></div></div>";
+                            }
+                            unset($_SESSION["error"]);
+                        } else if (isset($_SESSION["success"])) {
+                            foreach ($_SESSION["success"] as $success) {
+                                echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-success' role='alert' style='width:100%;padding-left: 35px'><span><strong> Success: </strong>";
+                                echo $success;
+                                echo " </span></div></div></div>";
+                            }
+                            unset($_SESSION["success"]);
+                        }
+                        ?>
                         <div class="row" style="padding: 28px;">
                             <?php
 

@@ -89,23 +89,6 @@ include('session.php');
         <section class="portfolio-block block-intro" style="padding-bottom: 30px;">
 
             <div class="container" id="info-container">
-                <?php
-                if (isset($_SESSION["error"])) {
-                    foreach ($_SESSION["error"] as $error) {
-                        echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-danger' role='alert' style='width:100%'><span><strong> Alert </strong>";
-                        echo $error;
-                        echo " </span></div></div></div>";
-                    }
-                    unset($_SESSION["error"]);
-                } else if (isset($_SESSION["success"])) {
-                    foreach ($_SESSION["success"] as $success) {
-                        echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-success' role='alert' style='width:100%;padding-left: 35px'><span><strong> Success: </strong>";
-                        echo $success;
-                        echo " </span></div></div></div>";
-                    }
-                    unset($_SESSION["success"]);
-                }
-                ?>
                 <div class="row">
                     <div class="col-md-12" style="padding-bottom: 25px;padding-top: 25px;">
                         <h2 class="text-center text-info">Application Publish Form</h2>
