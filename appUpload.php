@@ -7,12 +7,12 @@ $success = array();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $photoName;
-    $fileName;
-
     if (isset($_POST['continue'])) {
 
-        if ($_FILES['photo_file']['error'] === UPLOAD_ERR_OK) {
+        $photoName = "default_pic.png";
+        $fileName = "default_pic.png";
+
+        if ($_FILES['photo_file']['error'] == UPLOAD_ERR_OK) {
 
             #  $addrees = file_get_contents($_FILES["files"]["tmp_name"]);
             #  echo '<script type="text/javascript"> alert(" '.$addrees.' "); </script>'; 
@@ -22,11 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             #header("Content-type: image/jpg"); 
 
             $photo = $_FILES['photo_file']['tmp_name'];
-            $photoName =  $_FILES['photo_file']['name'];
-
-            if (empty($photo)) {
-                $photoName = "default_pic.png";
-            }
+            $photoName = $_FILES['photo_file']['name'];
 
             move_uploaded_file($photo, "./images/application_photos/$photoName");
         } else {
@@ -49,10 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $fileSize = $_FILES['app_file']['size'];
                 $fileTmpName  = $_FILES['app_file']['tmp_name'];
 
-                if ($_FILES['app_file']['size'] > 4294967295) {
+                if ($fileSize > 4294967295) {
                     echo '<script type="text/javascript">alert("Your upload file should be smaller than 4 gb"); </script>';
                 } else {
-                    $fileName = basename($_FILES["app_file"]["name"]);
                     move_uploaded_file($fileTmpName, "./uploads/$fileName");
                 }
             }
@@ -108,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("location: uploadAnApp.php");
                 }
 
-                $queryToApp = "INSERT INTO application values( '$app_id', '$apploadName', '$description' , '$version', '$minage', '$photoName',  'current_timestamp()', '$cat_id' , 'WAITING' , '$fileName' );";
+                $queryToApp = "INSERT INTO application values( '$app_id', '$apploadName', '$description' , '$version', '$minage', '$photoName',current_timestamp(), '$cat_id' , 'WAITING' , '$fileName');";
 
                 if ((mysqli_query($db, $queryToApp))) {
                 } else {
@@ -137,7 +132,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION["error"] = $errors;
                     header("location: uploadAnApp.php");
                 }
-
             } else {
                 echo '<script type="text/javascript">alert("Please try again to upload the file again"); </script>';
             }

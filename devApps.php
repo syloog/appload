@@ -112,7 +112,7 @@ if ($_SESSION["u_type"] != "developer") {
                             unset($_SESSION["success"]);
                         }
                         ?>
-                        <div class="row">
+                        <div class="col">
                             <?php
                             $dev_id = $_SESSION["u_id"];
                             $query = 'Select * from application
@@ -122,32 +122,37 @@ if ($_SESSION["u_type"] != "developer") {
                             $i = 0;
                             while ($row = mysqli_fetch_array($result)) {
                                 if ($i == 0) {
-                                    echo '<div class="row">';
+                                    echo '<div class="row d-xl-flex justify-content-xl-center">';
                                 }
                                 $i++;
-                                echo '<div class="col align-self-center project-sidebar-card">
-                        <a href="appPage.php?appname=' . $row["appname"] . '">';
 
-                                echo '<div>';
-                                echo '<img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . '></div>
-                        </a>
-                        <div>
-                        <p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>App Name : </strong>' . $row["appname"] . '</p>
-                        <p class="text-center border rounded-0" style="background-color: ';
+                                echo '<div class="col order-';
+                                echo $i;
+                                echo 'align-self-center project-sidebar-card">
+                                <a href="appPage.php?appname=' . $row["appname"] . '">
+                                <div>
+                                <img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . '>
+                                </div>
+                                </a>
+                                <div>
+                                <p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>App Name : </strong>' . $row["appname"] . '</p>
+                                <p class="text-center border rounded-0" style="background-color: ';
                                 if ($row["app_status"] == "WAITING") {
                                     echo '#e0e0e0';
                                 } else if ($row["app_status"] == "APPROVED") {
                                     echo '#acf74c';
                                 }
                                 echo '"><strong>Status : </strong>' . $row["app_status"] . '</p>
-                        </div>
-                        </div>';
-                                if ($i == 5) {
+                                </div>
+                                </div>';
+                                if ($i == 4) {
                                     $i = 0;
                                     echo '</div>';
                                 }
                             }
-
+                            if ($i < 4 && $i > 0) {
+                                echo '</div>';
+                            }
                             ?>
                         </div>
                         <nav class="col d-xl-flex justify-content-xl-center">
