@@ -1,32 +1,29 @@
 <?php
-    
-    # dev aps
-    # user apps( downloaded)
-    # apppage
+# dev aps
+# user apps( downloaded)
+# apppage
 
-  #  illustrate();
+#  illustrate();
 
-function illustrate(){
-    include ('session.php');
-    #include ('session.php');
+function illustrate()
+{
+    include('session.php');
     $dev_id = $_SESSION["u_id"];
     $query = 'Select * from application
               where app_id IN (SELECT app_id
-                               From develops where dev_id = '.$dev_id.')';
+                               From develops where dev_id = ' . $dev_id . ')';
     $result = mysqli_query($db, $query);
-while($row = mysqli_fetch_array($result))
-    {
-        
+    while ($row = mysqli_fetch_array($result)) {
+
         echo '<div class="col align-self-center project-sidebar-card">
                 <a href="appPage.php">
-                    <div style="height: 30%;"><img class="img-fluid image scale-on-hover" src=./images/application_photos/'.$row["appLogo"] .' name= '.$row["appname"] .'style="width:90px; height: 90px;"></div>
+                    <div style="height: 30%;"><img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . 'style="width:90px; height: 90px;"></div>
                 </a>
                 <div>
-                    <p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>Status : </strong>'.$row["app_status"].'</p>
+                    <p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>Status : </strong>' . $row["app_status"] . '</p>
                 </div>
             </div>';
     }
-
 }
 ?>
 
@@ -66,8 +63,7 @@ while($row = mysqli_fetch_array($result))
 <body>
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
         <div class="container"><a class="navbar-brand logo" href="home.html">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse"
-                id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item" role="presentation"><a class="nav-link" href="profileDev.php">My Profile</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="forum.html">Forum</a></li>
@@ -91,8 +87,7 @@ while($row = mysqli_fetch_array($result))
                         echo " </span></div></div></div>";
                     }
                     unset($_SESSION["error"]);
-                }
-                else if (isset($_SESSION["success"])) {
+                } else if (isset($_SESSION["success"])) {
                     foreach ($_SESSION["success"] as $success) {
                         echo "<div class='row' style='padding-left:35px;padding-right:35px'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-success' role='alert' style='width:100%;padding-left: 35px'><span><strong> Success: </strong>";
                         echo $success;
@@ -104,8 +99,8 @@ while($row = mysqli_fetch_array($result))
                 <div class="row justify-content-center">
                     <div class="col-md-9">
                         <div class="row" style="padding: 28px;">
-                           <?php
-                            
+                            <?php
+
                             illustrate(); ?>
                         </div>
                         <nav class="d-xl-flex justify-content-xl-center">
