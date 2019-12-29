@@ -35,7 +35,7 @@ include('session.php');
 </head>
 
 <body>
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-size: cover;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
         <div class="container"><a class="navbar-brand logo" href="index.php">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
@@ -56,7 +56,7 @@ include('session.php');
                 ?>
                 <li class="nav-item" role="presentation"><a class="nav-link" <?php
                                                                                 if (isset($_SESSION["loggedin"])) {
-                                                                                ?> href='forum.php?sort=lastest&pageno=1'>Forum</a></li>
+                                                                                ?> href='forum.php'>Forum</a></li>
             <?php
                                                                                 } else {
                                                                                     echo "></a></li>";
@@ -84,62 +84,48 @@ include('session.php');
     </nav>
     <main class="page lanidng-page" style="background-color: #141414;">
         <section class="portfolio-block block-intro" style="padding-bottom: 30px;">
-            <div class="container border rounded border-light shadow-lg" style="padding: 50px;background-color: #0c0f18;">
-                <div class="row" style="background-image: url('assets/img/thumb-1920-892291.jpg');background-size: cover;">
-                    <div class="col">
-                        <?php
-                        if (isset($_SESSION["error"])) {
-                            foreach ($_SESSION["error"] as $error) {
-                                echo "<div class='row' style='padding-top: 20px; padding-left: 10px; padding-right:10px'><div class='col'><div class='alert alert-danger' role='alert' style='width:100%'><span><strong> Warning: </strong>";
-                                echo $error;
-                                echo " </span></div></div></div>";
-                            }
-                            unset($_SESSION["error"]);
-                        }
-                        ?>
-                        <div class="avatar"></div>
-                        <div class="about-me">
-                            <?php
-                            echo "<p class='border rounded border-dark' style='background-color: #feba2b;font-weight: normal;'> Welcome " . $_SESSION["u_username"] . "</p>";
-                            ?>
+            <div class="container border rounded border-dark shadow-lg" style="padding: 50px;background-image: url(&quot;assets/img/thumb-1920-892291.jpg&quot;);">
+                <div class="avatar"></div>
+                <div class="about-me">
+                    <?php
+                    echo "<p class='border rounded border-dark' style='background-color: #feba2b;font-weight: normal;'> Welcome ". $_SESSION["u_username"] ."</p>";
+                    ?>
+                </div>
+                <div class="row" style="padding: 10px;">
+                    <div class="col" style="background-color: rgba(255,255,255,0);">
+                        <div class="card" style="background-color: rgb(253,184,31);padding: 12px;">
+                            <ul class="fa-ul" style="margin: 0px;">
+                                <?php
+
+                                $user_check = $_SESSION['u_id'];
+
+                                $sql_user = mysqli_query($db, "SELECT u_name, u_age, u_mail FROM users WHERE u_id = '$user_check'");
+                                $sql_regular_user = mysqli_query($db, "SELECT area FROM regularuser WHERE u_id = '$user_check'");
+                                $user_name_age_mail = mysqli_fetch_array($sql_user, MYSQLI_ASSOC);
+                                $user_area = mysqli_fetch_array($sql_regular_user, MYSQLI_ASSOC);
+
+                                echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Name:&nbsp;</strong>&nbsp;</label><label>" .  $user_name_age_mail["u_name"] . "</label></li>";
+                                echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Email:</strong>&nbsp;&nbsp;</label><label>" . $user_name_age_mail["u_mail"] . "</label></li>";
+                                echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Age:</strong>&nbsp;&nbsp;</label><label>" . $user_name_age_mail["u_age"] . "</label></li>";
+                                echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Area:</strong>&nbsp;&nbsp;</label><label>" . $user_area["area"] . "</label></li>";
+                                ?>
+                            </ul>
                         </div>
-                        <div class="row" style="padding: 10px;">
-                            <div class="col" style="background-color: rgba(255,255,255,0);">
-                                <div class="card" style="background-color: rgb(253,184,31);padding: 12px;">
-                                    <ul class="fa-ul" style="margin: 0px;">
-                                        <?php
-
-                                        $user_check = $_SESSION['u_id'];
-
-                                        $sql_user = mysqli_query($db, "SELECT u_name, u_age, u_mail FROM users WHERE u_id = '$user_check'");
-                                        $sql_regular_user = mysqli_query($db, "SELECT area FROM regularuser WHERE u_id = '$user_check'");
-                                        $user_name_age_mail = mysqli_fetch_array($sql_user, MYSQLI_ASSOC);
-                                        $user_area = mysqli_fetch_array($sql_regular_user, MYSQLI_ASSOC);
-
-                                        echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Name:&nbsp;</strong>&nbsp;</label><label>" .  $user_name_age_mail["u_name"] . "</label></li>";
-                                        echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Email:</strong>&nbsp;&nbsp;</label><label>" . $user_name_age_mail["u_mail"] . "</label></li>";
-                                        echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Age:</strong>&nbsp;&nbsp;</label><label>" . $user_name_age_mail["u_age"] . "</label></li>";
-                                        echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Area:</strong>&nbsp;&nbsp;</label><label>" . $user_area["area"] . "</label></li>";
-                                        ?>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col my-auto">
+                    </div>
+                    <div class="col my-auto">
+                        <div class="row">
+                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="downloadedApps.php" style="background-color: rgb(58,21,126);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Downloaded Apps</a></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
                                 <div class="row">
-                                    <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="deviceList.html" style="background-color: rgb(58,21,126);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Downloaded Apps</a></div>
+                                    <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="deviceList.html" style="background-color: rgb(146,32,117);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Manage Devices</a></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="deviceList.php" style="background-color: rgb(146,32,117);margin-right: 0;margin-bottom: 0;margin-left: 0;margin-top: 0;width: 100%;">Manage Devices</a></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="profileUserEdit.php" style="margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;background-color: rgb(17,138,255);">Manage Account</a></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" style="background-color: rgb(232,192,96);color: rgb(255,255,255);margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;" href="deleteUserProfile.php">Delete Account</a></div>
-                                        </div>
-                                    </div>
+                                    <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="profileUserEdit.php" style="margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;background-color: rgb(17,138,255);">Manage Account</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" style="background-color: rgb(232,192,96);color: rgb(255,255,255);margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;" href="#">Delete Account</a></div>
                                 </div>
                             </div>
                         </div>
