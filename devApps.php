@@ -16,10 +16,13 @@ function illustrate()
     while ($row = mysqli_fetch_array($result)) {
 
         echo '<div class="col align-self-center project-sidebar-card">
-                <a href="appPage.php">
-                    <div style="height: 30%;"><img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . 'style="width:90px; height: 90px;"></div>
+                <a href="appPage.php?appname=' . $row["appname"] . '">';
+
+        echo '<div style="height: 30%;">';
+        echo '<img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . 'style="width:90px; height: 90px;"></div>
                 </a>
                 <div>
+                <p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>App Name : </strong>' . $row["appname"] . '</p>
                     <p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>Status : </strong>' . $row["app_status"] . '</p>
                 </div>
             </div>';
