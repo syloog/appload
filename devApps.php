@@ -41,7 +41,7 @@ if ($_SESSION["u_type"] != "developer") {
 
 <body>
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
-        <div class="container"><a class="navbar-brand logo" href="home.html">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand logo" href="index.php">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item" role="presentation"><a class="nav-link" <?php
@@ -126,12 +126,12 @@ if ($_SESSION["u_type"] != "developer") {
                                 }
                                 $i++;
 
-                                echo '<div class="col order-';
+                                echo '<div style="max-width:250px" class="col order-';
                                 echo $i;
                                 echo 'align-self-center project-sidebar-card">
                                 <a href="appPage.php?appname=' . $row["appname"] . '">
                                 <div>
-                                <img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . '>
+                                <img class="img-fluid image scale-on-hover" width="250px" height="250px" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . '>
                                 </div>
                                 </a>
                                 <div>

@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $u_id = $_SESSION["u_id"];
                 $u_id = $u_id + 0;
 
-                $queryToMinReq = "INSERT INTO minimum_requirement (req_id, os_version, ram, cpu, storage) VALUES ( '$reqID', '$os', '$ram' , '$cpu' ,'$storage')";
+                $queryToMinReq = "INSERT INTO minimum_requirement VALUES ('$reqID', '$os', '$ram' , '$cpu' ,'$storage')";
                 if ((mysqli_query($db, $queryToMinReq))) {
                 } else {
                     array_push($errors, "Cannot create requirement.");
@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("location: uploadAnApp.php");
                 }
 
-                $queryToApp = "INSERT INTO application values( '$app_id', '$apploadName', '$description' , '$version', '$minage', '$photoName',current_timestamp(), '$cat_id' , 'WAITING' , '$fileName');";
+                $queryToApp = "INSERT INTO application values('$app_id', '" . $apploadName . "', '" . $description . "', '$version', '$minage','" . $photoName . "',current_timestamp(), '$cat_id' , 'WAITING' , '" . $fileName . "');";
 
                 if ((mysqli_query($db, $queryToApp))) {
                 } else {
