@@ -1,29 +1,8 @@
 <?php
-# dev aps
-# user apps( downloaded)
-# apppage
+include('session.php');
 
-#  illustrate();
-
-function illustrate()
-{
-    include('session.php');
-    $dev_id = $_SESSION["u_id"];
-    $query = 'Select * from application
-              where app_id IN (SELECT app_id
-                               From develops where dev_id = ' . $dev_id . ')';
-    $result = mysqli_query($db, $query);
-    while ($row = mysqli_fetch_array($result)) {
-
-        echo '<div class="col align-self-center project-sidebar-card">
-                <a href="appPage.php">
-                    <div style="height: 30%;"><img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . 'style="width:90px; height: 90px;"></div>
-                </a>
-                <div>
-                    <p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>Status : </strong>' . $row["app_status"] . '</p>
-                </div>
-            </div>';
-    }
+if($_SESSION["u_type"] != "editor") {
+    header("location: index.php");
 }
 ?>
 
@@ -62,13 +41,48 @@ function illustrate()
 
 <body>
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
-        <div class="container"><a class="navbar-brand logo" href="home.html">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand logo" href="index.php">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="profileDev.php">My Profile</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="forum.html">Forum</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="store.html">Store</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link visible" href="login.html">Logout</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" <?php
+                                                                                    if (isset($_SESSION["loggedin"])) {
+                                                                                        if ($_SESSION["u_type"] == "regular") {
+                                                                                            echo "href='profileUser.php'";
+                                                                                        } else if ($_SESSION["u_type"] == "developer") {
+                                                                                            echo "href='profileDev.php'";
+                                                                                        } else if ($_SESSION["u_type"] == "editor") {
+                                                                                            echo "href='profileEditor.php'";
+                                                                                        }
+                                                                                    ?>> My Profile</a></li>
+                <?php
+                                                                                    } else {
+                                                                                        echo "></a></li>";
+                                                                                    }
+                ?>
+                <li class="nav-item" role="presentation"><a class="nav-link" <?php
+                                                                                if (isset($_SESSION["loggedin"])) {
+                                                                                ?> href='forum.php?sort=lastest&pageno=1'>Forum</a></li>
+            <?php
+                                                                                } else {
+                                                                                    echo "></a></li>";
+                                                                                }
+            ?>
+            <li class="nav-item" role="presentation"><a class="nav-link" <?php
+                                                                            if (isset($_SESSION["loggedin"])) {
+                                                                            ?> href='store.php'>Store</a></li>
+        <?php
+                                                                            } else {
+                                                                                echo "></a></li>";
+                                                                            }
+        ?>
+        <li class="nav-item" role="presentation"><a class="nav-link" <?php
+                                                                        if (isset($_SESSION["loggedin"])) {
+                                                                        ?> href='logout.php'>Logout</a></li>
+    <?php
+                                                                        } else {
+                                                                            echo "href='loginScreen.php'>Login</a></li>";
+                                                                        }
+    ?>
                 </ul>
             </div>
         </div>
@@ -77,7 +91,7 @@ function illustrate()
         <section class="portfolio-block projects-with-sidebar">
             <div class="container">
                 <div class="heading">
-                    <h2>MY APPS</h2>
+                    <h2>WAITING APPS</h2>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-9">
@@ -101,8 +115,32 @@ function illustrate()
                         <div class="row" style="padding: 28px;">
                             <?php
 
-                            illustrate(); ?>
+                            $query = 'Select * from application where app_status = "WAITING"';
+                            $result = mysqli_query($db, $query);
+                            $i = 0;
+                            while ($row = mysqli_fetch_array($result)) {
+                                if ($i == 0) {
+                                    echo '<div class="row">';
+                                }
+                                $i++;
+                                echo '<div class="col align-self-center project-sidebar-card">
+            <a href="appControl.php?appname=' . $row["appname"] . '">';
+
+                                echo '<div>';
+                                echo '<img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . '></div>
+            </a>
+            <div>
+            <p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>App Name : </strong>' . $row["appname"] . '</p>
+                <p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>Status : </strong>' . $row["app_status"] . '</p>
+            </div>
+        </div>';
+                                if ($i == 5) {
+                                    $i = 0;
+                                    echo '</div>';
+                                }
+                            } ?>
                         </div>
+                        <div class="row">
                         <nav class="d-xl-flex justify-content-xl-center">
                             <ul class="pagination">
                                 <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
@@ -114,6 +152,7 @@ function illustrate()
                                 <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
                             </ul>
                         </nav>
+                        </div>
                     </div>
                 </div>
             </div>

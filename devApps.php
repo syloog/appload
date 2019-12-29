@@ -13,21 +13,30 @@ function illustrate()
               where app_id IN (SELECT app_id
                                From develops where dev_id = ' . $dev_id . ')';
     $result = mysqli_query($db, $query);
+    $i = 0;
     while ($row = mysqli_fetch_array($result)) {
-
+        if ($i == 0) {
+            echo '<div class="row">';
+        }
+        $i++;
         echo '<div class="col align-self-center project-sidebar-card">
-                <a href="appPage.php?appname=' . $row["appname"] . '">';
+<a href="appPage.php?appname=' . $row["appname"] . '">';
 
-        echo '<div style="height: 30%;">';
-        echo '<img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . 'style="width:90px; height: 90px;"></div>
-                </a>
-                <div>
-                <p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>App Name : </strong>' . $row["appname"] . '</p>
-                    <p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>Status : </strong>' . $row["app_status"] . '</p>
-                </div>
-            </div>';
+        echo '<div>';
+        echo '<img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . '></div>
+</a>
+<div>
+<p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>App Name : </strong>' . $row["appname"] . '</p>
+<p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>Status : </strong>' . $row["app_status"] . '</p>
+</div>
+</div>';
+        if ($i == 5) {
+            $i = 0;
+            echo '</div>';
+        }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -68,10 +77,45 @@ function illustrate()
         <div class="container"><a class="navbar-brand logo" href="home.html">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="profileDev.php">My Profile</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="forum.html">Forum</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="store.html">Store</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link visible" href="login.html">Logout</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" <?php
+                                                                                    if (isset($_SESSION["loggedin"])) {
+                                                                                        if ($_SESSION["u_type"] == "regular") {
+                                                                                            echo "href='profileUser.php'";
+                                                                                        } else if ($_SESSION["u_type"] == "developer") {
+                                                                                            echo "href='profileDev.php'";
+                                                                                        } else if ($_SESSION["u_type"] == "editor") {
+                                                                                            echo "href='profileEditor.php'";
+                                                                                        }
+                                                                                    ?>> My Profile</a></li>
+                <?php
+                                                                                    } else {
+                                                                                        echo "></a></li>";
+                                                                                    }
+                ?>
+                <li class="nav-item" role="presentation"><a class="nav-link" <?php
+                                                                                if (isset($_SESSION["loggedin"])) {
+                                                                                ?> href='forum.php?sort=lastest&pageno=1'>Forum</a></li>
+            <?php
+                                                                                } else {
+                                                                                    echo "></a></li>";
+                                                                                }
+            ?>
+            <li class="nav-item" role="presentation"><a class="nav-link" <?php
+                                                                            if (isset($_SESSION["loggedin"])) {
+                                                                            ?> href='store.php'>Store</a></li>
+        <?php
+                                                                            } else {
+                                                                                echo "></a></li>";
+                                                                            }
+        ?>
+        <li class="nav-item" role="presentation"><a class="nav-link" <?php
+                                                                        if (isset($_SESSION["loggedin"])) {
+                                                                        ?> href='logout.php'>Logout</a></li>
+    <?php
+                                                                        } else {
+                                                                            echo "href='loginScreen.php'>Login</a></li>";
+                                                                        }
+    ?>
                 </ul>
             </div>
         </div>

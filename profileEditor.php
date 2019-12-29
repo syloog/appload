@@ -134,7 +134,7 @@ include('session.php');
                                                     Account</a></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" style="background-color: rgb(232,192,96);color: rgb(255,255,255);margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;" href="#">Delete Account</a></div>
+                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" style="background-color: rgb(232,192,96);color: rgb(255,255,255);margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;" href="deleteUserProfile.php">Delete Account</a></div>
                                         </div>
                                     </div>
                                 </div>

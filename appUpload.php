@@ -35,8 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $appName = $_POST['appname'];
         $version = $_POST['version'];
-        $category = $_POST['category'];
-        $date = $_POST['date'];
         $minage = $_POST['minAge'];
         $ram = $_POST["ramField"];
         $storage = $_POST["storageField"];
@@ -79,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } else {
                     array_push($errors, "Cannot create application ID.");
                     $_SESSION["error"] = $errors;
-                    header("location: appUpload1.php");
+                    header("location: uploadAnApp.php");
                 }
 
                 $queryForID = "Select * From application";
@@ -107,16 +105,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } else {
                     array_push($errors, "Cannot create requirement.");
                     $_SESSION["error"] = $errors;
-                    header("location: appUpload1.php");
+                    header("location: uploadAnApp.php");
                 }
 
-                $queryToApp = "INSERT INTO application values( '$app_id', '$appName', '$description' , '$version', '$minage', '$photoName',  'current_timestamp()', '$cat_id' , 'WAITING' , '$fileName' );";
+                $queryToApp = "INSERT INTO application values( '$app_id', '$apploadName', '$description' , '$version', '$minage', '$photoName',  'current_timestamp()', '$cat_id' , 'WAITING' , '$fileName' );";
 
                 if ((mysqli_query($db, $queryToApp))) {
                 } else {
                     array_push($errors, "Cannot create application.");
                     $_SESSION["error"] = $errors;
-                    header("location: appUpload1.php");
+                    header("location: uploadAnApp.php");
+                }
+
+                foreach ($_POST['areaField'] as $selected) {
+                    $queryToCheckArea = "Select area_id from area where area_name= '$selected';";
+                    $checkArea = mysqli_query($db, $queryToCheckArea);
+                    $resultArea = mysqli_fetch_assoc($checkArea);
+                    $areaId = $resultArea["area_id"];
+                    $queryToRestricts = "INSERT INTO restricts VALUES ($areaId, $app_id)";
+                    mysqli_query($db, $queryToRestricts);
                 }
 
                 $queryToDevelops = "INSERT INTO develops (dev_id, app_id) VALUES ($u_id, $app_id);";
@@ -128,8 +135,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } else {
                     array_push($errors, "Cannot create develops.");
                     $_SESSION["error"] = $errors;
-                    header("location: appUpload1.php");
+                    header("location: uploadAnApp.php");
                 }
+
             } else {
                 echo '<script type="text/javascript">alert("Please try again to upload the file again"); </script>';
             }
