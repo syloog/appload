@@ -1,9 +1,7 @@
 <?php
 include('session.php');
 
-if($_SESSION["u_type"] != "editor") {
-    header("location: index.php");
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +10,7 @@ if($_SESSION["u_type"] != "editor") {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Developer's apps</title>
+    <title>User</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
@@ -40,7 +38,7 @@ if($_SESSION["u_type"] != "editor") {
 </head>
 
 <body>
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="font-family: Roboto, sans-serif;opacity: 1;background-image: url(&quot;assets/img/Rectangle%201.png&quot;);background-size: cover;">
         <div class="container"><a class="navbar-brand logo" href="index.php">AppLoad</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
@@ -87,82 +85,47 @@ if($_SESSION["u_type"] != "editor") {
             </div>
         </div>
     </nav>
-    <main class="page projects-page">
-        <section class="portfolio-block projects-with-sidebar">
-            <div class="container">
-                <div class="heading">
-                    <h2>WAITING APPS</h2>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-9">
-                        <?php
-                        if (isset($_SESSION["error"])) {
-                            foreach ($_SESSION["error"] as $error) {
-                                echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-danger' role='alert' style='width:100%'><span><strong> Alert </strong>";
-                                echo $error;
-                                echo " </span></div></div></div>";
-                            }
-                            unset($_SESSION["error"]);
-                        } else if (isset($_SESSION["success"])) {
-                            foreach ($_SESSION["success"] as $success) {
-                                echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-success' role='alert' style='width:100%;padding-left: 35px'><span><strong> Success: </strong>";
-                                echo $success;
-                                echo " </span></div></div></div>";
-                            }
-                            unset($_SESSION["success"]);
-                        }
-                        ?>
-                        <div class="row" style="padding: 28px;">
-                            <?php
-
-                            $query = 'Select * from application where app_status = "WAITING"';
-                            $result = mysqli_query($db, $query);
-                            $i = 0;
-                            while ($row = mysqli_fetch_array($result)) {
-                                if ($i == 0) {
-                                    echo '<div class="row">';
-                                }
-                                $i++;
-                                echo '<div class="col align-self-center project-sidebar-card">
-            <a href="appControl.php?appname=' . $row["appname"] . '">';
-
-                                echo '<div>';
-                                echo '<img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . '></div>
-            </a>
-            <div>
-            <p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>App Name : </strong>' . $row["appname"] . '</p>
-                <p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>Status : </strong>' . $row["app_status"] . '</p>
+    <main class="page lanidng-page">
+        <section class="portfolio-block block-intro">
+            <?php
+            if (isset($_GET["u_id"])) {
+                $user_check = $_GET["u_id"];
+                $sql_user = mysqli_query($db, "SELECT u_name, u_age, u_mail, u_picture FROM users WHERE u_id = '$user_check'");
+                $user_name_age_mail = mysqli_fetch_assoc($sql_user);
+                echo '<div class="container">
+                <div class="avatar" style="background-image: url(&quot;assets/img/avatar.jpg&quot;);"></div>
             </div>
-        </div>';
-                                if ($i == 5) {
-                                    $i = 0;
-                                    echo '</div>';
-                                }
-                            } ?>
+            <div class="container" style="padding: 0px;">
+                <div class="col" style="padding: 14px;">
+                    <div class="card">
+                        <div class="card-body" style="padding: 29px;">
+                            <div class="media">
+                                <div></div>
+                                <div class="media-body">
+                                    <ul class="list-unstyled fa-ul">
+                                        <li><label for="name"><strong>Name:&nbsp;</strong>&nbsp;</label><label>'. $user_name_age_mail["u_name"] .'</label></li>
+                                        <li><label for="email"><strong>Email:</strong>&nbsp;&nbsp;</label><label>'. $user_name_age_mail["u_mail"] .'</label></li>
+                                        <li><label for="age"><strong>Age:</strong>&nbsp;&nbsp;</label><label>'. $user_name_age_mail["u_age"] .'</label></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <nav class="col d-xl-flex justify-content-xl-center">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                            </ul>
-                        </nav>
                     </div>
                 </div>
-            </div>
+            </div>';
+            } else {
+                header("location: index.php");
+            }
+            ?>
         </section>
     </main>
+    <section class="portfolio-block website gradient" style="background-image: url(&quot;assets/img/2018-06-04-21-40-16.jpeg&quot;);background-size: contain;"></section>
     <footer class="page-footer">
         <div class="container">
             <div class="links"><a href="#">About us</a><a href="contact.html">Contact us</a><a href="store.html">Store</a></div>
             <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div>
         </div>
     </footer>
-    <div class="col"></div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>

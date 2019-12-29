@@ -1,42 +1,9 @@
 <?php
-# dev aps
-# user apps( downloaded)
-# apppage
+include("session.php");
 
-#  illustrate();
-
-function illustrate()
-{
-    include('session.php');
-    $dev_id = $_SESSION["u_id"];
-    $query = 'Select * from application
-              where app_id IN (SELECT app_id
-                               From develops where dev_id = ' . $dev_id . ')';
-    $result = mysqli_query($db, $query);
-    $i = 0;
-    while ($row = mysqli_fetch_array($result)) {
-        if ($i == 0) {
-            echo '<div class="row">';
-        }
-        $i++;
-        echo '<div class="col align-self-center project-sidebar-card">
-<a href="appPage.php?appname=' . $row["appname"] . '">';
-
-        echo '<div>';
-        echo '<img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . '></div>
-</a>
-<div>
-<p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>App Name : </strong>' . $row["appname"] . '</p>
-<p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>Status : </strong>' . $row["app_status"] . '</p>
-</div>
-</div>';
-        if ($i == 5) {
-            $i = 0;
-            echo '</div>';
-        }
-    }
+if ($_SESSION["u_type"] != "developer") {
+    header("location: index.php");
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -145,12 +112,45 @@ function illustrate()
                             unset($_SESSION["success"]);
                         }
                         ?>
-                        <div class="row" style="padding: 28px;">
+                        <div class="row">
                             <?php
+                            $dev_id = $_SESSION["u_id"];
+                            $query = 'Select * from application
+                                      where app_id IN (SELECT app_id
+                                                       From develops where dev_id = ' . $dev_id . ')';
+                            $result = mysqli_query($db, $query);
+                            $i = 0;
+                            while ($row = mysqli_fetch_array($result)) {
+                                if ($i == 0) {
+                                    echo '<div class="row">';
+                                }
+                                $i++;
+                                echo '<div class="col align-self-center project-sidebar-card">
+                        <a href="appPage.php?appname=' . $row["appname"] . '">';
 
-                            illustrate(); ?>
+                                echo '<div>';
+                                echo '<img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . '></div>
+                        </a>
+                        <div>
+                        <p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>App Name : </strong>' . $row["appname"] . '</p>
+                        <p class="text-center border rounded-0" style="background-color: ';
+                                if ($row["app_status"] == "WAITING") {
+                                    echo '#e0e0e0';
+                                } else if ($row["app_status"] == "APPROVED") {
+                                    echo '#acf74c';
+                                }
+                                echo '"><strong>Status : </strong>' . $row["app_status"] . '</p>
                         </div>
-                        <nav class="d-xl-flex justify-content-xl-center">
+                        </div>';
+                                if ($i == 5) {
+                                    $i = 0;
+                                    echo '</div>';
+                                }
+                            }
+
+                            ?>
+                        </div>
+                        <nav class="col d-xl-flex justify-content-xl-center">
                             <ul class="pagination">
                                 <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
                                 <li class="page-item"><a class="page-link" href="#">1</a></li>

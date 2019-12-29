@@ -143,9 +143,8 @@ include("session.php");
                                         <section class='well'>
                                             <div class='dropdown' ><a style='color:#c29801' href='#' class='dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cricle'></i>" . $user_row["u_name"] . "<span class='caret'></span></a>
                                                 <ul class='dropdown-menu border-white' style='background-color: #343a40;padding-left:5px'>
-                                                    <li><a style='color:#c29801' href='#'><i class='fa fa-user'></i> See profile</a></li>
+                                                    <li><a style='color:#c29801' href='viewProfile.php?u_id=". $u_id ."'><i class='fa fa-user'></i> See profile</a></li>
                                                     <li class='divider'></li>
-                                                    <li><a style='color:#c29801' href='#'><i class='fa fa-cogs'></i> Manage User (for adminstrator)</a></li>
                                                 </ul>
                                             </div>
                                             <dl class='dl-horizontal'><dt>Joined Date:</dt>
@@ -210,7 +209,7 @@ include("session.php");
                         $post_answers_data = mysqli_query($db, $post_answers_info_query);
 
                         while ($post_row = mysqli_fetch_array($post_answers_data)) {
-                            $user_info_query = "SELECT u_name, u_age, DATE(u_signdate) as u_signdate FROM users WHERE u_id = '" . $post_row["u_id"] . "'";
+                            $user_info_query = "SELECT u_id, u_name, u_age, DATE(u_signdate) as u_signdate FROM users WHERE u_id = '" . $post_row["u_id"] . "'";
                             $user_data = mysqli_query($db, $user_info_query);
                             $user_row = mysqli_fetch_array($user_data);
 
@@ -253,9 +252,8 @@ include("session.php");
                                         <section class='well'>
                                             <div class='dropdown' ><a style='color:#c29801' href='#' class='dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cricle'></i>" . $user_row["u_name"] . "<span class='caret'></span></a>
                                                 <ul class='dropdown-menu border-white' style='background-color: #343a40;padding-left:5px'>
-                                                    <li><a style='color:#c29801' href='#'><i class='fa fa-user'></i> See profile</a></li>
+                                                    <li><a style='color:#c29801' href='viewProfile.php?u_id=". $post_row["u_id"] ."'><i class='fa fa-user'></i> See profile</a></li>
                                                     <li class='divider'></li>
-                                                    <li><a style='color:#c29801' href='#'><i class='fa fa-cogs'></i> Manage User (for adminstrator)</a></li>
                                                 </ul>
                                             </div>
                                             <dl class='dl-horizontal'><dt>Joined Date:</dt>
