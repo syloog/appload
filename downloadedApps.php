@@ -125,7 +125,7 @@ if ($_SESSION["u_type"] != "regular") {
                                 }
                                 $i++;
                                 echo '<div class="col align-self-center project-sidebar-card">
-                        <a href="appPage.php?appname=' . $row["appname"] . '">';
+                        <a href="downloadedAppPage.php?appname=' . $row["appname"] . '">';
                                 echo '<div>';
                                 echo '<img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . '></div>
                         </a>
