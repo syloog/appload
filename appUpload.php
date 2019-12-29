@@ -124,14 +124,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $queryToDevelops = "INSERT INTO develops (dev_id, app_id) VALUES ($u_id, $app_id);";
 
                 if ((mysqli_query($db, $queryToDevelops))) {
-                    array_push($success, "Application created.");
-                    $_SESSION["success"] = $success;
-                    header("location: devApps.php");
                 } else {
                     array_push($errors, "Cannot create develops.");
                     $_SESSION["error"] = $errors;
                     header("location: uploadAnApp.php");
                 }
+
+                $queryToReq_restricts = "INSERT INTO req_restricts values( $app_id, $reqID)";
+                 if ((mysqli_query($db, $queryToReq_restricts))) {
+                    array_push($success, "Application created.");
+                    $_SESSION["success"] = $success;
+                    header("location: devApps.php");
+                } else {
+                    array_push($errors, "Cannot create Req_restricts.");
+                    $_SESSION["error"] = $errors;
+                    header("location: uploadAnApp.php");
+                }
+
             } else {
                 echo '<script type="text/javascript">alert("Please try again to upload the file again"); </script>';
             }
