@@ -59,6 +59,7 @@ if(isset($_GET["appname"]) != 0)
     {
       #  echo "basaırızı";
     }
+
     
     while($row = mysqli_fetch_array($result2, MYSQLI_BOTH))
     {
@@ -67,9 +68,27 @@ if(isset($_GET["appname"]) != 0)
         $cpu = $row["cpu"];
         $storage = $row["storage"];
     }
-    
-    
-    
+        #areaları al 
+    $areaString="";
+    $queryForTakingAreas = " Select * from restricts where app_id = $app_id";
+    if($result4 = mysqli_query($db,$queryForTakingAreas ))
+    {
+        while($row = mysqli_fetch_array($result4))
+        {
+                $queryForArea = "Select * from area where area_id= $row['area_id']";
+                if($result5 = mysqli_query($db,$queryForArea ))
+                {
+                    while($row2 = mysqli_fetch_array($result5))
+                    {
+                        $areaString = $areaString +", " +$row2["area_name"];     
+                    }
+                }
+                    
+            }
+        }
+    }
+        $len =strlen($areaString);
+    $areaString= substr($areaString,1,$len);
     $var2 ='<main class="page lanidng-page">
             <section class="portfolio-block block-intro" style="padding-bottom: 30px;">
             <div class="container">
@@ -240,7 +259,7 @@ echo ' <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfo
                                             </tr>
                                             <tr>
                                                 <td>Supported Areas</td>
-                                                <td>Europe, &nbsp;America, Asia</td>
+                                                <td>'.$area.'</td>
                                             </tr>
                                             <tr>
                                                 <td>Operating System</td>
