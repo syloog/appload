@@ -1,6 +1,5 @@
 <?php
 include("session.php");
-
 if ($_SESSION["u_type"] != "developer") {
     header("location: index.php");
 }
@@ -126,8 +125,7 @@ if ($_SESSION["u_type"] != "developer") {
                                 }
                                 $i++;
                                 echo '<div class="col align-self-center project-sidebar-card">
-                        <a href="appPage.php?appname=' . $row["appname"] . '">';
-
+                        <a href="developersApplication.php?appname=' . $row["appname"] . '">';
                                 echo '<div>';
                                 echo '<img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . '></div>
                         </a>
@@ -147,7 +145,6 @@ if ($_SESSION["u_type"] != "developer") {
                                     echo '</div>';
                                 }
                             }
-
                             ?>
                         </div>
                         <nav class="col d-xl-flex justify-content-xl-center">
