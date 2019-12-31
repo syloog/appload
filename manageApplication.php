@@ -1,6 +1,8 @@
 <?php
 include('session.php');
-$app_id = $_GET["app_id"]; $app_id = $app_id+0; echo $app_id.'"';
+$app_id = $_GET["app_id"];
+$app_id = $app_id + 0;
+echo $app_id . '"';
 echo gettype($app_id);
 ?>
 
@@ -58,7 +60,7 @@ echo gettype($app_id);
                 ?>
                 <li class="nav-item" role="presentation"><a class="nav-link" <?php
                                                                                 if (isset($_SESSION["loggedin"])) {
-                                                                                ?> href='forum.php'>Forum</a></li>
+                                                                                ?> href='forum.php?sort=lastest&pageno=1'>Forum</a></li>
             <?php
                                                                                 } else {
                                                                                     echo "></a></li>";
@@ -99,23 +101,27 @@ echo gettype($app_id);
                             unset($_SESSION["error"]);
                         }
                         ?>
- 
-                            <div class="col my-auto">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="appUpdate.php?app_id=<?php $app_id = $_GET["app_id"]; $app_id = $app_id+0; echo $app_id.'"';?>" style="margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;background-color: rgb(17,138,255);">Update the App</a></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" style="background-color: rgb(232,192,96);color: rgb(255,255,255);margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;" href="deleteApp.php?app_id=<?php $app_id = $_GET["app_id"]; $app_id = $app_id+0; echo $app_id.'"';?>">Delete The App</a></div>
-                                        </div>
+
+                        <div class="col my-auto">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" href="appUpdate.php?app_id=<?php $app_id = $_GET["app_id"];
+                                                                                                                                                                            $app_id = $app_id + 0;
+                                                                                                                                                                            echo $app_id . '"'; ?>" style="margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;background-color: rgb(17,138,255);">Update the App</a></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col d-inline-block"><a class="btn btn-primary border rounded-0 border-dark" role="button" style="background-color: rgb(232,192,96);color: rgb(255,255,255);margin-top: 0;margin-right: 0;margin-bottom: 0;margin-left: 0;width: 100%;" href="deleteApp.php?app_id=<?php $app_id = $_GET["app_id"];
+                                                                                                                                                                                                                                                                                                                        $app_id = $app_id + 0;
+                                                                                                                                                                                                                                                                                                                        echo $app_id . '"'; ?>">Delete The App</a></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-        
+            </div>
+
         </section>
         <section class="portfolio-block photography"></section>
         <section class="portfolio-block call-to-action border-bottom"></section>

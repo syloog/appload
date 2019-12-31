@@ -10,11 +10,7 @@
     }
     else
     {
-           array_push($errors, "Cannot delete the app.");
-           $_SESSION["error"] = $errors;
-           header("location: manageApplication.php");
+        array_push($errors, "Cannot delete the app.");
+        $_SESSION["error"] = $errors;
+        header("location: manageApplication.php");
     }
-?>
-
-
-  
