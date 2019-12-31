@@ -68,6 +68,28 @@ if(isset($_GET["appname"]) != 0)
         $storage = $row["storage"];
     }
     
+            #areaları al 
+    $areaString="";
+    $queryForTakingAreas = " Select * from restricts where app_id = $app_id";
+    if($result4 = mysqli_query($db,$queryForTakingAreas ))
+    {
+        while($row = mysqli_fetch_array($result4))
+        {
+                $temp = $row['area_id'];
+                $queryForArea = "Select * from area where area_id= $temp";
+                if($result5 = mysqli_query($db,$queryForArea ))
+                {
+                    while($row2 = mysqli_fetch_array($result5))
+                    {
+                        $temp2 = $row2["area_name"];
+                        $areaString = $areaString .", " . $temp2;     
+                    }
+                }
+                    
+         }
+    }
+    $len =strlen($areaString);
+    $areaString= substr($areaString,1,$len);
     
     
     $var2 ='<main class="page lanidng-page">
@@ -240,7 +262,7 @@ echo ' <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfo
                                             </tr>
                                             <tr>
                                                 <td>Supported Areas</td>
-                                                <td>Europe, &nbsp;America, Asia</td>
+                                                <td>'. $areaString .'</td>
                                             </tr>
                                             <tr>
                                                 <td>Operating System</td>
