@@ -1,1 +1,1 @@
-# appload
+Application Store in a web browser. Given as a project in one of our courses, CS 353. Implementing a database and learning how to interact with it is the main purpose of this project. Using database efficiently, leaves much less code to write in back-end implementation. The web server is currently working on PHP server with XAMPP.
