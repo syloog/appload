@@ -89,8 +89,11 @@ session_start();
                     <div class="col d-xl-flex justify-content-xl-center" style="padding:5px;">
                         <?php
                         if (isset($_SESSION["error"])) {
-                            $error = $_SESSION["error"];
-                            echo "<span class='bg-danger border rounded border-danger' style='padding:5px;'> $error </span>";
+                            foreach ($_SESSION["error"] as $error) {
+                                echo "<div class='row'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-danger' role='alert' style='width:100%;padding-left: 35px'><span><strong> Alert </strong>";
+                                echo $error;
+                                echo " </span></div></div></div>";
+                            }
                             unset($_SESSION["error"]);
                         }
                         ?>
@@ -123,28 +126,28 @@ session_start();
                 </div>
                 <div class='row features'>
                     <div class='col-sm-6 col-md-4 item'><i class='fa fa-forumbee icon'></i>
-                        <h3 class='name'>Forums</h3>
-                        <p class='description'>Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
-                    </div>
-                    <div class='col-sm-6 col-md-4 item'><i class='fa fa-download icon'></i>
-                        <h3 class='name'>Applications</h3>
-                        <p class='description'>Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
-                    </div>
-                    <div class='col-sm-6 col-md-4 item'><i class='fa fa-certificate icon'></i>
-                        <h3 class='name'>Rating System</h3>
-                        <p class='description'>Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
-                    </div>
-                    <div class='col-sm-6 col-md-4 item'><i class='fa fa-universal-access icon'></i>
-                        <h3 class='name'>Easy Access</h3>
-                        <p class='description'>Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
-                    </div>
-                    <div class='col-sm-6 col-md-4 item'><i class='fa fa-plane icon'></i>
-                        <h3 class='name'>Fast</h3>
-                        <p class='description'>Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
-                    </div>
-                    <div class='col-sm-6 col-md-4 item'><i class='far fa-user icon'></i>
-                        <h3 class='name'>Own Profile</h3>
-                        <p class='description'>Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
+                    <h3 class='name'>Forums</h3>
+                    <p class='description'>You can post your opinion about the apps in the forum!</p>
+                </div>
+                <div class='col-sm-6 col-md-4 item'><i class='fa fa-download icon'></i>
+                    <h3 class='name'>Applications</h3>
+                    <p class='description'>Many applications that may interest you in Appload!</p>
+                </div>
+                <div class='col-sm-6 col-md-4 item'><i class='fa fa-certificate icon'></i>
+                    <h3 class='name'>Rating System</h3>
+                    <p class='description'>Download an app and then rate it!</p>
+                </div>
+                <div class='col-sm-6 col-md-4 item'><i class='fa fa-universal-access icon'></i>
+                    <h3 class='name'>Easy Access</h3>
+                    <p class='description'>Easy access for the apps in the store. You can download them immediately!</p>
+                </div>
+                <div class='col-sm-6 col-md-4 item'><i class='fa fa-plane icon'></i>
+                    <h3 class='name'>Fast</h3>
+                    <p class='description'>Fast access to apps!</p>
+                </div>
+                <div class='col-sm-6 col-md-4 item'><i class='far fa-user icon'></i>
+                    <h3 class='name'>Own Profile</h3>
+                    <p class='description'>In this project you can be a developer, editor or regular user. We do not mind!</p>
                     </div>
                 </div>
             </div>";

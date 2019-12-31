@@ -1,6 +1,8 @@
 <?php
 include('session.php');
 
+
+
 if (isset($_GET["appname"]) != 0) {
 
     $var = $_GET['appname'];
@@ -10,7 +12,7 @@ if (isset($_GET["appname"]) != 0) {
     } else {
         die(mysqli_error($db));
     }
-
+    $errors = array();
     $row = mysqli_fetch_array($result_app_info, MYSQLI_BOTH);
     $app_id = $row["app_id"];
     $description = $row["description"];
@@ -21,43 +23,48 @@ if (isset($_GET["appname"]) != 0) {
     $app_status = $row["app_status"];
     $file = $row["file"];
 
+    if ($_SESSION["u_type"] == "regular" && $app_status == "WAITING") {
+        array_push($errors, "This application is under evalution. Please, try again some other time.");
+        $_SESSION["error"] = $errors;
+        header("location: index.php");
+    } else {
+        $area_req = "Select area_name from restricts INNER JOIN area USING(area_id) WHERE app_id = " . $app_id;
+        $areas = array();
+        if ($result_area_requirement = mysqli_query($db, $area_req)) {
 
-    $area_req = "Select area_name from restricts INNER JOIN area USING(area_id) WHERE app_id = " . $app_id;
-    $areas = array();
-    if ($result_area_requirement = mysqli_query($db, $area_req)) {
-
-        while ($row = mysqli_fetch_array($result_area_requirement)) {
-            array_push($areas, $row["area_name"]);
+            while ($row = mysqli_fetch_array($result_area_requirement)) {
+                array_push($areas, $row["area_name"]);
+            }
+        } else {
+            die(mysqli_error($db));
         }
-    } else {
-        die(mysqli_error($db));
+
+        $query_req = "Select req_id from req_restricts where app_id = $app_id";
+        $reqId;
+
+        if ($result_requirement = mysqli_query($db, $query_req)) {
+
+            $row = mysqli_fetch_assoc($result_requirement);
+            $req_Id = $row["req_id"];
+        } else {
+            die(mysqli_error($db));
+        }
+
+        $req_Id = $req_Id + 0;
+        $query_min_req = "Select * from minimum_requirement where req_id = $req_Id";
+
+
+        if ($result_min_req  = mysqli_query($db, $query_min_req)) {
+        } else {
+            die(mysqli_error($db));
+        }
+
+        $row = mysqli_fetch_assoc($result_min_req);
+        $os_version = $row["os_version"];
+        $ram = $row["ram"];
+        $cpu = $row["cpu"];
+        $storage = $row["storage"];
     }
-
-    $query_req = "Select req_id from req_restricts where app_id = $app_id";
-    $reqId;
-
-    if ($result_requirement = mysqli_query($db, $query_req)) {
-
-        $row = mysqli_fetch_assoc($result_requirement);
-        $req_Id = $row["req_id"];
-    } else {
-        die(mysqli_error($db));
-    }
-
-    $req_Id = $req_Id + 0;
-    $query_min_req = "Select * from minimum_requirement where req_id = $req_Id";
-
-
-    if ($result_min_req  = mysqli_query($db, $query_min_req)) {
-    } else {
-        die(mysqli_error($db));
-    }
-
-    $row = mysqli_fetch_assoc($result_min_req);
-    $os_version = $row["os_version"];
-    $ram = $row["ram"];
-    $cpu = $row["cpu"];
-    $storage = $row["storage"];
 }
 ?>
 
@@ -296,7 +303,7 @@ if (isset($_GET["appname"]) != 0) {
                                                             </div>
                                                             <div class="row mx-auto d-flex d-flex justify-content-center">';
                                                     if ($_SESSION["u_id"] == $user_row["u_id"]) {
-                                                            echo '<a href ="deleteComment.php?appname='. $_GET["appname"] .'&c_id='. $comment_row["c_id"] .'"><button type="button" class="btn btn-link pull-right">Delete Comment</button></a>';
+                                                        echo '<a href ="deleteComment.php?appname=' . $_GET["appname"] . '&c_id=' . $comment_row["c_id"] . '"><button type="button" class="btn btn-link pull-right">Delete Comment</button></a>';
                                                     }
 
                                                     if ($_SESSION["u_type"] == "developer") {

@@ -1,5 +1,13 @@
 <?php
 include('session.php');
+
+if ($_SESSION["u_type"] != "editor") {
+    $errors = array();
+    array_push($errors, "You don't have access to this page.");
+    $_SESSION["error"] = $errors;
+    header("location: index.php");
+}
+
 ?>
 
 <!DOCTYPE html>
