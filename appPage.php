@@ -182,7 +182,7 @@ if (isset($_GET["appname"]) != 0) {
                                     <?php
                                     if ($_SESSION["u_type"] == "developer") {
                                         echo "<a href=manageApplication.php?app_id=" . $app_id . '><div class="col"><button class="button" type="submit" data-hover="CLICK HERE"><span>MANAGE APP</span></button></a>';
-                                    } else {
+                                    } else if ($_SESSION["u_type"] == "regular") {
                                         echo "<a href=download.php?file=" . $file . '><div class="col"><button class="button" type="submit" data-hover="NOW!"><span>DOWNLOAD</span></button></a>';
                                     }
                                     ?>
@@ -254,13 +254,12 @@ if (isset($_GET["appname"]) != 0) {
                             </div>
                         </div>
                         <div class="tab-pane fade" role="tabpanel" id="tab-2">
-                            <div class="col" style="padding: 35px;">
+                            <div class="col" style="padding: 0px;">
                                 <div class="comment-wrapper">
                                     <div class="panel panel-info">
                                         <div class="panel-body" style="padding-top: 15px">
                                             <div class="row mx-auto d-flex justify-content-center" style="padding:0px;margin:0px">
                                                 <?php
-
                                                 if ($_SESSION["u_type"] == "regular") {
                                                     echo '<form method="post" action="addComment.php?appname=' . $_GET["appname"] . '&app_id=' . $app_id . '" class="shadow-none border" style="padding:10px;margin:0px;margin-bottom:50px;height:100%;width:100%;max-width:100%;max-height:100%">
                                                     <fieldset id="rating" required="">
@@ -275,7 +274,7 @@ if (isset($_GET["appname"]) != 0) {
                                                     </fieldset>
                                                     <textarea required="" style="max-height:200px" class="form-control" name="description" placeholder="write a comment..." rows="3"></textarea>
                                                     <br>
-                                                    <button type="submit" name="addcomment" value="1" class="btn btn-info pull-right">Post</button>
+                                                    <button type="submit" class="button" name="addcomment" value="1" class="btn btn-info pull-right">Comment</button>
                                                     <div class="clearfix"></div>
                                                     <hr>
                                                 </form>';
@@ -295,28 +294,60 @@ if (isset($_GET["appname"]) != 0) {
                                                     $user_data = mysqli_query($db, $user_info_query);
                                                     $user_row = mysqli_fetch_array($user_data);
 
-                                                    echo '<ul class="media-list" style="padding:0px">
+                                                    echo '<ul class="media-list" style="padding-top:40px">
                                                     <li class="media">
                                                         <a href="viewProfile.php?u_id=' . $user_row["u_id"] . '" class="pull-left">
                                                             <img src="images/profile_photos/default_pic.png" alt="" class="img-circle">
                                                         </a>
                                                         <div class="media-body">
                                                             <strong class="text-success">' . $user_row["u_name"] . '</strong>
-                                                            <div class="row mx-auto d-flex justify-content-center">
+                                                            <div class="row mx-auto d-flex justify-content-center" style="margin:0px;padding:0px">
                                                                 <p>' . $comment_row["text"] . '
                                                                 </p>
-                                                            </div>
-                                                            <div class="row mx-auto d-flex d-flex justify-content-center">';
+                                                            </div>';
+
                                                     if ($_SESSION["u_id"] == $user_row["u_id"]) {
-                                                        echo '<a href ="deleteComment.php?appname=' . $_GET["appname"] . '&c_id=' . $comment_row["c_id"] . '"><button type="button" class="btn btn-link pull-right">Delete Comment</button></a>';
+                                                        echo '<a style="padding:0px" href ="deleteComment.php?appname=' . $_GET["appname"] . '&c_id=' . $comment_row["c_id"] . '"><button type="button" class="btn btn-link" style="padding:0px">Delete Comment</button></a>';
                                                     }
 
-                                                    if ($_SESSION["u_type"] == "developer") {
+                                                    echo '<div class="row mx-auto d-flex d-flex justify-content-center">';
+
+                                                    $replies_info_query = "SELECT dev_id, text, app_id FROM replies WHERE c_id = " . $comment_row["c_id"];
+                                                    if ($reply_data = mysqli_query($db, $replies_info_query)) {
+                                                        if (mysqli_num_rows($reply_data) > 0) {
+                                                            $reply_row = mysqli_fetch_assoc($reply_data);
+
+                                                            $dev_info_query = "SELECT u_name FROM users WHERE u_id =" . $reply_row["dev_id"];
+                                                            $dev_data = mysqli_query($db, $dev_info_query);
+                                                            $dev_row = mysqli_fetch_assoc($dev_data);
+
+                                                            echo '<div class="media-body" style="padding-top:35px;">
+                                                            <a href="viewProfile.php?u_id=' . $reply_row["dev_id"] . '" class="pull-left">
+                                                                <img src="images/profile_photos/default_pic.png" alt="" class="img-circle">
+                                                            </a>
+                                                                <strong class="text-success">(Developer) ' . $dev_row["u_name"] . '</strong>
+                                                                <div class="row mx-auto d-flex justify-content-center" style="padding-right:70px">
+                                                                    <p>' . $reply_row["text"] . '
+                                                                    </p>
+                                                                </div>';
+                                                            echo '<a style="padding:0px" href ="deleteReply.php?appname=' . $_GET["appname"] . '&app_id=' . $reply_row["app_id"] .'&c_id=' . $comment_row["c_id"] .'&u_id=' . $user_row["u_id"] . '"><button type="button" class="btn btn-link" style="padding:0px">Delete Reply</button></a>';
+                                                            echo '</div>';
+                                                        }
+                                                    }
+
+                                                    if ($_SESSION["u_type"] == "developer" && mysqli_num_rows($reply_data) == 0) {
                                                         $dev_check_query = "SELECT * from develops WHERE app_id= " . $app_id . " AND dev_id=" . $_SESSION["u_id"];
                                                         $dev_exists = mysqli_query($db, $dev_check_query);
                                                         $dev_id_exist = mysqli_num_rows($dev_exists);
                                                         if ($dev_id_exist > 0) {
-                                                            echo '<button type="button" class="btn btn-link pull-right">Reply Comment</button>';
+                                                            echo '<form method="post" action="addComment.php?appname=' . $_GET["appname"] . '&app_id=' . $app_id . '&u_id=' . $user_row["u_id"] . '&c_id=' . $comment_row["c_id"] . '" class="shadow-none" style="padding:10px;margin:0px;height:90%;width:90%;max-width:90%;max-height:90%">
+
+                                                            <textarea required="" style="max-height:200px" class="form-control" name="description" placeholder="write a reply..." rows="3"></textarea>
+                                                            <br>
+                                                            <button class="button" type="submit" name="addreply" value="1" class="btn btn-info pull-right">Reply</button>
+                                                            <div class="clearfix"></div>
+                                                            <hr>
+                                                            </form>';
                                                         }
                                                     }
 

@@ -178,7 +178,7 @@ include("session.php");
                         } else {
                             echo "hidden";
                         };
-                        echo "></i><a style='color:#c29801' href='#'";
+                        echo "></i><a style='color:#c29801' href='deletePosts.php?u_id=". $u_id. "&post_id=". $post_id."'";
                         if ($_SESSION["u_id"] == $u_id || $_SESSION["u_type"] == "editor") {
                             echo "visible";
                         } else {
@@ -205,7 +205,7 @@ include("session.php");
                         $total_rows = mysqli_fetch_array($result)[0];
                         $total_pages = ceil($total_rows / $no_of_answers_per_page);
 
-                        $post_answers_info_query = "SELECT u_id, text, DATE(post_date) as post_date, TIME(post_date) as post_time FROM answersposts WHERE post_id = '" . $post_id . "' ORDER BY UNIX_TIMESTAMP(post_date) ASC LIMIT $offset, $no_of_answers_per_page";
+                        $post_answers_info_query = "SELECT u_id, answer_id, text, DATE(post_date) as post_date, TIME(post_date) as post_time FROM answersposts WHERE post_id = '" . $post_id . "' ORDER BY UNIX_TIMESTAMP(post_date) ASC LIMIT $offset, $no_of_answers_per_page";
                         $post_answers_data = mysqli_query($db, $post_answers_info_query);
 
                         while ($post_row = mysqli_fetch_array($post_answers_data)) {
@@ -287,7 +287,7 @@ include("session.php");
                             } else {
                                 echo "hidden";
                             };
-                            echo "></i><a style='color:#c29801' href='#'";
+                            echo "></i><a style='color:#c29801' href='deleteAnswers.php?u_id=". $post_row["u_id"]. "&answer_id=". $post_row["answer_id"]."&post_id=". $post_id."'";
                             if ($_SESSION["u_id"] == $post_row["u_id"] || $_SESSION["u_type"] == "editor") {
                                 echo "visible";
                             } else {

@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['continue'])) {
 
         $photoName = "default_pic.png";
-        $fileName = "default_pic.png";
+        $fileName;
 
         if ($_FILES['photo_file']['error'] == UPLOAD_ERR_OK) {
 
