@@ -87,9 +87,9 @@ if ($_SESSION["u_type"] != "developer") {
             </div>
         </div>
     </nav>
-    <main class="page projects-page">
+    <main class="page projects-page" style="background-color: #0c0f18;">
         <section class="portfolio-block projects-with-sidebar">
-            <div class="container">
+            <div class="container border rounded border-warning rounded" style="background-color: #f8f8f8;padding: 40px;">
                 <div class="heading">
                     <h2>MY APPS</h2>
                 </div>

@@ -1,5 +1,6 @@
 <?php
 include('session.php');
+
 if (isset($_GET["appname"]) != 0) {
 
     $var = $_GET['appname'];
@@ -7,17 +8,29 @@ if (isset($_GET["appname"]) != 0) {
 
     if ($result_app_info  = mysqli_query($db, $query_app_name)) {
     } else {
+        die(mysqli_error($db));
     }
 
-    while ($row = mysqli_fetch_array($result_app_info, MYSQLI_BOTH)) {
-        $app_id = $row["app_id"];
-        $description = $row["description"];
-        $app_version = $row["app_version"];
-        $minimumAge = $row["minimumAge"];
-        $appLogo = $row["appLogo"];
-        $cat_id = $row["cat_id"];
-        $app_status = $row["app_status"];
-        $file = $row["file"];
+    $row = mysqli_fetch_array($result_app_info, MYSQLI_BOTH);
+    $app_id = $row["app_id"];
+    $description = $row["description"];
+    $app_version = $row["app_version"];
+    $minimumAge = $row["minimumAge"];
+    $appLogo = $row["appLogo"];
+    $cat_id = $row["cat_id"];
+    $app_status = $row["app_status"];
+    $file = $row["file"];
+
+
+    $area_req = "Select area_name from restricts INNER JOIN area USING(area_id) WHERE app_id = " . $app_id;
+    $areas = array();
+    if ($result_area_requirement = mysqli_query($db, $area_req)) {
+
+        while ($row = mysqli_fetch_array($result_area_requirement)) {
+            array_push($areas, $row["area_name"]);
+        }
+    } else {
+        die(mysqli_error($db));
     }
 
     $query_req = "Select req_id from req_restricts where app_id = $app_id";
@@ -25,10 +38,10 @@ if (isset($_GET["appname"]) != 0) {
 
     if ($result_requirement = mysqli_query($db, $query_req)) {
 
-        while ($row = mysqli_fetch_assoc($result_requirement)) {
-            $req_Id = $row["req_id"];
-        }
+        $row = mysqli_fetch_assoc($result_requirement);
+        $req_Id = $row["req_id"];
     } else {
+        die(mysqli_error($db));
     }
 
     $req_Id = $req_Id + 0;
@@ -37,14 +50,14 @@ if (isset($_GET["appname"]) != 0) {
 
     if ($result_min_req  = mysqli_query($db, $query_min_req)) {
     } else {
+        die(mysqli_error($db));
     }
 
-    while ($row = mysqli_fetch_assoc($result_min_req)) {
-        $os_version = $row["os_version"];
-        $ram = $row["ram"];
-        $cpu = $row["cpu"];
-        $storage = $row["storage"];
-    }
+    $row = mysqli_fetch_assoc($result_min_req);
+    $os_version = $row["os_version"];
+    $ram = $row["ram"];
+    $cpu = $row["cpu"];
+    $storage = $row["storage"];
 }
 ?>
 
@@ -134,16 +147,34 @@ if (isset($_GET["appname"]) != 0) {
     </nav>
     <main class="page lanidng-page">
         <section class="portfolio-block block-intro" style="padding-bottom: 30px;">
+            <?php
+            if (isset($_SESSION["error"])) {
+                foreach ($_SESSION["error"] as $error) {
+                    echo "<div class='row' style='padding-left:35px;padding-right:35px'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-danger' role='alert' style='width:50%; padding-left: 35px'><span><strong> Alert </strong>";
+                    echo $error;
+                    echo " </span></div></div></div>";
+                }
+                unset($_SESSION["error"]);
+            } else if (isset($_SESSION["success"])) {
+                foreach ($_SESSION["success"] as $success) {
+                    echo "<div class='row' style='padding-left:35px;padding-right:35px'><div class='col d-xl-flex justify-content-xl-center'><div class='alert alert-success' role='alert' style='width:50%; padding-left: 35px'><span><strong> Success: </strong>";
+                    echo $success;
+                    echo " </span></div></div></div>";
+                }
+                unset($_SESSION["success"]);
+            }
+            ?>
             <div class="container border rounded" style="padding:35px">
                 <div class="row">
-                    <div class="col d-xl-flex align-self-center align-items-xl-center item" style="max-width:400px;max-height:400px;"><img class="img-fluid image" src="./images/application_photos/<?php echo $appLogo; ?>"></div>
-                    <div class="col align-self-center">
+                    <div class="col d-xl-flex align-self-center align-items-xl-center item" style="height:400px;width:400px;max-width:400px;max-height:400px"><a><img class="img-thumbnail" style="width:400px;height:400px;background-size:cover;<?php echo 'background-image:url(&quot;/images/application_photos/' . $appLogo . '&quot;);' ?>"></a></div>
+                    <div class=" col align-self-center">
                         <h4><?php echo $var; ?><br /></h4>
                         <div class="row d-sm-flex d-xl-flex justify-content-center align-items-xl-center">
                             <div class="col">
                                 <div class="row">
-                                    <a href="download.php?file=<?php echo $file; ?>"><div class="col"><button class="button" type="submit" data-hover="NOW!"><span>DOWNLOAD</span> </button></a></div>
-                                </div>
+                                    <a href="download.php?file=<?php echo $file; ?>">
+                                        <div class="col"><button class="button" type="submit" data-hover="NOW!"><span>DOWNLOAD</span> </button>
+                                    </a></div>
                             </div>
                         </div>
                     </div>
@@ -162,7 +193,8 @@ if (isset($_GET["appname"]) != 0) {
                             <div class="col">
                                 <p><br><br> <?php echo $description; ?> <br><br></p>
                             </div>
-                            <div class="col-6 mx-auto" style="padding-bottom: 15px;padding-top: 15px;"><img class="img-fluid" src="assets/img/bee164f5ac22ee6299ee7e993135b42c.png"></div>
+                            <div class="col-6 mx-auto" style="padding-bottom: 15px;padding-top: 15px;">
+                            </div>
                             <div class="col">
                                 <div class="table-responsive">
                                     <table class="table">
@@ -179,7 +211,18 @@ if (isset($_GET["appname"]) != 0) {
                                             </tr>
                                             <tr>
                                                 <td>Supported Areas</td>
-                                                <td>Europe, &nbsp;America, Asia</td>
+                                                <td>
+                                                    <?php
+                                                    $totalCount = count($areas);
+                                                    $i = 0;
+                                                    foreach ($areas as $area) {
+                                                        $i++;
+                                                        echo $area;
+                                                        if ($i !=  $totalCount)
+                                                            echo " / ";
+                                                    }
+                                                    ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Operating System</td>
@@ -203,63 +246,72 @@ if (isset($_GET["appname"]) != 0) {
                                 <div class="comment-wrapper">
                                     <div class="panel panel-info">
                                         <div class="panel-body" style="padding-top: 15px">
-                                            Rate this app <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
-                                            <textarea class="form-control" placeholder="write a comment..." rows="3"></textarea>
-                                            <br>
-                                            <button type="button" class="btn btn-info pull-right">Post</button>
-                                            <div class="clearfix"></div>
-                                            <hr>
-                                            <ul class="media-list">
-                                                <li class="media">
-                                                    <a href="#" class="pull-left">
-                                                        <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <div class="row mx-auto d-flex justify-content-center justify-content-top">
-                                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half"></i>
-                                                        </div>
-                                                        <strong class="text-success">@MartinoMont</strong>
-                                                        <div class="row mx-auto d-flex justify-content-center">
-                                                            <p>
-                                                                Such a nice application !
-                                                            </p>
-                                                        </div>
-                                                        <div class="row mx-auto d-flex d-flex justify-content-center">
-                                                            <button type="button" class="btn btn-link pull-right">Edit Comment</button>
-                                                            <button type="button" class="btn btn-link pull-right">Delete Comment</button>
-                                                        </div>
-                                                    </div>
+                                            <div class="row mx-auto d-flex justify-content-center" style="padding:0px;margin:0px">
+                                                <?php
 
-                                                </li>
-                                                <li class="media">
-                                                    <a href="#" class="pull-left">
-                                                        <img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle">
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <div class="row mx-auto d-flex justify-content-center justify-content-top">
-                                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half"></i>
+                                                if ($_SESSION["u_type"] == "regular") {
+                                                    echo '<form method="post" action="addComment.php?appname=' . $_GET["appname"] . '&app_id=' . $app_id . '" class="shadow-none border" style="padding:10px;margin:0px;margin-bottom:50px;height:100%;width:100%;max-width:100%;max-height:100%">
+                                                    <fieldset id="rating" required="">
+                                                        <legend>Choose a Rating for this application</legend>
+                                                        <div class="row mx-auto d-flex justify-content-center" style="padding-bottom:10px">
+                                                        <div class="custom-control custom-radio" style="padding-right:15px"><input type="radio" value="1" id="rate1" class="custom-control-input" name="rating"><label class="custom-control-label" for="rate1">1</label></div>
+                                                        <div class="custom-control custom-radio" style="padding-right:15px"><input type="radio" value="2" id="rate2" class="custom-control-input" name="rating"><label class="custom-control-label" for="rate2">2</label></div>
+                                                        <div class="custom-control custom-radio" style="padding-right:15px"><input type="radio" value="3" id="rate3" class="custom-control-input" name="rating"><label class="custom-control-label" for="rate3">3</label></div>
+                                                        <div class="custom-control custom-radio" style="padding-right:15px"><input type="radio" value="4" id="rate4" class="custom-control-input" name="rating"><label class="custom-control-label" for="rate4">4</label></div>
+                                                        <div class="custom-control custom-radio" style="padding-right:15px"><input type="radio" value="5" id="rate5" class="custom-control-input" name="rating"><label class="custom-control-label" for="rate5">5</label></div>
                                                         </div>
-                                                        <strong class="text-success">@LaurenceCorreil</strong>
-                                                        <p>
-                                                            Works better in Windows. In Linux, it sometimes crashes. But still the best that I can find.
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                                <li class="media">
-                                                    <a href="#" class="pull-left">
-                                                        <img src="https://bootdey.com/img/Content/user_3.jpg" alt="" class="img-circle">
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <div class="row mx-auto d-flex justify-content-center justify-content-top">
-                                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                                        </div>
-                                                        <strong class="text-success">@JohnNida</strong>
-                                                        <p>
-                                                            This a must-to-get application if you are working with team for a project. We are constantly using GitHub to comminucate and also discuss about the implementation. Nice job developers!
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                                    </fieldset>
+                                                    <textarea required="" style="max-height:200px" class="form-control" name="description" placeholder="write a comment..." rows="3"></textarea>
+                                                    <br>
+                                                    <button type="submit" name="addcomment" value="1" class="btn btn-info pull-right">Post</button>
+                                                    <div class="clearfix"></div>
+                                                    <hr>
+                                                </form>';
+                                                }
+                                                ?>
+                                            </div>
+                                            <?php
+
+                                            $comments_info_query = "SELECT commentson.u_id, comment.text, commentson.rate, commentson.c_id FROM comment
+                                            INNER JOIN commentson
+                                             ON comment.c_id = commentson.c_id
+                                            INNER JOIN about
+                                             ON comment.c_id = about.c_id WHERE about.app_id = '" . $app_id . "'";
+                                            if ($comment_data = mysqli_query($db, $comments_info_query)) {
+                                                while ($comment_row = mysqli_fetch_array($comment_data)) {
+                                                    $user_info_query = "SELECT u_id, u_name FROM users WHERE u_id = '" . $comment_row["u_id"] . "'";
+                                                    $user_data = mysqli_query($db, $user_info_query);
+                                                    $user_row = mysqli_fetch_array($user_data);
+
+                                                    echo '<ul class="media-list" style="padding:0px">
+                                                    <li class="media">
+                                                        <a href="viewProfile.php?u_id=' . $user_row["u_id"] . '" class="pull-left">
+                                                            <img src="images/profile_photos/default_pic.png" alt="" class="img-circle">
+                                                        </a>
+                                                        <div class="media-body">
+                                                            <strong class="text-success">' . $user_row["u_name"] . '</strong>
+                                                            <div class="row mx-auto d-flex justify-content-center">
+                                                                <p>' . $comment_row["text"] . '
+                                                                </p>
+                                                            </div>
+                                                            <div class="row mx-auto d-flex d-flex justify-content-center">';
+                                                    if ($_SESSION["u_id"] == $user_row["u_id"]) {
+                                                            echo '<a href ="deleteComment.php?appname='. $_GET["appname"] .'&c_id='. $comment_row["c_id"] .'"><button type="button" class="btn btn-link pull-right">Delete Comment</button></a>';
+                                                    }
+
+                                                    if ($_SESSION["u_type"] == "developer") {
+                                                        $dev_check_query = "SELECT * from develops WHERE app_id= " . $app_id . " AND dev_id=" . $_SESSION["u_id"];
+                                                        $dev_exists = mysqli_query($db, $dev_check_query);
+                                                        $dev_id_exist = mysqli_num_rows($dev_exists);
+                                                        if ($dev_id_exist > 0) {
+                                                            echo '<button type="button" class="btn btn-link pull-right">Reply Comment</button>';
+                                                        }
+                                                    }
+
+                                                    echo '</div></div></li></ul>';
+                                                }
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -283,11 +335,8 @@ if (isset($_GET["appname"]) != 0) {
     <script src="assets/js/bs-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
     <script src="assets/js/Profile-Edit-Form.js"></script>
-    <script src="assets/js/theme.js"></script>';
-
-
-    echo '
+    <script src="assets/js/theme.js"></script>;
 </body>
 
-</html>';
+</html>;
 }
