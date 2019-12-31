@@ -179,9 +179,14 @@ if (isset($_GET["appname"]) != 0) {
                         <div class="row d-sm-flex d-xl-flex justify-content-center align-items-xl-center">
                             <div class="col">
                                 <div class="row">
-                                    <a href="download.php?file=<?php echo $file; ?>">
-                                        <div class="col"><button class="button" type="submit" data-hover="NOW!"><span>DOWNLOAD</span> </button>
-                                    </a></div>
+                                    <?php
+                                    if ($_SESSION["u_type"] == "developer") {
+                                        echo "<a href=manageApplication.php?app_id=" . $app_id . '><div class="col"><button class="button" type="submit" data-hover="CLICK HERE"><span>MANAGE APP</span></button></a>';
+                                    } else {
+                                        echo "<a href=download.php?file=" . $file . '><div class="col"><button class="button" type="submit" data-hover="NOW!"><span>DOWNLOAD</span></button></a>';
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>
