@@ -40,10 +40,10 @@ include('session.php');
             <div class="collapse navbar-collapse"
                 id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="profileUser.html">My Profile</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="forum.html">Forum</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="store.html">Store</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link visible" href="login.html">Logout</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="profileUser.php">My Profile</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="forum.php">Forum</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="store.php">Store</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link visible" href="logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -244,7 +244,7 @@ include('session.php');
     </main>
     <footer class="page-footer">
         <div class="container">
-            <div class="links"><a href="#">About us</a><a href="contact.html">Contact us</a><a href="store.html">Store</a></div>
+            <div class="links"><a href="#">About us</a><a href="contact.html">Contact us</a><a href="store.php">Store</a></div>
             <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div>
         </div>
     </footer>
