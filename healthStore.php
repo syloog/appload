@@ -113,28 +113,21 @@ include('session.php');
                             $offSet = (($page - 1) * 9 ) + 1;
                       
                           #        echo gettype($page);
-                                $storeQuery = " Select * 
-                                                from application
-                                                where app_id in(
-                                                                 Select app_id
-                                                                 from restricts
-                                                                 where area_id in(
-                                                                                  Select area_id
-                                                                                  from area as A, regularuser as R
-                                                                                  where R.u_id = $u_id
-                                                                                            AND
-                                                                                        A.area_name = R.area))
-                                                        AND
-                                                        minimumAge <=( Select u_age
+                            $storeQuery= "Select *
+                             from application
+                             where app_id in (select app_id 
+                                              from appsAllowed
+                                              where u_id = $u_id
+                                              and
+                                              app_status = 'APPROVED'
+                                              and
+                                              minimumAge <=( Select u_age
                                                                         from users
-                                                                        where u_id = $u_id)
-                                                        AND
-                                                        app_status = 'APPROVED'
-                                                        AND
-                                                        cat_id = 8
-                                                        order by app_date Desc
-                                                        limit ".$offSet .", 9";        
-             
+                                                                        where u_id = $u_id))
+                             and
+                             cat_id = 8
+                             order by app_date Desc
+                             limit ".$offSet .", 9";
                                               #    $storeQuery = " Select * 
                                                # from application
                                             #    where app_id in(
