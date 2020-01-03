@@ -1,7 +1,5 @@
 <?php
 include('session.php');
-
-
 ?>
 
 <!DOCTYPE html>
@@ -113,6 +111,9 @@ include('session.php');
                     </div>
                 </div>
             </div>';
+                
+            
+
             } else {
                 header("location: index.php");
             }

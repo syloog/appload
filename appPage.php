@@ -183,7 +183,7 @@ if (isset($_GET["appname"]) != 0) {
                                     if ($_SESSION["u_type"] == "developer") {
                                         echo "<a href=manageApplication.php?app_id=" . $app_id . '><div class="col"><button class="button" type="submit" data-hover="CLICK HERE"><span>MANAGE APP</span></button></a>';
                                     } else if ($_SESSION["u_type"] == "regular") {
-                                        echo "<a href=download.php?file=" . $file . '><div class="col"><button class="button" type="submit" data-hover="NOW!"><span>DOWNLOAD</span></button></a>';
+                                        echo "<a href=download.php?app_id=". $app_id ."&file=" . $file . '><div class="col"><button class="button" type="submit" data-hover="NOW!"><span>DOWNLOAD</span></button></a>';
                                     }
                                     ?>
                                 </div>

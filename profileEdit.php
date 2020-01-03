@@ -38,7 +38,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $user_update_password_query = "UPDATE users SET u_password = '$editPassword_1' WHERE u_id = '$u_id'";
                 if (mysqli_query($db, $user_update_password_query) || die(mysqli_error($db)));
             }
-            if ($editName == NULL && $editAge == NULL && $editPassword_1 == NULL && $editPassword_2 == NULL) {
+            $photoName;
+            if ($_FILES['avatar-file']['error'] === UPLOAD_ERR_OK) {
+                $photo = $_FILES['avatar-file']['tmp_name'];
+                $photoName =  $_FILES['avatar-file']['name'];
+                move_uploaded_file($photo, "./images/profile_photos/$photoName");
+                $user_update_pic_query = "UPDATE users SET u_picture = '$photoName' WHERE u_id = '$u_id'";
+                mysqli_query($db, $user_update_pic_query);
+                header("location: profileUser.php");
+            }
+            if ($editName == NULL && $editAge == NULL && $editPassword_1 == NULL && $editPassword_2 == NULL && $photoName == NULL) {
                 array_push($errors, "No profile information has changed.");
                 $_SESSION["error"] = $errors;
                 header("location: profileUser.php");
@@ -91,6 +100,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["error"] = $errors;
                 header("location: profileDev.php");
             }
+            $photoName;
+            if ($_FILES['avatar-file']['error'] === UPLOAD_ERR_OK) {
+                $photo = $_FILES['avatar-file']['tmp_name'];
+                $photoName =  $_FILES['avatar-file']['name'];
+                move_uploaded_file($photo, "./images/profile_photos/$photoName");
+                $user_update_pic_query = "UPDATE users SET u_picture = '$photoName' WHERE u_id = '$u_id'";
+                mysqli_query($db, $user_update_pic_query);
+                header("location: profileUser.php");
+            }
             header("location: profileDev.php");
         } else {
             $_SESSION["error"] = $errors;
@@ -123,6 +141,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($editPassword_1 != NULL) {
                 $user_update_password_query = "UPDATE users SET u_password = '$editPassword_1' WHERE u_id = '$u_id'";
                 if (mysqli_query($db, $user_update_password_query) || die(mysqli_error($db)));
+            }
+            $photoName;
+            if ($_FILES['avatar-file']['error'] === UPLOAD_ERR_OK) {
+                $photo = $_FILES['avatar-file']['tmp_name'];
+                $photoName =  $_FILES['avatar-file']['name'];
+                move_uploaded_file($photo, "./images/profile_photos/$photoName");
+                $user_update_pic_query = "UPDATE users SET u_picture = '$photoName' WHERE u_id = '$u_id'";
+                mysqli_query($db, $user_update_pic_query);
+                header("location: profileUser.php");
             }
             header("location: profileEditor.php");
         } else {

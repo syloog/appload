@@ -5,7 +5,7 @@ session_start();
 
 $username = $password_1 = $password_2 = $email = $age = $area = $name = $u_id = "";
 $errors = array();
-
+$photo = "default_pic.png";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
    $loginType = mysqli_real_escape_string($db, $_POST['loginType']);
@@ -63,9 +63,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($count == 0) {
                $done = 1;
-
+               
                $insert_user_query = "INSERT INTO users VALUES('" . $id . "', '" . $username . "', '" . $password_1 . "', '" . $name . "', '" . $email . "', NULL , '" . $age . "', current_timestamp())";
                $insert_regular_user_query = "INSERT INTO regularuser VALUES('" . $id . "', '" . $area . "')";
+
 
                if ((mysqli_query($db, $insert_user_query) || die(mysqli_error($db))) && (mysqli_query($db, $insert_regular_user_query) || die(mysqli_error($db)))) {
                   header("location: loginScreen.php");

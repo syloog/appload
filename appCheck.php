@@ -9,10 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST['approve'])) {
         $approve_status_app_query = 'UPDATE application SET app_status = "APPROVED" WHERE appname = "' . $_GET["appname"] . '"';
+        $approve_status_control_query = 'DELETE FROM controls WHERE e_id=' . $_SESSION["u_id"] . ' AND app_id=' . $_GET["app_id"];
         if (mysqli_query($db, $approve_status_app_query)) {
-            array_push($success, "Application is approved.");
-            $_SESSION["success"] = $success;
-            header("location: appList.php");
+            if (mysqli_query($db, $approve_status_control_query)) {
+                array_push($success, "Application is approved.");
+                $_SESSION["success"] = $success;
+                header("location: appList.php");
+            }
         } else if (mysqli_error($db)) {
             array_push($errors, "An error occured.");
             $_SESSION["error"] = $errors;

@@ -86,18 +86,6 @@ include("session.php");
     <main class="page projects-page" style="background-color: #0c0f18;">
         <section class="portfolio-block projects-with-sidebar" style="padding-bottom:250px">
             <div class="container">
-                <div class="row justify-content-center align-items-center">
-                    <div class="col">
-                        <div class="search-container"><input class="border rounded search-input" type="text" name="search-bar" placeholder="Search...">
-                            <div>
-                                <div class="col" style="width: 100%;height: 100%;"><button class="btn btn-dark border rounded search-btn" type="button" style="width: 100%;height: 100%;margin-top: 0;padding: 0;"> <i class="fa fa-search"></i></button></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2" style="width: 100%;height: 100%;padding: 0;"><a class="btn btn-dark border rounded-0" role="button" style="font-family: 'Titillium Web', sans-serif;width: 100%;height: 100%;margin-left: 0;margin-bottom: 0;margin-right: 0;margin-top: 0;color: rgb(255,255,255);" href="createPost.php">Create a Post</a></div>
-                </div>
-            </div>
-            <div class="container">
                 <?php
                 if (isset($_SESSION["error"])) {
                     foreach ($_SESSION["error"] as $error) {

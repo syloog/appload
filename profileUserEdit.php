@@ -87,15 +87,15 @@ include('session.php');
         <section class="portfolio-block block-intro">
             <div class="container border rounded shadow" style="padding: 50px;background-color: #0c0f18;">
                 <div class="row justify-content-center align-items-center" style="background-image: url('assets/img/thumb-1920-892291.jpg');">
+                <form class="shadow-none" method="post" action="profileEdit.php" enctype="multipart/form-data">
                     <div class="col-auto relative" style="padding: 30px;">
                         <div class="container border rounded border-dark shadow-lg" style="background-color: #0c0f18;padding: 20px;">
                             <div class="d-xl-flex justify-content-xl-end avatar">
                                 <div class="avatar-bg center" style="width: 160px;height: 160px;"></div>
-                            </div><input type="file" class="form-control" name="avatar-file" style="font-size: 10px;" />
+                            </div><input type="file" class="form-control" name="avatar-file" style="font-size: 10px;"/>
                         </div>
                     </div>
-                    <div class="col-auto col-xl-6">
-                        <form class="shadow-none" method="post" action="profileEdit.php">
+                    <div class="col">
                             <h2 class="text-center border rounded border-dark" style="padding: 16px;color: rgb(255,255,255);background-color: #0c0f18;letter-spacing: 0px;font-family: 'Titillium Web', sans-serif;"><strong>Manage your profile.</strong></h2>
                             <div class="form-group">
                                 <?php

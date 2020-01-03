@@ -75,12 +75,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("location: uploadAnApp.php");
                 }
 
-                $queryForID = "Select * From application";
+                $queryForID = "Select MAX(app_id) as 'max_id' FROM application";
 
                 $result1 = mysqli_query($db, $queryForID);
-                $countApp = mysqli_num_rows($result1);
-                $app_id = $countApp + 1;
-
+                $countApp = mysqli_fetch_assoc($result1);
+                $app_id = $countApp["max_id"];
+                $app_id++;
 
                 $queryForReqID = "Select * From minimum_requirement";
 
@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $u_id = $u_id + 0;
 
                 $queryToMinReq = "INSERT INTO minimum_requirement VALUES ('$reqID', '$os', '$ram' , '$cpu' ,'$storage')";
-                if ((mysqli_query($db, $queryToMinReq))) {
+                if ((mysqli_query($db, $queryToMinReq)) || die(mysqli_error($db))) {
                 } else {
                     array_push($errors, "Cannot create requirement.");
                     $_SESSION["error"] = $errors;
@@ -105,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $queryToApp = "INSERT INTO application values('$app_id', '" . $apploadName . "', '" . $description . "', '$version', '$minage','" . $photoName . "',current_timestamp(), '$cat_id' , 'WAITING' , '" . $fileName . "');";
 
-                if ((mysqli_query($db, $queryToApp))) {
+                if ((mysqli_query($db, $queryToApp)) || die(mysqli_error($db))) {
                 } else {
                     array_push($errors, "Cannot create application.");
                     $_SESSION["error"] = $errors;
@@ -123,15 +123,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $queryToDevelops = "INSERT INTO develops (dev_id, app_id) VALUES ($u_id, $app_id);";
 
-                if ((mysqli_query($db, $queryToDevelops))) {
+                if ((mysqli_query($db, $queryToDevelops)) || die(mysqli_error($db))) {
                 } else {
                     array_push($errors, "Cannot create develops.");
                     $_SESSION["error"] = $errors;
                     header("location: uploadAnApp.php");
                 }
 
-                $queryToReq_restricts = "INSERT INTO req_restricts values( $app_id, $reqID)";
-                 if ((mysqli_query($db, $queryToReq_restricts))) {
+                #editor icin eklenti gelecek
+                $e_id;
+                $queryForRandEditor = "SELECT u_id FROM editor ORDER BY RAND() LIMIT 1";
+                if ($result_editor = mysqli_query($db, $queryForRandEditor)) {
+                    $row_editor = mysqli_fetch_assoc($result_editor);
+                    $e_id = $row_editor["u_id"];
+                }
+
+                $queryForControls = "INSERT INTO controls VALUES($app_id, $e_id)";
+                if ((mysqli_query($db, $queryForControls)) || die(mysqli_error($db))) {
+                } else {
+                    array_push($errors, "Cannot add controls.");
+                    $_SESSION["error"] = $errors;
+                    header("location: uploadAnApp.php");
+                }
+
+                $queryToReq_restricts = "INSERT INTO req_restricts VALUES($app_id, $reqID)";
+                if ((mysqli_query($db, $queryToReq_restricts)) || die(mysqli_error($db))) {
                     array_push($success, "Application created.");
                     $_SESSION["success"] = $success;
                     header("location: devApps.php");
@@ -140,7 +156,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION["error"] = $errors;
                     header("location: uploadAnApp.php");
                 }
-
             } else {
                 echo '<script type="text/javascript">alert("Please try again to upload the file again"); </script>';
             }

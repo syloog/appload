@@ -137,7 +137,7 @@ include('session.php');
                                     echo "<td>" . $row['d_ram'] . "</td>";
                                     echo "<td>" . $row['d_cpu'] . "</td>";
                                     echo "<td>" . $row['d_storage'] . "</td>";
-                                    echo "<td><a class='btn btn-warning' role='button' type='submit' name='device_id' value= " . $row['device_id'] . "><i class='fas fa-exclamation-triangle d-xl-flex justify-content-xl-center align-items-xl-center'></i></a></td>";
+                                    echo "<td><a class='btn btn-warning' role='button' type='button' name='device_id' href='deleteDevice.php?device_id=" . $row['device_id'] ."'><i class='fas fa-exclamation-triangle d-xl-flex justify-content-xl-center align-items-xl-center'></i></a></td>";
                                     echo "</tr>";
                                 }
                                 echo "</tbody></table>";

@@ -1,7 +1,7 @@
 <?php
 include('session.php');
 
-if($_SESSION["u_type"] != "editor") {
+if ($_SESSION["u_type"] != "editor") {
     header("location: index.php");
 }
 ?>
@@ -115,7 +115,7 @@ if($_SESSION["u_type"] != "editor") {
                         <div class="row" style="padding: 28px;">
                             <?php
 
-                            $query = 'Select * from application where app_status = "WAITING"';
+                            $query = 'Select * from application where app_id in (select app_id from controls where e_id = ' . $_SESSION["u_id"] .')';
                             $result = mysqli_query($db, $query);
                             $i = 0;
                             while ($row = mysqli_fetch_array($result)) {
@@ -124,10 +124,10 @@ if($_SESSION["u_type"] != "editor") {
                                 }
                                 $i++;
                                 echo '<div class="col align-self-center project-sidebar-card">
-            <a href="appControl.php?appname=' . $row["appname"] . '">';
-
-                                echo '<div>';
-                                echo '<img class="img-fluid image scale-on-hover" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . '></div>
+                                <a href="appControl.php?appname=' . $row["appname"] . '">';
+                                echo '<div>
+                                <img class="img-fluid image scale-on-hover" width="250px" height="250px" src=./images/application_photos/' . $row["appLogo"] . ' name= ' . $row["appname"] . '>
+                                </div>
             </a>
             <div>
             <p class="text-center border rounded-0" style="background-color: #e0e0e0;"><strong>App Name : </strong>' . $row["appname"] . '</p>
@@ -141,15 +141,6 @@ if($_SESSION["u_type"] != "editor") {
                             } ?>
                         </div>
                         <nav class="col d-xl-flex justify-content-xl-center">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                            </ul>
                         </nav>
                     </div>
                 </div>

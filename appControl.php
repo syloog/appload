@@ -129,13 +129,14 @@ if ($_SESSION["u_type"] != "editor") {
                                 </tbody>
                             </table>
                         </div>';
+                    echo '<div style="padding:50px" class="col"><a href="./uploads/' . $app_info["file"] .'"><button class="button" type="button" name="approve" value="1" style="background-color:rgb(111, 204, 39)" data-hover="CONFIRM ?"><span>DOWNLOAD APPLICATION</span></button></a></div>';
                     echo '</div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <h3>Description</h3>
                             <p>' . $app_info["description"] . '</p>
-                            <form method="post" class="shadow-none" style="padding: 0px;margin: 0px;width: 100%;max-width: 100%;" action="appCheck.php?appname=' . $app_info["appname"] . '">
+                            <form method="post" class="shadow-none" style="padding: 0px;margin: 0px;width: 100%;max-width: 100%;" action="appCheck.php?app_id=' . $app_info["app_id"] .'&appname=' . $app_info["appname"] . '">
                             <div class="row" style="padding-top: 25px;">
                                 <div class="col"><button class="button" type="submit" name="approve" value="1" style="background-color:rgb(255, 204, 39)" data-hover="CONFIRM ?"><span>APPROVE APPLICATION</span></button></div>
                                 <div class="col"><button class="button" type="submit" data-hover="CONFIRM ?" name="disapprove" value="1" style="background-color:rgb(209, 50, 82)"><span>DISAPPROVE APPLICATION</span></button></div>

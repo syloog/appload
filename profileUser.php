@@ -106,7 +106,15 @@ if ($_SESSION["u_type"] != "regular") {
                             unset($_SESSION["error"]);
                         }
                         ?>
-                        <div class="avatar"></div>
+                        <?php
+                        $user_check = $_SESSION['u_id'];
+
+                        $sql_user = mysqli_query($db, "SELECT * FROM users WHERE u_id = '$user_check'");
+                        $user_name_age_mail = mysqli_fetch_array($sql_user);
+
+                        echo '<img class="rounded-circle" style="padding:20px;width:300px;height:300px;background-size:cover;" src="./images/profile_photos/'; 
+                        echo $user_name_age_mail["u_picture"] . '">';
+                        ?>
                         <div class="about-me">
                             <?php
                             echo "<p class='border rounded border-dark' style='background-color: #feba2b;font-weight: normal;'> Welcome " . $_SESSION["u_username"] . "</p>";
@@ -120,9 +128,7 @@ if ($_SESSION["u_type"] != "regular") {
 
                                         $user_check = $_SESSION['u_id'];
 
-                                        $sql_user = mysqli_query($db, "SELECT u_name, u_age, u_mail FROM users WHERE u_id = '$user_check'");
                                         $sql_regular_user = mysqli_query($db, "SELECT area FROM regularuser WHERE u_id = '$user_check'");
-                                        $user_name_age_mail = mysqli_fetch_array($sql_user, MYSQLI_ASSOC);
                                         $user_area = mysqli_fetch_array($sql_regular_user, MYSQLI_ASSOC);
 
                                         echo "<li class='d-xl-flex justify-content-xl-start'><label><strong>Name:&nbsp;</strong>&nbsp;</label><label>" .  $user_name_age_mail["u_name"] . "</label></li>";
